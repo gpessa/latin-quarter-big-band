@@ -18,7 +18,7 @@ export default function Gallery() {
       <Grid container>
         {images.map((src, index) => (
           <Grid size={4} key={index}>
-            <Image src={src} alt={`Description ${index + 1}`} width={300} />
+            <Image src={src} alt={`Description ${index + 1}`} width={400} />
           </Grid>
         ))}
       </Grid>
