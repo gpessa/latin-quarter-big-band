@@ -6,6 +6,8 @@ import { Monoton as Title, Rubik as Text } from "next/font/google";
 
 const text = Text({
   weight: "400",
+  preload: true,
+  subsets: ["latin"],
 });
 
 const title = Title({
