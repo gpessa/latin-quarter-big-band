@@ -4,6 +4,7 @@
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const ContainerStyled = styled("div")({
   width: "100vw",
@@ -35,10 +36,29 @@ const LogoStyled = styled(Image)(({ theme }) => ({
 }));
 
 export default function AboutUs() {
+  const images = [
+    require("../../../../assets/image_00001.jpeg").default,
+    require("../../../../assets/image_00002.jpeg").default,
+    require("../../../../assets/image_00003.jpeg").default,
+    require("../../../../assets/image_00004.jpeg").default,
+    require("../../../../assets/image_00005.jpeg").default,
+    require("../../../../assets/image_00006.jpeg").default,
+  ];
+
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <ContainerStyled>
       <ImageStyled
-        src={require("../../../../assets/image_00001.jpeg").default}
+        src={images[index]}
         fill
         style={{ objectFit: "cover" }}
         alt={"About Us Background Image"}

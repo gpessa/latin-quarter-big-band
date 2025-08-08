@@ -53,10 +53,10 @@ export default function Agenda() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>📅 Date</TableCell>
-              <TableCell>⏰ Time</TableCell>
-              <TableCell align="right">Location</TableCell>
-              <TableCell>📍 City</TableCell>
+              <TableCell>📅 DATE</TableCell>
+              <TableCell>⏰ TIME</TableCell>
+              <TableCell align="right">LOCATION</TableCell>
+              <TableCell>📍 CITY</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
