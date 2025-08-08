@@ -1,7 +1,17 @@
+"use client";
+import { Section } from "@/app/components";
 /* eslint-disable @typescript-eslint/no-require-imports */
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
+
+import { styled } from "@mui/material/styles";
 import Image from "next/image";
+
+const ImageStyled = styled("div")({
+  width: "100%",
+  paddingBottom: "100%", // 1:1 aspect ratio
+  position: "relative",
+});
 
 export default function Gallery() {
   const images = [
@@ -14,14 +24,24 @@ export default function Gallery() {
   ];
 
   return (
-    <Container>
-      <Grid container>
+    <Section>
+      <Typography variant="h2" component="h2" gutterBottom>
+        Photo Gallery
+      </Typography>
+      <Grid container spacing={4}>
         {images.map((src, index) => (
           <Grid size={4} key={index}>
-            <Image src={src} alt={`Description ${index + 1}`} width={400} />
+            <ImageStyled>
+              <Image
+                src={src}
+                alt={`Description ${index + 1}`}
+                fill
+                style={{ objectFit: "cover" }}
+              />
+            </ImageStyled>
           </Grid>
         ))}
       </Grid>
-    </Container>
+    </Section>
   );
 }

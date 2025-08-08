@@ -1,3 +1,4 @@
+import { Section } from "@/app/components";
 import {
   Container,
   Table,
@@ -5,6 +6,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import TableContainer from "@mui/material/TableContainer";
 
@@ -43,15 +45,18 @@ export default function Agenda() {
   ];
 
   return (
-    <Container>
+    <Section color="primary">
+      <Typography variant="h2" component="h2" gutterBottom>
+        Agenda
+      </Typography>
       <TableContainer>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>Date</TableCell>
-              <TableCell>Time</TableCell>
+              <TableCell>📅 Date</TableCell>
+              <TableCell>⏰ Time</TableCell>
               <TableCell align="right">Location</TableCell>
-              <TableCell>City</TableCell>
+              <TableCell>📍 City</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -66,12 +71,14 @@ export default function Agenda() {
                 </TableCell>
                 <TableCell>{date.toLocaleTimeString()}</TableCell>
                 <TableCell align="right">{location}</TableCell>
-                <TableCell>{city}</TableCell>
+                <TableCell>
+                  <strong>{city}</strong>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </Container>
+    </Section>
   );
 }
