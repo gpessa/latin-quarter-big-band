@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 "use client";
 
-import { Box, Container, Grid, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
+import { Section } from "@/app/components";
 import { Alert, Button, TextField } from "@mui/material";
 import { useState } from "react";
-import { Section } from "@/app/components";
 
 const schema = yup
   .object({
@@ -76,7 +76,7 @@ export default function BookUs() {
           </Box>
           <Typography gutterBottom>
             With a 18-piece lineup inspired by legends like Tito Puente and
-            Paquito D'Rivera, we deliver a powerful and unforgettable live
+            Paquito D&apos;Rivera, we deliver a powerful and unforgettable live
             experience that gets every audience moving. Let’s make your event
             unforgettable! Get in touch to check our availability, prices, and
             technical requirements.

@@ -6,7 +6,7 @@ import React from "react";
 
 import Section from "../Section";
 
-const VideoSectionStyled = styled(Section)(({ theme }) => ({
+const VideoSectionStyled = styled(Section)(({}) => ({
   // background: `linear-gradient(to bottom,
   //   rgba(0,0,0, 0) 150px,
   //   ${theme.palette.warm1.main} 150px,
