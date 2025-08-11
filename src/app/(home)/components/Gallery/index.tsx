@@ -30,7 +30,7 @@ export default function Gallery() {
       </Typography>
       <Grid container spacing={4}>
         {images.map((src, index) => (
-          <Grid size={4} key={index}>
+          <Grid size={{ xs: 12, md: 4 }} key={index}>
             <ImageStyled>
               <Image
                 src={src}

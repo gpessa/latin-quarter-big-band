@@ -1,13 +1,20 @@
-import { Section } from "@/app/components";
+"use client";
+
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
+  Card,
+  CardContent,
   Typography,
+  Box,
 } from "@mui/material";
-import TableContainer from "@mui/material/TableContainer";
+import { Section } from "@/app/components";
 
 export default function Agenda() {
   const rows = [
@@ -43,41 +50,67 @@ export default function Agenda() {
     },
   ];
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Section color="primary">
       <Typography variant="h2" component="h2" gutterBottom>
         Agenda
       </Typography>
-      <TableContainer>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>📅 DATE</TableCell>
-              <TableCell>⏰ TIME</TableCell>
-              <TableCell align="right">LOCATION</TableCell>
-              <TableCell>📍 CITY</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map(({ date, location, city }) => (
-              <TableRow key={date.toISOString()}>
-                <TableCell>
-                  {date.toLocaleDateString("en-GB", {
-                    year: "numeric",
-                    month: "2-digit",
-                    day: "2-digit",
+
+      {isMobile ? (
+        <Box display="flex" flexDirection="column" gap={2}>
+          {rows.map(({ date, location, city }) => (
+            <Card key={date.toISOString()}>
+              <CardContent>
+                <Typography variant="subtitle1">
+                  📅 {date.toLocaleDateString("en-GB")} (⏰
+                  {date.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
                   })}
-                </TableCell>
-                <TableCell>{date.toLocaleTimeString()}</TableCell>
-                <TableCell align="right">{location}</TableCell>
-                <TableCell>
-                  <strong>{city}</strong>
-                </TableCell>
+                  )
+                </Typography>
+                <Typography variant="body1" sx={{ mt: 1, fontWeight: "bold" }}>
+                  {location}
+                </Typography>
+                <Typography variant="body2">📍 {city}</Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      ) : (
+        <TableContainer>
+          <Table sx={{ minWidth: 650 }} aria-label="agenda table">
+            <TableHead>
+              <TableRow>
+                <TableCell>📅 DATE</TableCell>
+                <TableCell>⏰ TIME</TableCell>
+                <TableCell align="right">LOCATION</TableCell>
+                <TableCell>📍 CITY</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {rows.map(({ date, location, city }) => (
+                <TableRow key={date.toISOString()}>
+                  <TableCell>{date.toLocaleDateString("en-GB")}</TableCell>
+                  <TableCell>
+                    {date.toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </TableCell>
+                  <TableCell align="right">{location}</TableCell>
+                  <TableCell>
+                    <strong>{city}</strong>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </Section>
   );
 }

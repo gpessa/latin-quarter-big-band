@@ -57,7 +57,7 @@ export default function BookUs() {
         Book Us
       </Typography>
       <Grid container spacing={4}>
-        <Grid size={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Typography gutterBottom>
             Looking to bring explosive rhythm, rich brass harmonies, and the
             vibrant energy of Latin music to your event? Latin Quarter Big Band
@@ -82,7 +82,7 @@ export default function BookUs() {
             technical requirements.
           </Typography>
         </Grid>
-        <Grid size={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Box component="form" onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={4}>
               <TextField

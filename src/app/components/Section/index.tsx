@@ -18,7 +18,6 @@ const DIMENSION_CONFIGURATION = {
 
 type Props = {
   id?: string;
-  image?: "dots";
   className?: string;
   disableGutters?: boolean;
   type?: "vertical" | "horizontal";
