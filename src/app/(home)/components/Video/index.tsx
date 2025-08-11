@@ -1,16 +1,15 @@
 "use client";
 
+import { Section } from "@/app/components";
 import { styled } from "@mui/material/styles";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import React from "react";
 
-import Section from "../Section";
-
 const VideoSectionStyled = styled(Section)(({ theme }) => ({
-  background: `linear-gradient(to bottom,
+  background: `linear-gradient(to bottom, 
     rgba(0,0,0, 0) 150px,
-    ${theme.palette.secondary.main} 150px,
-    ${theme.palette.secondary.main} calc(100% - 150px),
+    ${theme.palette.primary.main} 150px, 
+    ${theme.palette.primary.main} calc(100% - 150px), 
     rgba(0,0,0, 0) calc(100% - 150px)
   )`,
 }));

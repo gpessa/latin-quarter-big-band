@@ -1,3 +1,4 @@
+import { Video } from "../components";
 import AboutUs from "./components/AboutUs";
 import Agenda from "./components/Agenda";
 import BookUs from "./components/BookUs";
@@ -11,6 +12,7 @@ export default function Home() {
       <Agenda />
       <BookUs />
       <JoinTheBand />
+      <Video videoid="O0GGfZ6jOjE" />
       <Gallery />
     </>
   );
