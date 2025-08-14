@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
-import { Section } from "@/app/components";
+import { Section } from "@/components";
 import { Alert, Button, TextField } from "@mui/material";
 import { useState } from "react";
 

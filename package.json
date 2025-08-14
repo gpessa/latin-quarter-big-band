@@ -6,21 +6,29 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate:sanity": "sanity schema extract --enforce-required-fields && sanity typegen generate"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@hookform/resolvers": "^5.2.1",
-    "@mui/material": "^7.3.0",
+    "@mui/icons-material": "^7.3.1",
+    "@mui/material": "^7.3.1",
     "@mui/material-nextjs": "^7.3.0",
     "@next/third-parties": "^15.4.6",
+    "@sanity/client": "^7.8.2",
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^4.3.0",
     "next": "15.4.5",
+    "next-sanity": "^10.0.10",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",
     "resend": "^6.0.0",
+    "sanity": "^4.3.0",
+    "styled-components": "^6.1.19",
     "yup": "^1.7.0"
   },
   "devDependencies": {

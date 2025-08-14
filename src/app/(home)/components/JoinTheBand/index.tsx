@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Typography } from "@mui/material";
-import { Section } from "@/app/components";
+import { Section } from "@/components";
 
 const JoinTheBand: React.FC = () => (
   <Section color="primary">

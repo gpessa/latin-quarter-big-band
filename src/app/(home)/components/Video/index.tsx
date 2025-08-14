@@ -1,6 +1,6 @@
 "use client";
 
-import { Section } from "@/app/components";
+import { Section } from "@/components";
 import { styled } from "@mui/material/styles";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import React from "react";

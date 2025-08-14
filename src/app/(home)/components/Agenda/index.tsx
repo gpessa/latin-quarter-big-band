@@ -14,44 +14,27 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import { Section } from "@/app/components";
+import { Section } from "@/components";
+import { QUERYResult } from "../../../../../sanity.types";
 
-export default function Agenda() {
-  const rows = [
-    {
-      date: new Date("2025-08-08T21:30:00"),
-      location: "Salsa Dance Party Amvo",
-      city: "Volendam",
-    },
-    {
-      date: new Date("2025-08-30T17:00:00"),
-      location: "Buurtfeest Minne",
-      city: "Amsterdam",
-    },
-    {
-      date: new Date("2025-09-07T15:00:00"),
-      location: "Westergas",
-      city: "Amsterdam",
-    },
-    {
-      date: new Date("2025-09-14T15:00:00"),
-      location: "Pure Markt",
-      city: "Amsterdam",
-    },
-    {
-      date: new Date("2025-11-26T15:00:00"),
-      location: "Huis van de Wijk De Havelaar",
-      city: "Amsterdam",
-    },
-    {
-      date: new Date("2025-12-07T16:00:00"),
-      location: "Mahogany Hall",
-      city: "Edam",
-    },
-  ];
-
+const Agenda: React.FC<Pick<QUERYResult["concerts"], "concerts">> = ({
+  concerts,
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const rows = (concerts || [])
+    .map(({ date, name, address }) => ({
+      date: new Date(date).toLocaleDateString("en-GB"),
+      time: new Date(date).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      name,
+      address,
+      active: new Date(date).getTime() > new Date().getTime(),
+    }))
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   return (
     <Section color="primary">
@@ -61,19 +44,14 @@ export default function Agenda() {
 
       {isMobile ? (
         <Box display="flex" flexDirection="column" gap={2}>
-          {rows.map(({ date, location, city }) => (
-            <Card key={date.toISOString()}>
+          {rows.map(({ date, time, name, address: { city }, active }) => (
+            <Card key={date} sx={{ opacity: active ? 1 : 0.5 }}>
               <CardContent>
                 <Typography variant="subtitle1">
-                  📅 {date.toLocaleDateString("en-GB")} (⏰
-                  {date.toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                  )
+                  📅 {date} (⏰ {time})
                 </Typography>
                 <Typography variant="body1" sx={{ mt: 1, fontWeight: "bold" }}>
-                  {location}
+                  {name}
                 </Typography>
                 <Typography variant="body2">📍 {city}</Typography>
               </CardContent>
@@ -92,16 +70,11 @@ export default function Agenda() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(({ date, location, city }) => (
-                <TableRow key={date.toISOString()}>
-                  <TableCell>{date.toLocaleDateString("en-GB")}</TableCell>
-                  <TableCell>
-                    {date.toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </TableCell>
-                  <TableCell align="right">{location}</TableCell>
+              {rows.map(({ date, time, name, address: { city }, active }) => (
+                <TableRow key={date} sx={{ opacity: active ? 1 : 0.5 }}>
+                  <TableCell>{date}</TableCell>
+                  <TableCell>{time}</TableCell>
+                  <TableCell align="right">{name}</TableCell>
                   <TableCell>
                     <strong>{city}</strong>
                   </TableCell>
@@ -113,4 +86,6 @@ export default function Agenda() {
       )}
     </Section>
   );
-}
+};
+
+export default Agenda;
