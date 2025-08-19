@@ -8,16 +8,22 @@ export const structure: StructureResolver = (S) =>
     .title(NAME)
     .items([
       S.listItem()
-        .title("Content")
-        .id("content")
+        .title("Join The Band")
+        .id("joinTheBand")
         .icon(DriveFileRenameOutline)
         .child(
-          // Instead of rendering a list of documents, we render a single
-          // document, specifying the `documentId` manually to ensure
-          // that we're editing the single instance of the document
-          S.document().schemaType("content").documentId("content")
+          S.document().schemaType("joinTheBand").documentId("joinTheBand")
         ),
-      S.documentTypeListItem("concert").title("Concerts"),
+      S.listItem()
+        .title("Book Us")
+        .id("bookUs")
+        .icon(DriveFileRenameOutline)
+        .child(S.document().schemaType("bookUs").documentId("bookUs")),
+      S.listItem()
+        .title("Agenda")
+        .id("agenda")
+        .icon(DriveFileRenameOutline)
+        .child(S.document().schemaType("agenda").documentId("agenda")),
       S.documentTypeListItem("galleryImage").title("Images"),
       S.documentTypeListItem("video").title("Videos"),
     ]);

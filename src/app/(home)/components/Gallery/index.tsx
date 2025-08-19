@@ -3,21 +3,17 @@ import { Section } from "@/components";
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
-import { styled } from "@mui/material/styles";
-
-import { QUERYResult } from "../../../../../sanity.types";
 import { urlFor } from "@/sanity/lib/image";
+import { QUERYResult } from "../../../../../sanity.types";
 
-const Gallery: React.FC<Pick<QUERYResult["gallery"], "images">> = ({
-  images,
-}) => {
+const Gallery: React.FC<QUERYResult["gallery"]> = (gallery) => {
   return (
     <Section>
       <Typography variant="h2" component="h2" gutterBottom>
         Photo Gallery
       </Typography>
       <Grid container spacing={4}>
-        {images.map(({ name, image }, index) => (
+        {gallery?.images?.map(({ name, image }, index) => (
           <Grid size={{ xs: 12, md: 4 }} key={index}>
             <Box
               component="figure"

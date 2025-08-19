@@ -13,6 +13,67 @@
  */
 
 // Source: schema.json
+export type BookUs = {
+  _id: string;
+  _type: "bookUs";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  content: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+};
+
+export type JoinTheBand = {
+  _id: string;
+  _type: "joinTheBand";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  content: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  instruments?: Array<{
+    instrumentName: string;
+    emoticon?: string;
+    notes?: string;
+    _type: "member";
+    _key: string;
+  }>;
+};
+
 export type Content = {
   _id: string;
   _type: "content";
@@ -144,21 +205,44 @@ export type GalleryImage = {
   name: string;
 };
 
-export type Concert = {
+export type Agenda = {
   _id: string;
-  _type: "concert";
+  _type: "agenda";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name: string;
-  date: string;
-  address: {
-    name?: string;
-    street?: string;
-    city: string;
-    postalCode?: string;
-  };
-  url?: string;
+  title: string;
+  content: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  concerts?: Array<{
+    name: string;
+    date: string;
+    address?: {
+      name?: string;
+      street?: string;
+      city: string;
+      postalCode?: string;
+    };
+    url?: string;
+    _type: "concert";
+    _key: string;
+  }>;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -279,33 +363,13 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = Content | Video | GalleryImage | Concert | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = BookUs | JoinTheBand | Content | Video | GalleryImage | Agenda | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: QUERY
-// Query: {  "concerts": {    "id": "concerts",    "concerts": *[_type == "concert"] | order(date desc)  },  "gallery": {    "id": "gallery",    "images": *[_type == "galleryImage"],  },}
+// Query: {  "gallery": {    "images": *[_type == "galleryImage"],  },  "agenda": *[_type == "agenda"][0]{    title,     content,    concerts[] | order(date desc){      name,      date,      url,      address {        name,        street,        city,        postalCode      }    }  },  "bookUs": *[_type == "bookUs"][0]{    title,     content  },  "joinTheBand": *[_type == "joinTheBand"][0]{    title,     content,    instruments[]{      instrumentName,      emoticon,      notes    }  }}
 export type QUERYResult = {
-  concerts: {
-    id: "concerts";
-    concerts: Array<{
-      _id: string;
-      _type: "concert";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      name: string;
-      date: string;
-      address: {
-        name?: string;
-        street?: string;
-        city: string;
-        postalCode?: string;
-      };
-      url?: string;
-    }>;
-  };
   gallery: {
-    id: "gallery";
     images: Array<{
       _id: string;
       _type: "galleryImage";
@@ -327,12 +391,91 @@ export type QUERYResult = {
       name: string;
     }>;
   };
+  agenda: {
+    title: string;
+    content: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    concerts: Array<{
+      name: string;
+      date: string;
+      url: string | null;
+      address: {
+        name: string | null;
+        street: string | null;
+        city: string;
+        postalCode: string | null;
+      } | null;
+    }> | null;
+  } | null;
+  bookUs: {
+    title: string;
+    content: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+  } | null;
+  joinTheBand: {
+    title: string;
+    content: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+    instruments: Array<{
+      instrumentName: string;
+      emoticon: string | null;
+      notes: string | null;
+    }> | null;
+  } | null;
 };
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "{\n  \"concerts\": {\n    \"id\": \"concerts\",\n    \"concerts\": *[_type == \"concert\"] | order(date desc)\n  },\n  \"gallery\": {\n    \"id\": \"gallery\",\n    \"images\": *[_type == \"galleryImage\"],\n  },\n}": QUERYResult;
+    "{\n  \"gallery\": {\n    \"images\": *[_type == \"galleryImage\"],\n  },\n  \"agenda\": *[_type == \"agenda\"][0]{\n    title, \n    content,\n    concerts[] | order(date desc){\n      name,\n      date,\n      url,\n      address {\n        name,\n        street,\n        city,\n        postalCode\n      }\n    }\n  },\n  \"bookUs\": *[_type == \"bookUs\"][0]{\n    title, \n    content\n  },\n  \"joinTheBand\": *[_type == \"joinTheBand\"][0]{\n    title, \n    content,\n    instruments[]{\n      instrumentName,\n      emoticon,\n      notes\n    }\n  }\n}": QUERYResult;
   }
 }

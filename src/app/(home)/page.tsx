@@ -9,19 +9,21 @@ import { QUERY as query } from "@/sanity/lib/queries";
 
 export default async function Home() {
   const {
-    data: { concerts, gallery },
+    data: { joinTheBand, gallery, bookUs, agenda },
   } = await sanityFetch({
     query,
   });
 
   return (
     <>
+      {/* 
       <AboutUs />
-      <Agenda concerts={concerts.concerts} />
-      <BookUs />
-      <JoinTheBand />
       <Video videoid="O0GGfZ6jOjE" />
-      <Gallery images={gallery.images} />
+      **/}
+      {agenda && <Agenda {...agenda} />}
+      {bookUs && <BookUs {...bookUs} />}
+      <Gallery {...gallery} />
+      {joinTheBand && <JoinTheBand {...joinTheBand} />}
     </>
   );
 }
