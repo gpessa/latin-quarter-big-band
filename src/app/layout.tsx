@@ -1,9 +1,12 @@
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "@mui/material/styles";
+import { GOOGLE_ANALYTICS, IS_PRODUCTION } from "@/contants";
+import { SanityLive } from "@/sanity/lib/live";
 import theme from "@/theme";
 import { CssBaseline } from "@mui/material";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import { Footer } from "../components";
 
 const geistSans = Geist({
@@ -33,6 +36,8 @@ export default function RootLayout({
           <CssBaseline />
           <ThemeProvider theme={theme}>{children}</ThemeProvider>
           <Footer />
+          <SanityLive />
+          {IS_PRODUCTION && <GoogleAnalytics gaId={GOOGLE_ANALYTICS} />}
         </AppRouterCacheProvider>
       </body>
     </html>
