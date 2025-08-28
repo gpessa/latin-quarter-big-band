@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { Section } from "@/components";
-import { STANDARD_SPACING } from "@/contants";
+import { STANDARD_MARGIN_BOTTOM, STANDARD_SPACING } from "@/contants";
 import { Alert, Button, TextField } from "@mui/material";
 import { PortableText } from "next-sanity";
 import { useState } from "react";
@@ -59,7 +59,7 @@ const BookUs: React.FC<QUERYResult["bookUs"]> = (bookUs) => {
 
   return (
     <Section color="secondary">
-      <Typography variant="h2" component="h2">
+      <Typography variant="h2" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
         {bookUs?.title}
       </Typography>
       <Grid container spacing={STANDARD_SPACING}>

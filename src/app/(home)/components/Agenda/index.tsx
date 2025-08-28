@@ -17,6 +17,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { PortableText } from "next-sanity";
 import { QUERYResult } from "../../../../../sanity.types";
+import { STANDARD_MARGIN_BOTTOM } from "@/contants";
 
 const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
   const theme = useTheme();
@@ -37,7 +38,7 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
 
   return (
     <Section color="primary">
-      <Typography variant="h2" component="h2">
+      <Typography variant="h2" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
         {agenda?.title}
       </Typography>
 
