@@ -61,9 +61,9 @@ const theme = createTheme({
       // color: Colors.rosso_latino_vivo,
       lineHeight: 1,
 
-      background: `linear-gradient(90deg, ${Colors.rosso_latino_vivo}, white)`,
-      "-webkit-background-clip": "text",
-      color: "transparent",
+      // background: `linear-gradient(90deg, ${Colors.rosso_latino_vivo}, white)`,
+      // "-webkit-background-clip": "text",
+      // color: "transparent",
     },
   },
 });
