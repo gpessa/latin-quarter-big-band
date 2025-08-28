@@ -1,4 +1,4 @@
-import { BookUsFormData } from "@/app/(home)/components/BookUs";
+import { JoinTheBandFormData } from "@/app/(home)/components/JoinTheBand";
 import { LANG } from "@/contants";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
@@ -6,7 +6,8 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.NEXT_PUBLIC_RESEND_API_KEY);
 
 export async function POST(req: Request) {
-  const { name, email, phone, message }: BookUsFormData = await req.json();
+  const { name, email, phone, message, position }: JoinTheBandFormData =
+    await req.json();
 
   const html = `
     <!DOCTYPE html>
@@ -26,6 +27,10 @@ export async function POST(req: Request) {
             <td>${phone}</td>
           </tr>
           <tr>
+            <td><strong>Position</strong></td>
+            <td>${position}</td>
+          </tr>
+          <tr>
             <td><strong>Message</strong></td>
             <td>${message}</td>
           </tr>
@@ -38,7 +43,7 @@ export async function POST(req: Request) {
     const data = await resend.emails.send({
       from: `Latin Quarter Big Band <onboarding@resend.dev>`, // works in dev without DNS
       to: ["nomeecognome@gmail.com"], // where to receive the test
-      subject: `Book Us - Request from ${name}`,
+      subject: `Join The Band - Request from ${name}`,
       html,
     });
 

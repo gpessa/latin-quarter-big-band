@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 "use client";
 
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { Section } from "@/components";
+import { STANDARD_SPACING } from "@/contants";
 import { Alert, Button, TextField } from "@mui/material";
+import { PortableText } from "next-sanity";
 import { useState } from "react";
 import { QUERYResult } from "../../../../../sanity.types";
-import { PortableText } from "next-sanity";
 
 const schema = yup
   .object({
@@ -61,66 +62,64 @@ const BookUs: React.FC<QUERYResult["bookUs"]> = (bookUs) => {
       <Typography variant="h2" component="h2" gutterBottom>
         {bookUs?.title}
       </Typography>
-      <Grid container spacing={4}>
+      <Grid container spacing={STANDARD_SPACING}>
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography>
             {bookUs?.content && <PortableText value={bookUs?.content} />}
           </Typography>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
-          <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={4}>
-              <TextField
-                label="Name"
-                {...register("name")}
-                error={!!errors.name}
-                helperText={errors.name?.message}
-                variant="filled"
-                required
-              />
-              <TextField
-                label="Email"
-                {...register("email")}
-                error={!!errors.email}
-                helperText={errors.email?.message}
-                variant="filled"
-                required
-              />
-              <TextField
-                label="Phone"
-                {...register("phone")}
-                error={!!errors.phone}
-                helperText={errors.phone?.message}
-                variant="filled"
-              />
-              <TextField
-                label="Message"
-                multiline
-                minRows={4}
-                variant="filled"
-                {...register("message")}
-                error={!!errors.message}
-                helperText={errors.message?.message}
-                required
-              />
+          <Stack spacing={4} component="form" onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              label="Name"
+              {...register("name")}
+              error={!!errors.name}
+              helperText={errors.name?.message}
+              variant="filled"
+              required
+            />
+            <TextField
+              label="Email"
+              {...register("email")}
+              error={!!errors.email}
+              helperText={errors.email?.message}
+              variant="filled"
+              required
+            />
+            <TextField
+              label="Phone"
+              {...register("phone")}
+              error={!!errors.phone}
+              helperText={errors.phone?.message}
+              variant="filled"
+            />
+            <TextField
+              label="Message"
+              multiline
+              minRows={4}
+              variant="filled"
+              {...register("message")}
+              error={!!errors.message}
+              helperText={errors.message?.message}
+              required
+            />
 
-              <Button
-                variant="contained"
-                type="submit"
-                disabled={isSubmitting}
-                color="secondary"
-              >
-                {isSubmitting ? "Sending..." : "Send"}
-              </Button>
+            <Button
+              variant="contained"
+              type="submit"
+              disabled={isSubmitting}
+              color="secondary"
+            >
+              {isSubmitting ? "Sending..." : "Send"}
+            </Button>
 
-              {status === "success" && (
-                <Alert severity="success">Message sent successfully!</Alert>
-              )}
-              {status === "error" && (
-                <Alert severity="error">Failed to send message.</Alert>
-              )}
-            </Stack>
-          </Box>
+            {status === "success" && (
+              <Alert severity="success">Message sent successfully!</Alert>
+            )}
+            {status === "error" && (
+              <Alert severity="error">Failed to send message.</Alert>
+            )}
+          </Stack>
         </Grid>
       </Grid>
     </Section>
