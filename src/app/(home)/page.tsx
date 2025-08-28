@@ -1,11 +1,34 @@
+import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/live";
-import { Video } from "../../components";
-import AboutUs from "./components/AboutUs";
+import { QUERY as query } from "@/sanity/lib/queries";
+import { Metadata } from "next";
 import Agenda from "./components/Agenda";
 import BookUs from "./components/BookUs";
 import Gallery from "./components/Gallery";
 import JoinTheBand from "./components/JoinTheBand";
-import { QUERY as query } from "@/sanity/lib/queries";
+import { NAME } from "@/contants";
+
+async function getPage() {
+  return client.fetch(
+    `*[_type == "general"][0]{
+      description
+    }`
+  );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { description } = await getPage();
+  const title = NAME;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+    },
+  };
+}
 
 export default async function Home() {
   const {

@@ -1,7 +1,7 @@
 // /schemas/settings.ts
 import { defineType, defineField } from "sanity";
 
-export const joinTheBand = defineType({
+export const joinTheBandType = defineType({
   name: "joinTheBand",
   title: "Vacant Seat",
   type: "document",

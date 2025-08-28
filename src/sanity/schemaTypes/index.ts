@@ -1,11 +1,12 @@
 import { type SchemaTypeDefinition } from "sanity";
 
 import { agendaType } from "./agendaType";
-import { galleryImageType } from "./imageType";
-import { videoType } from "./videoType";
+import { bookUsType } from "./bookUsType";
 import { contentType } from "./contentType";
-import { joinTheBand } from "./joinTheBand";
-import { bookUs } from "./bookUs";
+import { galleryImageType } from "./galleryImageType";
+import { generalType } from "./generalType";
+import { joinTheBandType } from "./joinTheBandType";
+import { videoType } from "./videoType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -13,7 +14,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     galleryImageType,
     videoType,
     contentType,
-    joinTheBand,
-    bookUs,
+    joinTheBandType,
+    bookUsType,
+    generalType,
   ],
 };

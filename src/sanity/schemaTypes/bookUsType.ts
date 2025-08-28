@@ -1,7 +1,7 @@
 // import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { defineField, defineType } from "sanity";
 
-export const bookUs = defineType({
+export const bookUsType = defineType({
   name: "bookUs",
   title: "Book Us",
   type: "document",

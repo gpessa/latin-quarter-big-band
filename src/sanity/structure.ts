@@ -8,6 +8,10 @@ export const structure: StructureResolver = (S) =>
     .title(NAME)
     .items([
       S.listItem()
+        .title("General")
+        .id("general")
+        .child(S.document().schemaType("general").documentId("general")),
+      S.listItem()
         .title("Join The Band")
         .id("joinTheBand")
         .icon(DriveFileRenameOutline)
