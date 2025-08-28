@@ -59,12 +59,12 @@ const BookUs: React.FC<QUERYResult["bookUs"]> = (bookUs) => {
 
   return (
     <Section color="secondary">
-      <Typography variant="h2" component="h2" gutterBottom>
+      <Typography variant="h2" component="h2">
         {bookUs?.title}
       </Typography>
       <Grid container spacing={STANDARD_SPACING}>
         <Grid size={{ xs: 12, md: 6 }}>
-          <Typography>
+          <Typography component="div">
             {bookUs?.content && <PortableText value={bookUs?.content} />}
           </Typography>
         </Grid>

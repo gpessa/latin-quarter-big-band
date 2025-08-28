@@ -9,7 +9,7 @@ import { QUERYResult } from "../../../../../sanity.types";
 const Gallery: React.FC<QUERYResult["gallery"]> = (gallery) => {
   return (
     <Section>
-      <Typography variant="h2" component="h2" gutterBottom>
+      <Typography variant="h2" component="h2">
         Photo Gallery
       </Typography>
       <Grid container spacing={4}>

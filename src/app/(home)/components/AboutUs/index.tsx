@@ -70,12 +70,12 @@ export default function AboutUs() {
       />
 
       <TextStyled>
-        <Typography variant="h2" component="h2" gutterBottom>
+        <Typography variant="h2" component="h2">
           Latin Quarter
           <br />
           Big Band
         </Typography>
-        <Typography gutterBottom>
+        <Typography>
           <strong>Latin Quarter Big Band </strong>is a 20-piece ensemble led by
           bandleader <strong>Jaime Rodrigues</strong>, bringing the vibrant
           sounds of Latin jazz to life.

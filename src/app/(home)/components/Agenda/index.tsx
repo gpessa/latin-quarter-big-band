@@ -37,11 +37,11 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
 
   return (
     <Section color="primary">
-      <Typography variant="h2" component="h2" gutterBottom>
+      <Typography variant="h2" component="h2">
         {agenda?.title}
       </Typography>
 
-      <Typography gutterBottom>
+      <Typography component="div">
         {agenda?.content && <PortableText value={agenda?.content} />}
       </Typography>
 
