@@ -7,6 +7,8 @@ import BookUs from "./components/BookUs";
 import Gallery from "./components/Gallery";
 import JoinTheBand from "./components/JoinTheBand";
 import { NAME } from "@/contants";
+import { Video } from "@/components";
+import AboutUs from "./components/AboutUs";
 
 async function getPage() {
   return client.fetch(
@@ -39,10 +41,8 @@ export default async function Home() {
 
   return (
     <>
-      {/* 
       <AboutUs />
       <Video videoid="O0GGfZ6jOjE" />
-      **/}
       {agenda && <Agenda {...agenda} />}
       {bookUs && <BookUs {...bookUs} />}
       <Gallery {...gallery} />

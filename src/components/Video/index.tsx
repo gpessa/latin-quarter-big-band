@@ -6,24 +6,25 @@ import React from "react";
 
 import Section from "../Section";
 
-const VideoSectionStyled = styled(Section)(({ theme }) => ({
-  background: `linear-gradient(to bottom,
-    rgba(0,0,0, 0) 150px,
-    ${theme.palette.secondary.main} 150px,
-    ${theme.palette.secondary.main} calc(100% - 150px),
-    rgba(0,0,0, 0) calc(100% - 150px)
-  )`,
-}));
+// const VideoSectionStyled = styled(Section)(({ theme }) => ({
+//   background: `linear-gradient(to bottom,
+//     rgba(0,0,0, 0) 150px,
+//     ${theme.palette.secondary.main} 150px,
+//     ${theme.palette.secondary.main} calc(100% - 150px),
+//     rgba(0,0,0, 0) calc(100% - 150px)
+//   )`,
+// }));
 
 const Video: React.FC<{ videoid: string }> = ({ videoid }) => (
-  <VideoSectionStyled>
+  <Section color="secondary">
     <YouTubeEmbed
       videoid={videoid}
       style={
-        "width: 80%; max-width: 80%; justify-content: center; margin-left: 10%"
+        "width: 100%; height: auto;"
+        //   "width: 80%; max-width: 80%; justify-content: center; margin-left: 10%"
       }
     />
-  </VideoSectionStyled>
+  </Section>
 );
 
 export default Video;

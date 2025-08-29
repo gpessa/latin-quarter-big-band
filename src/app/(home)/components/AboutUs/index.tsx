@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 "use client";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Card, Paper, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -27,12 +27,16 @@ const TextStyled = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.common.white,
 }));
 
-const LogoStyled = styled(Image)(({ theme }) => ({
+const LogoContainer = styled(Paper)(({ theme }) => ({
+  lineHeight: 0,
   position: "absolute",
-  top: theme.spacing(2),
-  left: theme.spacing(2),
-  width: 250,
-  height: 250,
+  top: theme.spacing(5),
+  right: theme.spacing(5),
+}));
+
+const Logo = styled(Image)(({ theme }) => ({
+  width: 300,
+  height: 300,
 }));
 
 export default function AboutUs() {
@@ -64,11 +68,13 @@ export default function AboutUs() {
         alt={"About Us Background Image"}
       />
 
-      <LogoStyled
-        src={require("../../../../assets/logo.png").default}
-        alt="About Us Background"
-      />
-
+      <LogoContainer elevation={2}>
+        <Logo
+          src={require("../../../../assets/logo.svg").default}
+          alt="About Us Background"
+        />
+      </LogoContainer>
+      {/* 
       <TextStyled>
         <Typography variant="h2" component="h2">
           Latin Quarter
@@ -85,7 +91,7 @@ export default function AboutUs() {
           improvisation, the band delivers an authentic and energetic musical
           experience that makes every performance unforgettable.
         </Typography>
-      </TextStyled>
+      </TextStyled> */}
     </ContainerStyled>
   );
 }
