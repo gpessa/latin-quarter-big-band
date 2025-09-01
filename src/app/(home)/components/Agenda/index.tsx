@@ -1,6 +1,7 @@
 "use client";
 
 import { Section } from "@/components";
+import { SECTIONS, STANDARD_MARGIN_BOTTOM } from "@/contants";
 import {
   Box,
   Card,
@@ -17,7 +18,6 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { PortableText } from "next-sanity";
 import { QUERYResult } from "../../../../../sanity.types";
-import { STANDARD_MARGIN_BOTTOM } from "@/contants";
 
 const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
   const theme = useTheme();
@@ -37,7 +37,7 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   return (
-    <Section color="primary">
+    <Section color="primary" id={SECTIONS.agenda}>
       <Typography variant="h2" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
         {agenda?.title}
       </Typography>

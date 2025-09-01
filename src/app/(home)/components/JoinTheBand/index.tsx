@@ -22,7 +22,7 @@ import { QUERYResult } from "../../../../../sanity.types";
 
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
-import { STANDARD_SPACING, STANDARD_MARGIN_BOTTOM } from "@/contants";
+import { STANDARD_SPACING, STANDARD_MARGIN_BOTTOM, SECTIONS } from "@/contants";
 
 const schema = yup
   .object({
@@ -66,7 +66,7 @@ const JoinTheBand: React.FC<QUERYResult["joinTheBand"]> = (joinTheBand) => {
   };
 
   return (
-    <Section color="primary">
+    <Section color="secondary" id={SECTIONS.joinTheBand}>
       <Typography variant="h2" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
         {joinTheBand?.title}
       </Typography>

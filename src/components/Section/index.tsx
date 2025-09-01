@@ -26,58 +26,61 @@ type Props = {
   textAlign?: "center" | "justify";
 } & Pick<ContainerProps, "maxWidth" | "children" | "sx">;
 
-const SectionStyled = styled(Container)<Props>(
-  ({ theme, spacing = "medium", color, type }) => {
-    const getSpacing = (breakingPoint: "xs" | "md") => {
-      return (spacing: "small" | "medium" | "big" | "menu") => {
-        const CONFIGURATION = new Map();
+const SectionStyled = styled(Container)<Props>(({
+  theme,
+  spacing = "medium",
+  color,
+  type,
+}) => {
+  const getSpacing = (breakingPoint: "xs" | "md") => {
+    return (spacing: "small" | "medium" | "big" | "menu") => {
+      const CONFIGURATION = new Map();
 
-        CONFIGURATION.set("xs", {
-          big: 10,
-          medium: 8,
-          menu: 13,
-          small: 3, // 130px
-        });
+      CONFIGURATION.set("xs", {
+        big: 10,
+        medium: 8,
+        menu: 13,
+        small: 3, // 130px
+      });
 
-        CONFIGURATION.set("md", {
-          big: 20,
-          medium: 13,
-          menu: 30,
-          small: 4,
-        });
+      CONFIGURATION.set("md", {
+        big: 20,
+        medium: 13,
+        menu: 30,
+        small: 4,
+      });
 
-        const value = CONFIGURATION.get(breakingPoint)[spacing];
-        return theme.spacing(value);
-      };
+      const value = CONFIGURATION.get(breakingPoint)[spacing];
+      return theme.spacing(value);
     };
+  };
 
-    return {
-      "&:before": {
-        backgroundColor: color && color,
-        backgroundSize: "cover",
-        content: "''",
-        height: "100%",
-        position: "absolute",
-        right: 0,
-        top: 0,
-        width: "100%",
-        zIndex: -1,
-        [theme.breakpoints.up(BREAKPOINT)]: {
-          height: type ? DIMENSION_CONFIGURATION[type].height : "100%",
-          width: type ? DIMENSION_CONFIGURATION[type].width : "100%",
-        },
-      },
-      overflow: "hidden",
-      paddingBottom: getSpacing("xs")(spacing),
-      paddingTop: getSpacing("xs")(spacing),
+  return {
+    "&:before": {
+      backgroundColor: color && color,
+      backgroundSize: "cover",
+      content: "''",
+      height: "100%",
+      position: "absolute",
+      right: 0,
+      top: 0,
+      width: "100%",
+      zIndex: -1,
       [theme.breakpoints.up(BREAKPOINT)]: {
-        paddingBottom: getSpacing("md")(spacing),
-        paddingTop: getSpacing("md")(spacing),
+        height: type ? DIMENSION_CONFIGURATION[type].height : "100%",
+        width: type ? DIMENSION_CONFIGURATION[type].width : "100%",
       },
-      position: "relative",
-    };
-  }
-);
+    },
+    overflow: "hidden",
+    paddingBottom: getSpacing("xs")(spacing),
+    paddingTop: getSpacing("xs")(spacing),
+    [theme.breakpoints.up(BREAKPOINT)]: {
+      paddingBottom: getSpacing("md")(spacing),
+      paddingTop: getSpacing("md")(spacing),
+    },
+    position: "relative",
+  };
+});
 
 const SectionStyledColored = styled(SectionStyled)<Props>(
   ({ theme, color }) =>

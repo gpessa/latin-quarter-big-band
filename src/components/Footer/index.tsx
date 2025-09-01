@@ -7,8 +7,9 @@ import { Typography } from "@mui/material";
 const Video: React.FC = () => (
   <Section>
     <Typography variant="body2" align="center" color="text.secondary">
-      &copy; {new Date().getFullYear()} Latin Quarter Big Band. All rights
-      reserved.
+      &copy; {new Date().getFullYear()} Latin Quarter Big Band.
+      <br />
+      All rights reserved.
     </Typography>
   </Section>
 );

@@ -5,11 +5,11 @@ import Grid from "@mui/material/Grid";
 
 import { urlFor } from "@/sanity/lib/image";
 import { QUERYResult } from "../../../../../sanity.types";
-import { STANDARD_MARGIN_BOTTOM } from "@/contants";
+import { SECTIONS, STANDARD_MARGIN_BOTTOM } from "@/contants";
 
 const Gallery: React.FC<QUERYResult["gallery"]> = (gallery) => {
   return (
-    <Section>
+    <Section color="primary" id={SECTIONS.gallery}>
       <Typography variant="h2" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
         Photo Gallery
       </Typography>

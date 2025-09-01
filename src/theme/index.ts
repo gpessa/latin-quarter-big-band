@@ -65,6 +65,15 @@ const theme = createTheme({
       // "-webkit-background-clip": "text",
       // color: "transparent",
     },
+    h5: {
+      fontFamily: title.style.fontFamily,
+      // color: Colors.rosso_latino_vivo,
+      lineHeight: 1,
+
+      // background: `linear-gradient(90deg, ${Colors.rosso_latino_vivo}, white)`,
+      // "-webkit-background-clip": "text",
+      // color: "transparent",
+    },
   },
 });
 
