@@ -2,7 +2,7 @@
 "use client";
 
 import { Section } from "@/components";
-import { SECTIONS } from "@/contants";
+import { SECTIONS, STANDARD_SPACING } from "@/contants";
 import { Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -28,15 +28,15 @@ export default function AboutUs() {
 
   return (
     <Section color="primary" id={SECTIONS.aboutUs}>
-      <Grid container>
-        <Grid size={6}>
+      <Grid container spacing={STANDARD_SPACING}>
+        <Grid size={{ xs: 12, md: 5 }}>
           <Typography variant="h2" component="h2">
             Latin Quarter
             <br />
             Big Band
           </Typography>
         </Grid>
-        <Grid size={6}>
+        <Grid size={{ xs: 12, md: 7 }}>
           <Typography>
             <strong>Latin Quarter Big Band </strong>is a 20-piece ensemble led
             by bandleader <strong>Jaime Rodrigues</strong>, bringing the vibrant
