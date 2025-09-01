@@ -67,12 +67,11 @@ const JoinTheBand: React.FC<QUERYResult["joinTheBand"]> = (joinTheBand) => {
 
   return (
     <Section color="secondary" id={SECTIONS.joinTheBand}>
-      <Typography variant="h2" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
-        {joinTheBand?.title}
-      </Typography>
-
       <Grid container spacing={STANDARD_SPACING}>
         <Grid size={{ xs: 12, md: 6 }}>
+          <Typography variant="h2" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
+            {joinTheBand?.title}
+          </Typography>
           <Typography component="div">
             {joinTheBand?.content && (
               <PortableText value={joinTheBand?.content} />
