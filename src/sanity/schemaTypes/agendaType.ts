@@ -4,7 +4,7 @@ import RoomIcon from "@mui/icons-material/Room";
 export const agendaType = defineType({
   name: "agenda",
   type: "document",
-  title: "Agenda",
+  title: "Concerts",
   icon: RoomIcon,
   fields: [
     defineField({

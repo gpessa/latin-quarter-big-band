@@ -13,4 +13,11 @@ export const generalType = defineType({
       validation: (Rule) => Rule.required(),
     }),
   ],
+  preview: {
+    prepare() {
+      return {
+        title: "General Settings",
+      };
+    },
+  },
 });
