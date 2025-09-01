@@ -1,5 +1,5 @@
 import { JoinTheBandFormData } from "@/app/(home)/components/JoinTheBand";
-import { LANG } from "@/contants";
+import { EMAILS, LANG } from "@/contants";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
   try {
     const data = await resend.emails.send({
       from: `Latin Quarter Big Band <onboarding@resend.dev>`, // works in dev without DNS
-      to: ["nomeecognome@gmail.com"], // where to receive the test
+      to: EMAILS, // where to receive the test
       subject: `Join The Band - Request from ${name}`,
       html,
     });
