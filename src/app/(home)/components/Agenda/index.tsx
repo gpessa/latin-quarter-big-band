@@ -108,7 +108,7 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
                 <TableCell>📅 DATE</TableCell>
                 <TableCell>⏰ TIME</TableCell>
                 <TableCell align="right">📍 LOCATION</TableCell>
-                <TableCell align="right">📍 Link</TableCell>
+                <TableCell align="right">📍 LINK</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
