@@ -4,8 +4,10 @@ import { Section } from "@/components";
 import { SECTIONS, STANDARD_MARGIN_BOTTOM } from "@/contants";
 import {
   Box,
+  Button,
   Card,
   CardContent,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -23,18 +25,28 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const rows = (agenda?.concerts || [])
-    .map(({ date, name, address }) => ({
-      date: new Date(date).toLocaleDateString("en-GB"),
-      time: new Date(date).toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      name,
-      address,
-      active: new Date(date).getTime() > new Date().getTime(),
-    }))
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  const rows = (agenda?.concerts || []).map(({ date, name, address, url }) => ({
+    dateString: new Date(date).toLocaleDateString("en-GB"),
+    timeString: new Date(date).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    }),
+    name,
+    address,
+    active: new Date(date).getTime() > new Date().getTime(),
+    date: new Date(date),
+    url,
+  }));
+
+  const oldConcerts = rows
+    .filter(({ active }) => !active)
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+  const newConcerts = rows
+    .filter(({ active }) => active)
+    .sort((a, b) => a.date.getTime() - b.date.getTime());
+
+  const concerts = [...newConcerts, ...oldConcerts];
 
   return (
     <Section color="primary" id={SECTIONS.agenda}>
@@ -42,25 +54,51 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
         {agenda?.title}
       </Typography>
 
-      <Typography component="div">
+      <Typography component="div" mb={STANDARD_MARGIN_BOTTOM}>
         {agenda?.content && <PortableText value={agenda?.content} />}
       </Typography>
 
       {isMobile ? (
         <Box display="flex" flexDirection="column" gap={2}>
-          {rows.map(({ date, time, name, address, active }) => (
-            <Card key={date} sx={{ opacity: active ? 1 : 0.5 }}>
-              <CardContent>
-                <Typography variant="subtitle1">
-                  📅 {date} (⏰ {time})
-                </Typography>
-                <Typography variant="body1" sx={{ mt: 1, fontWeight: "bold" }}>
-                  {name}
-                </Typography>
-                <Typography variant="body2">📍 {address?.city}</Typography>
-              </CardContent>
-            </Card>
-          ))}
+          {concerts.map(
+            ({ dateString, timeString, name, address, active, url }) => (
+              <Card key={dateString} sx={{ opacity: active ? 1 : 0.5 }}>
+                <CardContent>
+                  <Stack spacing={2}>
+                    <Typography variant="subtitle1">
+                      📅 {dateString}
+                      <br />
+                      (⏰ {timeString})
+                    </Typography>
+                    <Typography
+                      variant="body1"
+                      sx={{ mt: 1, fontWeight: "bold" }}
+                    >
+                      {name}
+                    </Typography>
+                    <Typography variant="body2">
+                      <strong>{name}</strong>
+                      <br />
+                      {address?.name}
+                      <br />
+                      {address?.city}, {address?.postalCode}
+                    </Typography>
+                    {url && (
+                      <Button
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        variant="contained"
+                        color="secondary"
+                      >
+                        Link
+                      </Button>
+                    )}
+                  </Stack>
+                </CardContent>
+              </Card>
+            )
+          )}
         </Box>
       ) : (
         <TableContainer>
@@ -69,21 +107,42 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
               <TableRow>
                 <TableCell>📅 DATE</TableCell>
                 <TableCell>⏰ TIME</TableCell>
-                <TableCell align="right">LOCATION</TableCell>
-                <TableCell>📍 CITY</TableCell>
+                <TableCell align="right">📍 LOCATION</TableCell>
+                <TableCell align="right">📍 Link</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(({ date, time, name, address, active }) => (
-                <TableRow key={date} sx={{ opacity: active ? 1 : 0.5 }}>
-                  <TableCell>{date}</TableCell>
-                  <TableCell>{time}</TableCell>
-                  <TableCell align="right">{name}</TableCell>
-                  <TableCell>
-                    <strong>{address?.city}</strong>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {concerts.map(
+                (
+                  { dateString, timeString, name, address, active, url },
+                  index
+                ) => (
+                  <TableRow key={index} sx={{ opacity: active ? 1 : 0.5 }}>
+                    <TableCell>{dateString}</TableCell>
+                    <TableCell>{timeString}</TableCell>
+                    <TableCell align="right">
+                      <strong>{name}</strong>
+                      <br />
+                      {address?.name}
+                      <br />
+                      {address?.city}, {address?.postalCode}
+                    </TableCell>
+                    <TableCell align="right">
+                      {url && (
+                        <Button
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          variant="contained"
+                          color="secondary"
+                        >
+                          Link
+                        </Button>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                )
+              )}
             </TableBody>
           </Table>
         </TableContainer>
