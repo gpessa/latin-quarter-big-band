@@ -123,9 +123,7 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
                     <TableCell align="right">
                       <strong>{name}</strong>
                       <br />
-                      {address?.name}
-                      <br />
-                      {address?.city}, {address?.postalCode}
+                      {address?.name}, {address?.city}, {address?.postalCode}
                     </TableCell>
                     <TableCell align="right">
                       {url && (
