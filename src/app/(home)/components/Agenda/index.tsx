@@ -50,7 +50,7 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
 
   return (
     <Section color="primary" id={SECTIONS.agenda}>
-      <Typography variant="h2" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
+      <Typography variant="h3" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
         {agenda?.title}
       </Typography>
 

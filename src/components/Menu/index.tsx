@@ -33,7 +33,7 @@ export default function Menu() {
       {MENU.map((item) => (
         <ListItemButton key={item.title} href={`#${item.href}`}>
           <ListItemText
-            slotProps={{ primary: { variant: "h5", textAlign: "center" } }}
+            slotProps={{ primary: { variant: "h6", textAlign: "center" } }}
           >
             {item.title}
           </ListItemText>

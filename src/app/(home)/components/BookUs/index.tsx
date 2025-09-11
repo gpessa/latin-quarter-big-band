@@ -65,7 +65,7 @@ const BookUs: React.FC<QUERYResult["bookUs"]> = (bookUs) => {
         direction={{ md: "row-reverse" }}
       >
         <Grid size={{ xs: 12, md: 6 }}>
-          <Typography variant="h2" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
+          <Typography variant="h3" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
             {bookUs?.title}
           </Typography>
           <Typography component="div">

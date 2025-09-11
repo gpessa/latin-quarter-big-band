@@ -53,26 +53,23 @@ const theme = createTheme({
     fontSize: 17,
     h1: {
       fontFamily: title.style.fontFamily,
-      // color: "primary.main",
       lineHeight: 1,
     },
     h2: {
       fontFamily: title.style.fontFamily,
-      // color: Colors.rosso_latino_vivo,
       lineHeight: 1,
-
-      // background: `linear-gradient(90deg, ${Colors.rosso_latino_vivo}, white)`,
-      // "-webkit-background-clip": "text",
-      // color: "transparent",
+    },
+    h3: {
+      fontFamily: title.style.fontFamily,
+      lineHeight: 1,
     },
     h5: {
       fontFamily: title.style.fontFamily,
-      // color: Colors.rosso_latino_vivo,
       lineHeight: 1,
-
-      // background: `linear-gradient(90deg, ${Colors.rosso_latino_vivo}, white)`,
-      // "-webkit-background-clip": "text",
-      // color: "transparent",
+    },
+    h6: {
+      fontFamily: title.style.fontFamily,
+      lineHeight: 1,
     },
   },
 });

@@ -30,7 +30,7 @@ export default function AboutUs() {
     <Section color="primary" id={SECTIONS.aboutUs}>
       <Grid container spacing={STANDARD_SPACING}>
         <Grid size={{ xs: 12, md: 5 }}>
-          <Typography variant="h2" component="h2">
+          <Typography variant="h3" component="h2">
             Latin Quarter
             <br />
             Big Band

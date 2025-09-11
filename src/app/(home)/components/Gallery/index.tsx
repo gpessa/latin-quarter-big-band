@@ -10,7 +10,7 @@ import { SECTIONS, STANDARD_MARGIN_BOTTOM } from "@/contants";
 const Gallery: React.FC<QUERYResult["gallery"]> = (gallery) => {
   return (
     <Section color="primary" id={SECTIONS.gallery}>
-      {/* <Typography variant="h2" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
+      {/* <Typography variant="h3" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
         Photo Gallery
       </Typography> */}
       <Grid container spacing={4}>

@@ -39,8 +39,9 @@ export default function RootLayout({
               <Box>
                 <Stack
                   gap={2}
-                  sx={{ position: "sticky", top: 0, pl: 2, pr: 2 }}
-                  alignContent={"space-around"}
+                  sx={{ position: "sticky", top: 0, pl: 1, pr: 1 }}
+                  alignContent="space-around"
+                  textAlign="center"
                 >
                   <Logo />
                   <Menu />
