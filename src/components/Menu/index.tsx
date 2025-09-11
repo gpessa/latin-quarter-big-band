@@ -11,20 +11,20 @@ export default function Menu() {
       href: SECTIONS.aboutUs,
     },
     {
-      title: "Gallery",
-      href: SECTIONS.gallery,
-    },
-    {
-      title: "Join The Band",
-      href: SECTIONS.joinTheBand,
-    },
-    {
       title: "Agenda",
       href: SECTIONS.agenda,
     },
     {
       title: "Book Us",
       href: SECTIONS.bookUs,
+    },
+    {
+      title: "Gallery",
+      href: SECTIONS.gallery,
+    },
+    {
+      title: "Join The Band",
+      href: SECTIONS.joinTheBand,
     },
   ];
 
