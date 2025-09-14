@@ -1,11 +1,11 @@
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { defineField, defineType } from "sanity";
-import RoomIcon from "@mui/icons-material/Room";
 
 export const agendaType = defineType({
   name: "agenda",
   type: "document",
   title: "Concerts",
-  icon: RoomIcon,
+  icon: CalendarMonthIcon,
   fields: [
     defineField({
       name: "title",

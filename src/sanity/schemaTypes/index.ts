@@ -6,6 +6,7 @@ import { contentType } from "./contentType";
 import { galleryImageType } from "./galleryImageType";
 import { generalType } from "./generalType";
 import { joinTheBandType } from "./joinTheBandType";
+import { aboutUsType } from "./aboutsUsType";
 import { videoType } from "./videoType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
@@ -16,6 +17,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     contentType,
     joinTheBandType,
     bookUsType,
+    aboutUsType,
     generalType,
   ],
 };

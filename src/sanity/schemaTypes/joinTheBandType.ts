@@ -1,10 +1,12 @@
 // /schemas/settings.ts
 import { defineType, defineField } from "sanity";
+import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 
 export const joinTheBandType = defineType({
   name: "joinTheBand",
   title: "Vacant Seat",
   type: "document",
+  icon: EmojiPeopleIcon,
   fields: [
     defineField({
       name: "title",

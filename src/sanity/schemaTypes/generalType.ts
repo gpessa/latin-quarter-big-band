@@ -9,7 +9,8 @@ export const generalType = defineType({
     defineField({
       name: "description",
       title: "Description",
-      type: "string",
+      description: "This description will be used in the meta tag for SEO",
+      type: "text",
       validation: (Rule) => Rule.required(),
     }),
   ],
