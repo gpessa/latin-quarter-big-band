@@ -1,9 +1,7 @@
 import { defineQuery } from "next-sanity";
 
 export const QUERY = defineQuery(`{
-  "gallery": {
-    "images": *[_type == "galleryImage"],
-  },
+  "intro": *[_type == "intro"],
   "agenda": *[_type == "agenda"][0]{
     title, 
     content,
@@ -23,6 +21,10 @@ export const QUERY = defineQuery(`{
     title, 
     content
   },
+  "aboutUs": *[_type == "aboutUs"][0]{
+    title, 
+    content
+  },
   "joinTheBand": *[_type == "joinTheBand"][0]{
     title, 
     content,
@@ -31,5 +33,18 @@ export const QUERY = defineQuery(`{
       emoticon,
       notes
     }
+  },
+  "gallery": *[_type == "galleryImage"][0]{
+    title, 
+    images[]{
+      image,
+      title
+    }
+  },
+  "menu": {
+    "joinTheBand": *[_type == "joinTheBand"][0].title,
+    "gallery": *[_type == "galleryImage"][0].title,
+    "bookUs": *[_type == "bookUs"][0].title,
+    "agenda": *[_type == "agenda"][0].title
   }
 }`);

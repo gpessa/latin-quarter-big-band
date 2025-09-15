@@ -3,21 +3,21 @@ import { type SchemaTypeDefinition } from "sanity";
 import { agendaType } from "./agendaType";
 import { bookUsType } from "./bookUsType";
 import { contentType } from "./contentType";
-import { galleryImageType } from "./galleryImageType";
 import { generalType } from "./generalType";
 import { joinTheBandType } from "./joinTheBandType";
 import { aboutUsType } from "./aboutsUsType";
-import { videoType } from "./videoType";
+import { galleryImageType } from "./galleryImageType";
+import { introType } from "./introType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     agendaType,
-    galleryImageType,
-    videoType,
+    introType,
     contentType,
     joinTheBandType,
     bookUsType,
     aboutUsType,
+    galleryImageType,
     generalType,
   ],
 };

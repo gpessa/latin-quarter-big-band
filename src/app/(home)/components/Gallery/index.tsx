@@ -3,18 +3,15 @@ import { Section } from "@/components";
 import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
+import { SECTIONS } from "@/contants";
 import { urlFor } from "@/sanity/lib/image";
 import { QUERYResult } from "../../../../../sanity.types";
-import { SECTIONS, STANDARD_MARGIN_BOTTOM } from "@/contants";
 
 const Gallery: React.FC<QUERYResult["gallery"]> = (gallery) => {
   return (
-    <Section color="primary" id={SECTIONS.gallery}>
-      {/* <Typography variant="h3" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
-        Photo Gallery
-      </Typography> */}
+    <Section color="secondary" id={SECTIONS.gallery}>
       <Grid container spacing={4}>
-        {gallery?.images?.map(({ name, image }, index) => (
+        {gallery?.images?.map(({ title, image }, index) => (
           <Grid size={{ xs: 12, md: 4 }} key={index}>
             <Box
               component="figure"
@@ -25,7 +22,7 @@ const Gallery: React.FC<QUERYResult["gallery"]> = (gallery) => {
               <Box
                 component="img"
                 src={urlFor(image.asset!._ref).width(400).height(400).url()}
-                alt={name}
+                alt={title}
                 loading="lazy"
                 sx={{
                   width: "100%",
@@ -34,7 +31,7 @@ const Gallery: React.FC<QUERYResult["gallery"]> = (gallery) => {
                 }}
               />
               <Typography component="figcaption" variant="caption">
-                {name}
+                {title}
               </Typography>
             </Box>
           </Grid>

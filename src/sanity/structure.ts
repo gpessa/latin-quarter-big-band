@@ -5,6 +5,7 @@ import {
   Book,
   CalendarMonth,
   BugReport,
+  Image,
 } from "@mui/icons-material";
 import type { StructureResolver } from "sanity/structure";
 
@@ -18,6 +19,7 @@ export const structure: StructureResolver = ({
   list()
     .title(NAME)
     .items([
+      documentTypeListItem("intro").title("Intro"),
       listItem()
         .title("General")
         .id("general")
@@ -43,6 +45,11 @@ export const structure: StructureResolver = ({
         .id("agenda")
         .icon(CalendarMonth)
         .child(document().schemaType("agenda").documentId("agenda")),
-      documentTypeListItem("galleryImage").title("Images"),
-      documentTypeListItem("video").title("Videos"),
+      listItem()
+        .title("Gallery")
+        .id("galleryImage")
+        .icon(Image)
+        .child(
+          document().schemaType("galleryImage").documentId("galleryImage")
+        ),
     ]);

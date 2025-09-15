@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   CardContent,
+  Divider,
   Stack,
   Table,
   TableBody,
@@ -49,7 +50,7 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
   const concerts = [...newConcerts, ...oldConcerts];
 
   return (
-    <Section color="primary" id={SECTIONS.agenda}>
+    <Section color="secondary" id={SECTIONS.agenda}>
       <Typography variant="h3" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
         {agenda?.title}
       </Typography>
@@ -59,47 +60,46 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
       </Typography>
 
       {isMobile ? (
-        <Box display="flex" flexDirection="column" gap={2}>
+        <Stack
+          display="flex"
+          flexDirection="column"
+          gap={3}
+          divider={<Divider orientation="horizontal" flexItem />}
+        >
           {concerts.map(
             ({ dateString, timeString, name, address, active, url }) => (
-              <Card key={dateString} sx={{ opacity: active ? 1 : 0.5 }}>
-                <CardContent>
-                  <Stack spacing={2}>
-                    <Typography variant="subtitle1">
-                      📅 {dateString}
-                      <br />
-                      (⏰ {timeString})
-                    </Typography>
-                    <Typography
-                      variant="body1"
-                      sx={{ mt: 1, fontWeight: "bold" }}
+              <Stack key={dateString} sx={{ opacity: active ? 1 : 0.5 }}>
+                <Stack spacing={1}>
+                  <Typography
+                    variant="body1"
+                    sx={{ mt: 1, fontWeight: "bold" }}
+                  >
+                    {name}
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    📅 {dateString} (⏰ {timeString})
+                  </Typography>
+                  <Typography variant="body2">
+                    {address?.name}
+                    <br />
+                    {address?.city}, {address?.postalCode}
+                  </Typography>
+                  {url && (
+                    <Button
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      variant="contained"
+                      color="secondary"
                     >
-                      {name}
-                    </Typography>
-                    <Typography variant="body2">
-                      <strong>{name}</strong>
-                      <br />
-                      {address?.name}
-                      <br />
-                      {address?.city}, {address?.postalCode}
-                    </Typography>
-                    {url && (
-                      <Button
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        variant="contained"
-                        color="secondary"
-                      >
-                        Link
-                      </Button>
-                    )}
-                  </Stack>
-                </CardContent>
-              </Card>
+                      Link
+                    </Button>
+                  )}
+                </Stack>
+              </Stack>
             )
           )}
-        </Box>
+        </Stack>
       ) : (
         <TableContainer>
           <Table sx={{ minWidth: 650 }} aria-label="agenda table">

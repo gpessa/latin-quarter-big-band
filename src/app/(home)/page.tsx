@@ -1,14 +1,14 @@
+import { NAME } from "@/contants";
 import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/live";
 import { QUERY as query } from "@/sanity/lib/queries";
 import { Metadata } from "next";
+import AboutUs from "./components/AboutUs";
 import Agenda from "./components/Agenda";
 import BookUs from "./components/BookUs";
 import Gallery from "./components/Gallery";
 import JoinTheBand from "./components/JoinTheBand";
-import { NAME } from "@/contants";
-import { Video } from "@/components";
-import AboutUs from "./components/AboutUs";
+import Intro from "./components/Intro";
 
 async function getPage() {
   return client.fetch(
@@ -34,18 +34,18 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function Home() {
   const {
-    data: { joinTheBand, gallery, bookUs, agenda },
+    data: { intro, joinTheBand, gallery, bookUs, agenda, aboutUs },
   } = await sanityFetch({
     query,
   });
 
   return (
     <>
-      <AboutUs />
-      <Video videoid="O0GGfZ6jOjE" />
+      {intro && <Intro intro={intro} />}
+      {aboutUs && <AboutUs {...aboutUs} />}
       {agenda && <Agenda {...agenda} />}
       {bookUs && <BookUs {...bookUs} />}
-      <Gallery {...gallery} />
+      {gallery && <Gallery {...gallery} />}
       {joinTheBand && <JoinTheBand {...joinTheBand} />}
     </>
   );

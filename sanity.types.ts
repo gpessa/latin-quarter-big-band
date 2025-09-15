@@ -22,6 +22,59 @@ export type General = {
   description: string;
 };
 
+export type GalleryImage = {
+  _id: string;
+  _type: "galleryImage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  images?: Array<{
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    title: string;
+    _type: "galleryImageItem";
+    _key: string;
+  }>;
+};
+
+export type AboutUs = {
+  _id: string;
+  _type: "aboutUs";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  content: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+};
+
 export type BookUs = {
   _id: string;
   _type: "bookUs";
@@ -183,19 +236,9 @@ export type Content = {
   };
 };
 
-export type Video = {
+export type Intro = {
   _id: string;
-  _type: "video";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  youtubeLink?: string;
-};
-
-export type GalleryImage = {
-  _id: string;
-  _type: "galleryImage";
+  _type: "intro";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -211,7 +254,6 @@ export type GalleryImage = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  name: string;
 };
 
 export type Agenda = {
@@ -372,34 +414,31 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = General | BookUs | JoinTheBand | Content | Video | GalleryImage | Agenda | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = General | GalleryImage | AboutUs | BookUs | JoinTheBand | Content | Intro | Agenda | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: QUERY
-// Query: {  "gallery": {    "images": *[_type == "galleryImage"],  },  "agenda": *[_type == "agenda"][0]{    title,     content,    concerts[] | order(date desc){      name,      date,      url,      address {        name,        street,        city,        postalCode      }    }  },  "general": *[_type == "general"][0]{    description  },  "bookUs": *[_type == "bookUs"][0]{    title,     content  },  "joinTheBand": *[_type == "joinTheBand"][0]{    title,     content,    instruments[]{      instrumentName,      emoticon,      notes    }  }}
+// Query: {  "intro": *[_type == "intro"],  "agenda": *[_type == "agenda"][0]{    title,     content,    concerts[] | order(date desc){      name,      date,      url,      address {        name,        street,        city,        postalCode      }    }  },  "bookUs": *[_type == "bookUs"][0]{    title,     content  },  "aboutUs": *[_type == "aboutUs"][0]{    title,     content  },  "joinTheBand": *[_type == "joinTheBand"][0]{    title,     content,    instruments[]{      instrumentName,      emoticon,      notes    }  },  "gallery": *[_type == "galleryImage"][0]{    title,     images[]{      image,      title    }  },  "menu": {    "joinTheBand": *[_type == "joinTheBand"][0].title,    "gallery": *[_type == "galleryImage"][0].title,    "bookUs": *[_type == "bookUs"][0].title,    "agenda": *[_type == "agenda"][0].title  }}
 export type QUERYResult = {
-  gallery: {
-    images: Array<{
-      _id: string;
-      _type: "galleryImage";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      image: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
+  intro: Array<{
+    _id: string;
+    _type: "intro";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
       };
-      name: string;
-    }>;
-  };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  }>;
   agenda: {
     title: string;
     content: Array<{
@@ -432,10 +471,28 @@ export type QUERYResult = {
       } | null;
     }> | null;
   } | null;
-  general: {
-    description: string;
-  } | null;
   bookUs: {
+    title: string;
+    content: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+  } | null;
+  aboutUs: {
     title: string;
     content: Array<{
       children?: Array<{
@@ -482,12 +539,36 @@ export type QUERYResult = {
       notes: string | null;
     }> | null;
   } | null;
+  gallery: {
+    title: string;
+    images: Array<{
+      image: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      title: string;
+    }> | null;
+  } | null;
+  menu: {
+    joinTheBand: string | null;
+    gallery: string | null;
+    bookUs: string | null;
+    agenda: string | null;
+  };
 };
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "{\n  \"gallery\": {\n    \"images\": *[_type == \"galleryImage\"],\n  },\n  \"agenda\": *[_type == \"agenda\"][0]{\n    title, \n    content,\n    concerts[] | order(date desc){\n      name,\n      date,\n      url,\n      address {\n        name,\n        street,\n        city,\n        postalCode\n      }\n    }\n  },\n  \"general\": *[_type == \"general\"][0]{\n    description\n  },\n  \"bookUs\": *[_type == \"bookUs\"][0]{\n    title, \n    content\n  },\n  \"joinTheBand\": *[_type == \"joinTheBand\"][0]{\n    title, \n    content,\n    instruments[]{\n      instrumentName,\n      emoticon,\n      notes\n    }\n  }\n}": QUERYResult;
+    "{\n  \"intro\": *[_type == \"intro\"],\n  \"agenda\": *[_type == \"agenda\"][0]{\n    title, \n    content,\n    concerts[] | order(date desc){\n      name,\n      date,\n      url,\n      address {\n        name,\n        street,\n        city,\n        postalCode\n      }\n    }\n  },\n  \"bookUs\": *[_type == \"bookUs\"][0]{\n    title, \n    content\n  },\n  \"aboutUs\": *[_type == \"aboutUs\"][0]{\n    title, \n    content\n  },\n  \"joinTheBand\": *[_type == \"joinTheBand\"][0]{\n    title, \n    content,\n    instruments[]{\n      instrumentName,\n      emoticon,\n      notes\n    }\n  },\n  \"gallery\": *[_type == \"galleryImage\"][0]{\n    title, \n    images[]{\n      image,\n      title\n    }\n  },\n  \"menu\": {\n    \"joinTheBand\": *[_type == \"joinTheBand\"][0].title,\n    \"gallery\": *[_type == \"galleryImage\"][0].title,\n    \"bookUs\": *[_type == \"bookUs\"][0].title,\n    \"agenda\": *[_type == \"agenda\"][0].title\n  }\n}": QUERYResult;
   }
 }

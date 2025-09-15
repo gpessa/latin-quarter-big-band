@@ -58,7 +58,7 @@ const BookUs: React.FC<QUERYResult["bookUs"]> = (bookUs) => {
   };
 
   return (
-    <Section color="secondary" id={SECTIONS.bookUs}>
+    <Section color="primary" id={SECTIONS.bookUs}>
       <Grid
         container
         spacing={STANDARD_SPACING}
@@ -112,7 +112,7 @@ const BookUs: React.FC<QUERYResult["bookUs"]> = (bookUs) => {
               variant="contained"
               type="submit"
               disabled={isSubmitting}
-              color="secondary"
+              color="primary"
             >
               {isSubmitting ? "Sending..." : "Send"}
             </Button>

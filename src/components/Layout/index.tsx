@@ -1,0 +1,62 @@
+"use client";
+
+import { NAME } from "@/contants";
+import { styled } from "@mui/material/styles";
+import Image from "next/image";
+import React from "react";
+import { QUERYResult } from "../../../sanity.types";
+
+const Logo = styled(Image)(({ theme }) => ({
+  width: "300px",
+  height: "300px",
+  position: "fixed",
+  zIndex: 1,
+  padding: theme.spacing(4), // 🔹 use theme spacing instead of raw px
+
+  // Center at start
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+
+  // Animation
+  animationName: "move-box",
+  animationTimeline: "scroll(root)",
+  animationRange: "0px 400px",
+  animationFillMode: "both",
+
+  "@keyframes move-box": {
+    "0%": {
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+    },
+    "100%": {
+      top: 0,
+      left: "50%",
+      padding: theme.spacing(1.25), // instead of 10px
+      width: 140,
+      height: 140,
+      transform: "translate(-50%, 0%)",
+    },
+  },
+}));
+
+const Layout: React.FC<{
+  children: React.ReactNode;
+  menu: QUERYResult["menu"];
+}> = ({ children }) => {
+  return (
+    <div>
+      <Logo
+        src={require("@/assets/logo.svg").default}
+        alt={NAME}
+        width={500}
+        height={500}
+      />
+
+      {children}
+    </div>
+  );
+};
+
+export default Layout;
