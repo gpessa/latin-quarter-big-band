@@ -20,6 +20,11 @@ export type General = {
   _updatedAt: string;
   _rev: string;
   description: string;
+  whatsApp?: {
+    phoneNumber: string;
+    statusMessage?: string;
+    chatMessage?: string;
+  };
 };
 
 export type GalleryImage = {
@@ -418,7 +423,7 @@ export type AllSanitySchemaTypes = General | GalleryImage | AboutUs | BookUs | J
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: QUERY
-// Query: {  "intro": *[_type == "intro"],  "agenda": *[_type == "agenda"][0]{    title,     content,    concerts[] | order(date desc){      name,      date,      url,      address {        name,        street,        city,        postalCode      }    }  },  "bookUs": *[_type == "bookUs"][0]{    title,     content  },  "aboutUs": *[_type == "aboutUs"][0]{    title,     content  },  "joinTheBand": *[_type == "joinTheBand"][0]{    title,     content,    instruments[]{      instrumentName,      emoticon,      notes    }  },  "gallery": *[_type == "galleryImage"][0]{    title,     images[]{      image,      title    }  },  "menu": {    "joinTheBand": *[_type == "joinTheBand"][0].title,    "gallery": *[_type == "galleryImage"][0].title,    "bookUs": *[_type == "bookUs"][0].title,    "agenda": *[_type == "agenda"][0].title  }}
+// Query: {  "intro": *[_type == "intro"],  "agenda": *[_type == "agenda"][0]{    title,     content,    concerts[] | order(date desc){      name,      date,      url,      address {        name,        street,        city,        postalCode      }    }  },  "bookUs": *[_type == "bookUs"][0]{    title,     content  },  "aboutUs": *[_type == "aboutUs"][0]{    title,     content  },  "joinTheBand": *[_type == "joinTheBand"][0]{    title,     content,    instruments[]{      instrumentName,      emoticon,      notes    }  },  "gallery": *[_type == "galleryImage"][0]{    title,     images[]{      image,      title    }  },  "whatsApp": *[_type == "general"][0].whatsApp{    phoneNumber,    statusMessage,    chatMessage,  },  "menu": {    "joinTheBand": *[_type == "joinTheBand"][0].title,    "gallery": *[_type == "galleryImage"][0].title,    "bookUs": *[_type == "bookUs"][0].title,    "agenda": *[_type == "agenda"][0].title  }}
 export type QUERYResult = {
   intro: Array<{
     _id: string;
@@ -557,6 +562,11 @@ export type QUERYResult = {
       title: string;
     }> | null;
   } | null;
+  whatsApp: {
+    phoneNumber: string;
+    statusMessage: string | null;
+    chatMessage: string | null;
+  } | null;
   menu: {
     joinTheBand: string | null;
     gallery: string | null;
@@ -569,6 +579,6 @@ export type QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "{\n  \"intro\": *[_type == \"intro\"],\n  \"agenda\": *[_type == \"agenda\"][0]{\n    title, \n    content,\n    concerts[] | order(date desc){\n      name,\n      date,\n      url,\n      address {\n        name,\n        street,\n        city,\n        postalCode\n      }\n    }\n  },\n  \"bookUs\": *[_type == \"bookUs\"][0]{\n    title, \n    content\n  },\n  \"aboutUs\": *[_type == \"aboutUs\"][0]{\n    title, \n    content\n  },\n  \"joinTheBand\": *[_type == \"joinTheBand\"][0]{\n    title, \n    content,\n    instruments[]{\n      instrumentName,\n      emoticon,\n      notes\n    }\n  },\n  \"gallery\": *[_type == \"galleryImage\"][0]{\n    title, \n    images[]{\n      image,\n      title\n    }\n  },\n  \"menu\": {\n    \"joinTheBand\": *[_type == \"joinTheBand\"][0].title,\n    \"gallery\": *[_type == \"galleryImage\"][0].title,\n    \"bookUs\": *[_type == \"bookUs\"][0].title,\n    \"agenda\": *[_type == \"agenda\"][0].title\n  }\n}": QUERYResult;
+    "{\n  \"intro\": *[_type == \"intro\"],\n  \"agenda\": *[_type == \"agenda\"][0]{\n    title, \n    content,\n    concerts[] | order(date desc){\n      name,\n      date,\n      url,\n      address {\n        name,\n        street,\n        city,\n        postalCode\n      }\n    }\n  },\n  \"bookUs\": *[_type == \"bookUs\"][0]{\n    title, \n    content\n  },\n  \"aboutUs\": *[_type == \"aboutUs\"][0]{\n    title, \n    content\n  },\n  \"joinTheBand\": *[_type == \"joinTheBand\"][0]{\n    title, \n    content,\n    instruments[]{\n      instrumentName,\n      emoticon,\n      notes\n    }\n  },\n  \"gallery\": *[_type == \"galleryImage\"][0]{\n    title, \n    images[]{\n      image,\n      title\n    }\n  },\n  \"whatsApp\": *[_type == \"general\"][0].whatsApp{\n    phoneNumber,\n    statusMessage,\n    chatMessage,\n  },\n  \"menu\": {\n    \"joinTheBand\": *[_type == \"joinTheBand\"][0].title,\n    \"gallery\": *[_type == \"galleryImage\"][0].title,\n    \"bookUs\": *[_type == \"bookUs\"][0].title,\n    \"agenda\": *[_type == \"agenda\"][0].title\n  }\n}": QUERYResult;
   }
 }

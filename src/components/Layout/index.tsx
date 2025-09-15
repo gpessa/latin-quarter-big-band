@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import React from "react";
 import { QUERYResult } from "../../../sanity.types";
+import WhatsApp from "../WhatsApp";
 
 const Logo = styled(Image)(({ theme }) => ({
   width: "300px",
@@ -44,7 +45,8 @@ const Logo = styled(Image)(({ theme }) => ({
 const Layout: React.FC<{
   children: React.ReactNode;
   menu: QUERYResult["menu"];
-}> = ({ children }) => {
+  whatsApp: QUERYResult["whatsApp"];
+}> = ({ children, whatsApp }) => {
   return (
     <div>
       <Logo
@@ -55,6 +57,8 @@ const Layout: React.FC<{
       />
 
       {children}
+
+      {whatsApp && <WhatsApp {...whatsApp} />}
     </div>
   );
 };

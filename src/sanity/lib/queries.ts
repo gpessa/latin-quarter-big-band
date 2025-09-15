@@ -41,6 +41,11 @@ export const QUERY = defineQuery(`{
       title
     }
   },
+  "whatsApp": *[_type == "general"][0].whatsApp{
+    phoneNumber,
+    statusMessage,
+    chatMessage,
+  },
   "menu": {
     "joinTheBand": *[_type == "joinTheBand"][0].title,
     "gallery": *[_type == "galleryImage"][0].title,

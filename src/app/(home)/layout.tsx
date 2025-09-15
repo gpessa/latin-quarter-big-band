@@ -8,10 +8,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const {
-    data: { menu },
+    data: { menu, whatsApp },
   } = await sanityFetch({
     query,
   });
 
-  return <Layout menu={menu}>{children}</Layout>;
+  return (
+    <Layout menu={menu} whatsApp={whatsApp}>
+      {children}
+    </Layout>
+  );
 }
