@@ -13,7 +13,7 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {
-      "@typescript/no-require-imports": "off"
+      "@typescript-eslint/no-require-imports": "off"
     }
   }
 ];
