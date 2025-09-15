@@ -14,7 +14,7 @@ const Gallery: React.FC<QUERYResult["gallery"]> = (gallery) => {
       <Stack gap={4}>
         <Grid container spacing={4}>
           {gallery?.images?.map(({ title, image }, index) => (
-            <Grid size={{ xs: 12, md: 4 }} key={index}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
               <Box
                 component="figure"
                 sx={{
