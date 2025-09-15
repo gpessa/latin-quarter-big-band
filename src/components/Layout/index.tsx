@@ -6,6 +6,7 @@ import Image from "next/image";
 import React from "react";
 import { QUERYResult } from "../../../sanity.types";
 import WhatsApp from "../WhatsApp";
+import { Footer } from "..";
 
 const Logo = styled(Image)(({ theme }) => ({
   width: "300px",
@@ -59,6 +60,8 @@ const Layout: React.FC<{
       {children}
 
       {whatsApp && <WhatsApp {...whatsApp} />}
+
+      <Footer />
     </div>
   );
 };
