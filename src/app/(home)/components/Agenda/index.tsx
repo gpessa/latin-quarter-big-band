@@ -3,10 +3,7 @@
 import { Section } from "@/components";
 import { SECTIONS, STANDARD_MARGIN_BOTTOM } from "@/contants";
 import {
-  Box,
   Button,
-  Card,
-  CardContent,
   Divider,
   Stack,
   Table,
@@ -22,11 +19,15 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { PortableText } from "next-sanity";
 import { QUERYResult } from "../../../../../sanity.types";
 
-const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
+const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
+  title,
+  content,
+  concerts,
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const rows = (agenda?.concerts || []).map(({ date, name, address, url }) => ({
+  const rows = (concerts || []).map(({ date, name, address, url }) => ({
     dateString: new Date(date).toLocaleDateString("en-GB"),
     timeString: new Date(date).toLocaleTimeString([], {
       hour: "2-digit",
@@ -47,16 +48,21 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
     .filter(({ active }) => active)
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 
-  const concerts = [...newConcerts, ...oldConcerts];
+  const concertsSorted = [...newConcerts, ...oldConcerts];
 
   return (
     <Section color="secondary" id={SECTIONS.agenda}>
-      <Typography variant="h3" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
-        {agenda?.title}
+      <Typography
+        variant="h3"
+        component="h2"
+        mb={STANDARD_MARGIN_BOTTOM}
+        align="center"
+      >
+        {title}
       </Typography>
 
-      <Typography component="div" mb={STANDARD_MARGIN_BOTTOM}>
-        {agenda?.content && <PortableText value={agenda?.content} />}
+      <Typography component="div" mb={STANDARD_MARGIN_BOTTOM} align="center">
+        <PortableText value={content} />
       </Typography>
 
       {isMobile ? (
@@ -66,7 +72,7 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
           gap={3}
           divider={<Divider orientation="horizontal" flexItem />}
         >
-          {concerts.map(
+          {concertsSorted.map(
             ({ dateString, timeString, name, address, active, url }) => (
               <Stack key={dateString} sx={{ opacity: active ? 1 : 0.5 }}>
                 <Stack spacing={1}>
@@ -112,7 +118,7 @@ const Agenda: React.FC<QUERYResult["agenda"]> = (agenda) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {concerts.map(
+              {concertsSorted.map(
                 (
                   { dateString, timeString, name, address, active, url },
                   index
