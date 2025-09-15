@@ -52,5 +52,52 @@ export const joinTheBandType = defineType({
         }),
       ],
     }),
+    defineField({
+      name: "form",
+      title: "Form",
+      type: "object",
+      fields: [
+        defineField({
+          name: "name",
+          title: "Name Field Label",
+          type: "string",
+        }),
+        defineField({
+          name: "email",
+          title: "Email Field Label",
+          type: "string",
+        }),
+        defineField({
+          name: "phone",
+          title: "Phone Field Label",
+          type: "string",
+        }),
+        defineField({
+          name: "position",
+          title: "Position Field Label",
+          type: "string",
+        }),
+        defineField({
+          name: "message",
+          title: "Message Field Label",
+          type: "string",
+        }),
+        defineField({
+          name: "button",
+          title: "Button Text",
+          type: "string",
+        }),
+        defineField({
+          name: "confirmationMessage",
+          title: "Confirmation Message",
+          type: "string",
+        }),
+        defineField({
+          name: "errorMessage",
+          title: "Error Message",
+          type: "string",
+        }),
+      ],
+    }),
   ],
 });

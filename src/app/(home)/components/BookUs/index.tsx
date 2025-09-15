@@ -28,7 +28,11 @@ const schema = yup
 
 export type BookUsFormData = yup.InferType<typeof schema>;
 
-const BookUs: React.FC<QUERYResult["bookUs"]> = (bookUs) => {
+const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
+  title,
+  content,
+  form,
+}) => {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
   const {
@@ -66,16 +70,16 @@ const BookUs: React.FC<QUERYResult["bookUs"]> = (bookUs) => {
       >
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography variant="h3" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
-            {bookUs?.title}
+            {title}
           </Typography>
           <Typography component="div">
-            {bookUs?.content && <PortableText value={bookUs?.content} />}
+            <PortableText value={content} />
           </Typography>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <Stack spacing={4} component="form" onSubmit={handleSubmit(onSubmit)}>
             <TextField
-              label="Name"
+              label={form?.name}
               {...register("name")}
               error={!!errors.name}
               helperText={errors.name?.message}
@@ -83,7 +87,7 @@ const BookUs: React.FC<QUERYResult["bookUs"]> = (bookUs) => {
               required
             />
             <TextField
-              label="Email"
+              label={form?.email}
               {...register("email")}
               error={!!errors.email}
               helperText={errors.email?.message}
@@ -91,14 +95,14 @@ const BookUs: React.FC<QUERYResult["bookUs"]> = (bookUs) => {
               required
             />
             <TextField
-              label="Phone"
+              label={form?.phone}
               {...register("phone")}
               error={!!errors.phone}
               helperText={errors.phone?.message}
               variant="filled"
             />
             <TextField
-              label="Message"
+              label={form?.message}
               multiline
               minRows={4}
               variant="filled"
@@ -107,21 +111,20 @@ const BookUs: React.FC<QUERYResult["bookUs"]> = (bookUs) => {
               helperText={errors.message?.message}
               required
             />
-
             <Button
               variant="contained"
               type="submit"
-              disabled={isSubmitting}
               color="primary"
+              loading={isSubmitting}
             >
-              {isSubmitting ? "Sending..." : "Send"}
+              {form?.button}
             </Button>
 
             {status === "success" && (
-              <Alert severity="success">Message sent successfully!</Alert>
+              <Alert severity="success">{form?.confirmationMessage}</Alert>
             )}
             {status === "error" && (
-              <Alert severity="error">Failed to send message.</Alert>
+              <Alert severity="error">{form?.errorMessage}</Alert>
             )}
           </Stack>
         </Grid>

@@ -36,7 +36,12 @@ const schema = yup
 
 export type JoinTheBandFormData = yup.InferType<typeof schema>;
 
-const JoinTheBand: React.FC<QUERYResult["joinTheBand"]> = (joinTheBand) => {
+const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
+  title,
+  content,
+  instruments,
+  form,
+}) => {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
   const {
@@ -70,36 +75,32 @@ const JoinTheBand: React.FC<QUERYResult["joinTheBand"]> = (joinTheBand) => {
       <Grid container spacing={STANDARD_SPACING}>
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography variant="h3" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
-            {joinTheBand?.title}
+            {title}
           </Typography>
           <Typography component="div">
-            {joinTheBand?.content && (
-              <PortableText value={joinTheBand?.content} />
-            )}
+            <PortableText value={content} />
           </Typography>
 
           <List dense={true} component="ol">
-            {joinTheBand?.instruments?.map(
-              ({ instrumentName, notes, emoticon }) => (
-                <ListItem key={instrumentName} component={"li"}>
-                  <ListItemIcon>{emoticon}</ListItemIcon>
-                  <ListItemText
-                    primary={`${instrumentName}`}
-                    secondary={notes ? `(${notes})` : null}
-                    slotProps={{
-                      secondary: { variant: "caption", color: "grey.500" },
-                    }}
-                  />
-                </ListItem>
-              )
-            )}
+            {instruments?.map(({ instrumentName, notes, emoticon }) => (
+              <ListItem key={instrumentName} component={"li"}>
+                <ListItemIcon>{emoticon}</ListItemIcon>
+                <ListItemText
+                  primary={`${instrumentName}`}
+                  secondary={notes ? `(${notes})` : null}
+                  slotProps={{
+                    secondary: { variant: "caption", color: "grey.500" },
+                  }}
+                />
+              </ListItem>
+            ))}
           </List>
         </Grid>
 
         <Grid size={{ xs: 12, md: 6 }}>
           <Stack spacing={4} component="form" onSubmit={handleSubmit(onSubmit)}>
             <TextField
-              label="Name"
+              label={form?.name}
               {...register("name")}
               error={!!errors.name}
               helperText={errors.name?.message}
@@ -107,7 +108,7 @@ const JoinTheBand: React.FC<QUERYResult["joinTheBand"]> = (joinTheBand) => {
               required
             />
             <TextField
-              label="Email"
+              label={form?.email}
               {...register("email")}
               error={!!errors.email}
               helperText={errors.email?.message}
@@ -115,14 +116,14 @@ const JoinTheBand: React.FC<QUERYResult["joinTheBand"]> = (joinTheBand) => {
               required
             />
             <TextField
-              label="Phone"
+              label={form?.phone}
               {...register("phone")}
               error={!!errors.phone}
               helperText={errors.phone?.message}
               variant="filled"
             />
             <TextField
-              label="Message"
+              label={form?.message}
               multiline
               minRows={4}
               variant="filled"
@@ -132,14 +133,14 @@ const JoinTheBand: React.FC<QUERYResult["joinTheBand"]> = (joinTheBand) => {
               required
             />
             <FormControl variant="filled">
-              <InputLabel id="position">Position</InputLabel>
+              <InputLabel id="position">{form?.position}</InputLabel>
               <Select
-                label="Position"
+                label={form?.position}
                 {...register("position")}
                 error={!!errors.position}
                 variant="filled"
               >
-                {joinTheBand?.instruments?.map(({ instrumentName }) => (
+                {instruments?.map(({ instrumentName }) => (
                   <MenuItem value={instrumentName} key={instrumentName}>
                     {instrumentName}
                   </MenuItem>
@@ -152,15 +153,16 @@ const JoinTheBand: React.FC<QUERYResult["joinTheBand"]> = (joinTheBand) => {
               type="submit"
               disabled={isSubmitting}
               color="primary"
+              loading={isSubmitting}
             >
-              {isSubmitting ? "Sending..." : "Send"}
+              {form?.button}
             </Button>
 
             {status === "success" && (
-              <Alert severity="success">Message sent successfully!</Alert>
+              <Alert severity="success">{form?.confirmationMessage}</Alert>
             )}
             {status === "error" && (
-              <Alert severity="error">Failed to send message.</Alert>
+              <Alert severity="error">{form?.errorMessage}</Alert>
             )}
           </Stack>
         </Grid>

@@ -19,7 +19,16 @@ export const QUERY = defineQuery(`{
   },
   "bookUs": *[_type == "bookUs"][0]{
     title, 
-    content
+    content,
+    form {
+      name,
+      email,
+      phone,
+      message,
+      button,
+      confirmationMessage,
+      errorMessage
+    }
   },
   "aboutUs": *[_type == "aboutUs"][0]{
     title, 
@@ -32,6 +41,16 @@ export const QUERY = defineQuery(`{
       instrumentName,
       emoticon,
       notes
+    },
+    form {
+      name,
+      email,
+      phone,
+      message,
+      position,
+      button,
+      confirmationMessage,
+      errorMessage
     }
   },
   "gallery": *[_type == "galleryImage"][0]{
