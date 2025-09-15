@@ -24,7 +24,7 @@ const Logo = styled(Image)(({ theme }) => ({
   // Animation
   animationName: "move-box",
   animationTimeline: "scroll(root)",
-  animationRange: "0px 400px",
+  animationRange: "0px 600px",
   animationFillMode: "both",
 
   [theme.breakpoints.up(BREAKPOINT)]: {
