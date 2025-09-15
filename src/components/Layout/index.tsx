@@ -4,9 +4,10 @@ import { NAME } from "@/contants";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import React from "react";
+import { Footer } from "..";
 import { QUERYResult } from "../../../sanity.types";
 import WhatsApp from "../WhatsApp";
-import { Footer } from "..";
+import { BREAKPOINT } from "@/theme";
 
 const Logo = styled(Image)(({ theme }) => ({
   width: "300px",
@@ -25,6 +26,11 @@ const Logo = styled(Image)(({ theme }) => ({
   animationTimeline: "scroll(root)",
   animationRange: "0px 400px",
   animationFillMode: "both",
+
+  [theme.breakpoints.up(BREAKPOINT)]: {
+    height: "500px",
+    width: "500px",
+  },
 
   "@keyframes move-box": {
     "0%": {
