@@ -30,7 +30,7 @@ export default function RootLayout({
             <CssBaseline />
             <GlobalStyles
               styles={{
-                p: { margin: 0, padding: 0 },
+                p: { margin: 0, padding: 0, marginBottom: "1em" },
               }}
             />
             {children}
