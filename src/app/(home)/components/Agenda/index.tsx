@@ -34,7 +34,11 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
       minute: "2-digit",
     }),
     name,
-    address,
+    address:
+      address &&
+      [address.name, address.city, address.postalCode]
+        .filter(Boolean)
+        .join(", "),
     active: new Date(date).getTime() > new Date().getTime(),
     date: new Date(date),
     url,
@@ -85,11 +89,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                   <Typography variant="subtitle1">
                     📅 {dateString} (⏰ {timeString})
                   </Typography>
-                  <Typography variant="body2">
-                    {address?.name}
-                    <br />
-                    {address?.city}, {address?.postalCode}
-                  </Typography>
+                  <Typography variant="body2">{address}</Typography>
                   {url && (
                     <Button
                       href={url}
@@ -129,7 +129,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                     <TableCell align="right">
                       <strong>{name}</strong>
                       <br />
-                      {address?.name}, {address?.city}, {address?.postalCode}
+                      {address}
                     </TableCell>
                     <TableCell align="right">
                       {url && (

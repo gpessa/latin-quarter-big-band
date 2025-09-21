@@ -39,7 +39,7 @@ const Logo = styled(Image)(({ theme }) => ({
       transform: "translate(-50%, -50%)",
     },
     "100%": {
-      top: 0,
+      top: theme.spacing(2),
       left: "50%",
       padding: theme.spacing(1.25), // instead of 10px
       width: 140,
