@@ -36,8 +36,8 @@ export async function POST(req: Request) {
 
   try {
     const data = await resend.emails.send({
-      from: `Latin Quarter Big Band <onboarding@resend.dev>`, // works in dev without DNS
-      to: EMAILS, // where to receive the test
+      from: "info@latinquarterbigband.com",
+      to: "info@latinquarterbigband.com",
       subject: `Book Us - Request from ${name}`,
       html,
     });
