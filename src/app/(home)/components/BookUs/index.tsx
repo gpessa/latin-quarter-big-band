@@ -55,7 +55,7 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
 
     if (res.ok) {
       setStatus("success");
-      // reset();
+      reset();
     } else {
       setStatus("error");
     }
