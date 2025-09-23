@@ -15,10 +15,10 @@ const Wrapper = styled("div")(() => ({
 
 const Slide = styled("img")(({ theme }) => ({
   position: "absolute",
-  top: -5,
-  left: -5,
-  bottom: -5,
-  right: -5,
+  top: -4,
+  left: -4,
+  width: "calc(100% + 8px)",
+  height: "calc(100% + 8px)",
   objectFit: "cover",
   filter: "blur(3px)",
   opacity: 0,
