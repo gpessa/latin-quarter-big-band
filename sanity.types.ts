@@ -25,6 +25,7 @@ export type General = {
     statusMessage?: string;
     chatMessage?: string;
   };
+  emails?: Array<string>;
 };
 
 export type GalleryImage = {

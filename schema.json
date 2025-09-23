@@ -70,6 +70,16 @@
           }
         },
         "optional": true
+      },
+      "emails": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "string"
+          }
+        },
+        "optional": true
       }
     }
   },
