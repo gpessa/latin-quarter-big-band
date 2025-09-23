@@ -1,5 +1,6 @@
 import { BookUsFormData } from "@/app/(home)/components/BookUs";
-import { EMAILS, LANG } from "@/contants";
+import { LANG } from "@/contants";
+import { client } from "@/sanity/lib/client";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
@@ -35,9 +36,15 @@ export async function POST(req: Request) {
   `;
 
   try {
+    const { emails } = await client.fetch(
+      `*[_type == "general"][0]{
+        emails
+      }`
+    );
+
     const data = await resend.emails.send({
       from: "info@latinquarterbigband.com",
-      to: "info@latinquarterbigband.com",
+      to: emails,
       subject: `Book Us - Request from ${name}`,
       html,
     });

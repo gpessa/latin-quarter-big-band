@@ -38,6 +38,24 @@ export const generalType = defineType({
         }),
       ],
     }),
+
+    // Email settings
+    defineField({
+      name: "emails",
+      title: "Contact Emails",
+      description: "List of emails to receive contact form submissions",
+      type: "array",
+      of: [
+        {
+          type: "string",
+          validation: (Rule) =>
+            Rule.regex(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, {
+              name: "email",
+              invert: false,
+            }).error("Must be a valid email address"),
+        },
+      ],
+    }),
   ],
   preview: {
     prepare() {
