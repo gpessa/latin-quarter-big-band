@@ -34,11 +34,15 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
       minute: "2-digit",
     }),
     name,
-    address:
-      address &&
-      [address.name, address.city, address.postalCode]
-        .filter(Boolean)
-        .join(", "),
+    address: (
+      <Typography>
+        {address?.name?.toUpperCase()}
+        <br />
+        {[address?.street, address?.postalCode, address?.city]
+          .filter((val) => val != null)
+          .join(", ")}
+      </Typography>
+    ),
     active: new Date(date).getTime() > new Date().getTime(),
     date: new Date(date),
     url,
@@ -87,7 +91,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                     {name}
                   </Typography>
                   <Typography variant="subtitle1">
-                    📅 {dateString} (⏰ {timeString})
+                    📅 {dateString} | ⏰ {timeString}
                   </Typography>
                   <Typography variant="body2">{address}</Typography>
                   {url && (
