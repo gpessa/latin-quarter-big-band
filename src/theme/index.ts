@@ -44,6 +44,15 @@ const theme = createTheme({
         },
       },
     },
+    MuiPagination: {
+      styleOverrides: {
+        root: {
+          "& .MuiButtonBase-root": {
+            color: "white",
+          },
+        },
+      },
+    }
   },
   typography: {
     allVariants: {

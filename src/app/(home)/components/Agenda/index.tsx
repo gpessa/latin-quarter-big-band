@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { Section } from "@/components";
 import { SECTIONS, STANDARD_MARGIN_BOTTOM } from "@/contants";
 import {
+  Box,
   Button,
   Divider,
+  Pagination,
   Stack,
   Table,
   TableBody,
@@ -19,6 +22,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { PortableText } from "next-sanity";
 import { QUERYResult } from "../../../../../sanity.types";
 
+const ITEMS_PER_PAGE = 5;
+
 const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
   title,
   content,
@@ -26,6 +31,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [currentPage, setCurrentPage] = useState(1);
 
   const rows = (concerts || []).map(({ date, name, address, url }) => ({
     dateString: new Date(date).toLocaleDateString("en-GB"),
@@ -58,6 +64,17 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
 
   const concertsSorted = [...newConcerts, ...oldConcerts];
 
+  const totalPages = Math.ceil(concertsSorted.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedConcerts = concertsSorted.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
+
+  const handlePageChange = (event: any, page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <Section color="secondary" id={SECTIONS.agenda}>
       <Typography
@@ -80,7 +97,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
           gap={3}
           divider={<Divider orientation="horizontal" flexItem />}
         >
-          {concertsSorted.map(
+          {paginatedConcerts.map(
             ({ dateString, timeString, name, address, active, url }) => (
               <Stack key={dateString} sx={{ opacity: active ? 1 : 0.5 }}>
                 <Stack spacing={1}>
@@ -122,7 +139,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {concertsSorted.map(
+              {paginatedConcerts.map(
                 (
                   { dateString, timeString, name, address, active, url },
                   index
@@ -154,6 +171,17 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
             </TableBody>
           </Table>
         </TableContainer>
+      )}
+
+      {totalPages > 1 && (
+        <Box display="flex" justifyContent="center" mt={4}>
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="secondary"
+        />
+        </Box>
       )}
     </Section>
   );
