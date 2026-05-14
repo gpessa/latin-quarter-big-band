@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+ 
 "use client";
 
 import {
@@ -50,7 +50,7 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
     formState: { errors, isSubmitting },
     reset,
   } = useForm<JoinTheBandFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     resolver: yupResolver(schema) as any,
   });
 

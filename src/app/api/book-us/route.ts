@@ -4,10 +4,17 @@ import { client } from "@/sanity/lib/client";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return NextResponse.json(
+      { error: "Missing email configuration" },
+      { status: 500 }
+    );
+  }
+
   const { name, email, phone, message }: BookUsFormData = await req.json();
+  const resend = new Resend(apiKey);
 
   const html = `
     <!DOCTYPE html>
