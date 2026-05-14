@@ -1,4 +1,4 @@
-import { GOOGLE_ANALYTICS, IS_PRODUCTION } from "@/contants";
+import { GOOGLE_ANALYTICS, IS_PRODUCTION, LANG } from "@/contants";
 import { SanityLive } from "@/sanity/lib/live";
 import theme from "@/theme";
 import { CssBaseline, GlobalStyles } from "@mui/material";
@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang={LANG}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>

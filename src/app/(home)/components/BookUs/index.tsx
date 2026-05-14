@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+ 
 "use client";
 
 import { Grid, Stack, Typography } from "@mui/material";
@@ -41,7 +41,7 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
     formState: { errors, isSubmitting },
     reset,
   } = useForm<BookUsFormData>({
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     resolver: yupResolver(schema) as any,
   });
 

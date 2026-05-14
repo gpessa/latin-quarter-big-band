@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+ 
 "use client";
 
 import { SECTIONS } from "@/contants";
