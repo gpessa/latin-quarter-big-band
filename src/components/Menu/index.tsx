@@ -2,36 +2,30 @@
 "use client";
 
 import { SECTIONS } from "@/contants";
+import { QUERYResult } from "../../../sanity.types";
 import { List, ListItemButton, ListItemText } from "@mui/material";
 
-export default function Menu() {
-  const MENU = [
-    {
-      title: "About Us",
-      href: SECTIONS.aboutUs,
-    },
-    {
-      title: "Agenda",
-      href: SECTIONS.agenda,
-    },
-    {
-      title: "Book Us",
-      href: SECTIONS.bookUs,
-    },
-    {
-      title: "Gallery",
-      href: SECTIONS.gallery,
-    },
-    {
-      title: "Join The Band",
-      href: SECTIONS.joinTheBand,
-    },
-  ];
+const MENU_SECTIONS: Array<{
+  key: keyof QUERYResult["menu"];
+  href: (typeof SECTIONS)[keyof typeof SECTIONS];
+}> = [
+  { key: "aboutUs", href: SECTIONS.aboutUs },
+  { key: "agenda", href: SECTIONS.agenda },
+  { key: "bookUs", href: SECTIONS.bookUs },
+  { key: "gallery", href: SECTIONS.gallery },
+  { key: "joinTheBand", href: SECTIONS.joinTheBand },
+];
+
+export default function Menu({ menu }: { menu: QUERYResult["menu"] }) {
+  const items = MENU_SECTIONS.flatMap(({ key, href }) => {
+    const title = menu[key];
+    return title ? [{ title, href }] : [];
+  });
 
   return (
     <List>
-      {MENU.map((item) => (
-        <ListItemButton key={item.title} href={`#${item.href}`}>
+      {items.map((item) => (
+        <ListItemButton key={item.href} href={`#${item.href}`}>
           <ListItemText
             slotProps={{ primary: { variant: "h6", textAlign: "center" } }}
           >

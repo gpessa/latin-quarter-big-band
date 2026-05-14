@@ -66,9 +66,10 @@ export const QUERY = defineQuery(`{
     chatMessage,
   },
   "menu": {
-    "joinTheBand": *[_type == "joinTheBand"][0].title,
-    "gallery": *[_type == "galleryImage"][0].title,
+    "aboutUs": *[_type == "aboutUs"][0].title,
+    "agenda": *[_type == "agenda"][0].title,
     "bookUs": *[_type == "bookUs"][0].title,
-    "agenda": *[_type == "agenda"][0].title
+    "gallery": *[_type == "galleryImage"][0].title,
+    "joinTheBand": *[_type == "joinTheBand"][0].title
   }
 }`);

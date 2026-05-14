@@ -4,7 +4,7 @@ import { NAME } from "@/contants";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import React from "react";
-import { Footer } from "..";
+import { Footer, Menu } from "..";
 import { QUERYResult } from "../../../sanity.types";
 import WhatsApp from "../WhatsApp";
 import { BREAKPOINT } from "@/theme";
@@ -53,7 +53,7 @@ const Layout: React.FC<{
   children: React.ReactNode;
   menu: QUERYResult["menu"];
   whatsApp: QUERYResult["whatsApp"];
-}> = ({ children, whatsApp }) => {
+}> = ({ children, menu, whatsApp }) => {
   return (
     <div>
       <Logo
