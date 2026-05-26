@@ -116,13 +116,13 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                     {name}
                   </Typography>
                   <Typography variant="body2">
-                    \ud83d\udcc5 {dateString}
+                    📅 {dateString}
                   </Typography>
                   <Typography variant="body2">
-                    \u23f0 {timeString}
+                    ⏰ {timeString}
                   </Typography>
                   {address && (
-                    <Typography variant="body2">\ud83d\udccd {address}</Typography>
+                    <Typography variant="body2">📍 {address}</Typography>
                   )}
                   {url && (
                     <Button
@@ -133,7 +133,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                       color="secondary"
                       size="small"
                     >
-                      \ud83d\udd17 Link
+                      🔗 Link
                     </Button>
                   )}
                 </Stack>
@@ -146,10 +146,10 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
           <Table sx={{ minWidth: 650 }} aria-label="agenda table">
             <TableHead>
               <TableRow>
-                <TableCell>\ud83d\udcc5 DATE</TableCell>
-                <TableCell>\u23f0 TIME</TableCell>
-                <TableCell align="right">\ud83d\udccd LOCATION</TableCell>
-                <TableCell align="right">\ud83d\udd17 LINK</TableCell>
+                <TableCell>📅 DATE</TableCell>
+                <TableCell>⏰ TIME</TableCell>
+                <TableCell align="right">📍 LOCATION</TableCell>
+                <TableCell align="right">🔗 LINK</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
