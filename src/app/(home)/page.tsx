@@ -1,4 +1,5 @@
-import { NAME } from "@/contants";
+import { JsonLd } from "@/components";
+import { NAME, SITE_URL } from "@/contants";
 import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/live";
 import { QUERY as query } from "@/sanity/lib/queries";
@@ -25,10 +26,33 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
+    alternates: {
+      canonical: SITE_URL,
+    },
     openGraph: {
       title,
       description,
+      url: SITE_URL,
+      siteName: NAME,
+      type: "website",
+      locale: "en_US",
     },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    keywords: [
+      "Latin Quarter Big Band",
+      "big band",
+      "jazz",
+      "swing",
+      "live music",
+      "concerts",
+      "events",
+      "book a band",
+      "live band",
+    ],
   };
 }
 
@@ -39,8 +63,11 @@ export default async function Home() {
     query,
   });
 
+  const { description } = await getPage();
+
   return (
     <>
+      <JsonLd description={description} concerts={agenda?.concerts} />
       {intro && <Intro intro={intro} />}
       {aboutUs && <AboutUs {...aboutUs} />}
       {agenda && <Agenda {...agenda} />}
