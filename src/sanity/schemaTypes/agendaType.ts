@@ -1,4 +1,5 @@
 import { GooglePlacesAddressInput } from "@/sanity/components/GooglePlacesAddressInput";
+import { SortedConcertsInput } from "@/sanity/components/SortedConcertsInput";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { defineField, defineType } from "sanity";
 
@@ -25,6 +26,9 @@ export const agendaType = defineType({
       name: "concerts",
       title: "Concerts",
       type: "array",
+      components: {
+        input: SortedConcertsInput,
+      },
       of: [
         defineField({
           name: "concert",
@@ -68,6 +72,26 @@ export const agendaType = defineType({
               title: "Event URL",
             },
           ],
+          preview: {
+            select: {
+              title: "name",
+              date: "date",
+              venue: "address.name",
+            },
+            prepare({ title, date, venue }) {
+              const dateStr = date
+                ? new Date(date).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })
+                : "";
+              return {
+                title: title || "Concert",
+                subtitle: [dateStr, venue].filter(Boolean).join(" \u00b7 "),
+              };
+            },
+          },
         }),
       ],
     }),
