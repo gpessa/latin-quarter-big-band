@@ -1,3 +1,4 @@
+import { GooglePlacesAddressInput } from "@/sanity/components/GooglePlacesAddressInput";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { defineField, defineType } from "sanity";
 
@@ -42,34 +43,25 @@ export const agendaType = defineType({
               title: "Date and Time",
               validation: (Rule) => Rule.required(),
             },
-            {
+            defineField({
               name: "address",
               type: "object",
-              title: "Address",
+              title: "Venue & address",
+              description:
+                "Search with Google Maps, then adjust venue name or street if needed.",
+              components: {
+                input: GooglePlacesAddressInput,
+              },
               fields: [
-                {
-                  name: "name",
-                  type: "string",
-                  title: "Name",
-                },
-                {
-                  name: "street",
-                  type: "string",
-                  title: "Street",
-                },
-                {
-                  name: "city",
-                  type: "string",
-                  title: "City",
-                  validation: (Rule) => Rule.required(),
-                },
-                {
-                  name: "postalCode",
-                  type: "string",
-                  title: "Postal Code",
-                },
+                defineField({ name: "name", type: "string", title: "Venue name" }),
+                defineField({ name: "formattedAddress", type: "text", title: "Full address", hidden: true }),
+                defineField({ name: "street", type: "string", title: "Street" }),
+                defineField({ name: "city", type: "string", title: "City" }),
+                defineField({ name: "postalCode", type: "string", title: "Postal Code" }),
+                defineField({ name: "googlePlaceId", type: "string", title: "Google Place ID", hidden: true }),
+                defineField({ name: "location", type: "geopoint", title: "Coordinates", hidden: true }),
               ],
-            },
+            }),
             {
               name: "url",
               type: "url",
