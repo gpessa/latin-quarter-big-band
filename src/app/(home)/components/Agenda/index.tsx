@@ -22,7 +22,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { PortableText } from "next-sanity";
 import { QUERYResult } from "../../../../../sanity.types";
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 10;
 
 const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
   title,
@@ -33,34 +33,34 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [currentPage, setCurrentPage] = useState(1);
 
-  const rows = (concerts || []).map(({ date, name, address, url }) => ({
-    dateString: new Date(date).toLocaleDateString("en-GB"),
-    timeString: new Date(date).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    }),
-    name,
-    address: (() => {
-      if (!address?.name) return null;
-      const line = [address.street, address.postalCode, address.city]
-        .filter((v) => v != null)
-        .join(", ");
-      return (
+  const rows = (concerts || []).map(({ date, name, address, url }) => {
+    const addressLine = [address?.street, address?.postalCode, address?.city]
+      .filter((val) => val != null)
+      .join(", ");
+
+    return {
+      dateString: new Date(date).toLocaleDateString("en-GB"),
+      timeString: new Date(date).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      name,
+      address: address?.name ? (
         <Typography component="span" variant="body2">
           {address.name.toUpperCase()}
-          {(line || address.formattedAddress) && (
+          {addressLine && (
             <>
               <br />
-              {line || address.formattedAddress}
+              {addressLine}
             </>
           )}
         </Typography>
-      );
-    })(),
-    active: new Date(date).getTime() > new Date().getTime(),
-    date: new Date(date),
-    url,
-  }));
+      ) : null,
+      active: new Date(date).getTime() > new Date().getTime(),
+      date: new Date(date),
+      url,
+    };
+  });
 
   const oldConcerts = rows
     .filter(({ active }) => !active)
@@ -115,10 +115,15 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                   >
                     {name}
                   </Typography>
-                  <Typography variant="subtitle1">
-                    \ud83d\udcc5 {dateString} | \u23f0 {timeString}
+                  <Typography variant="body2">
+                    📅 {dateString}
                   </Typography>
-                  <Typography variant="body2">{address}</Typography>
+                  <Typography variant="body2">
+                    ⏰ {timeString}
+                  </Typography>
+                  {address && (
+                    <Typography variant="body2">📍 {address}</Typography>
+                  )}
                   {url && (
                     <Button
                       href={url}
@@ -126,8 +131,9 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                       rel="noopener noreferrer"
                       variant="contained"
                       color="secondary"
+                      size="small"
                     >
-                      Link
+                      🔗 Link
                     </Button>
                   )}
                 </Stack>
@@ -140,10 +146,10 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
           <Table sx={{ minWidth: 650 }} aria-label="agenda table">
             <TableHead>
               <TableRow>
-                <TableCell>\ud83d\udcc5 DATE</TableCell>
-                <TableCell>\u23f0 TIME</TableCell>
-                <TableCell align="right">\ud83d\udccd LOCATION</TableCell>
-                <TableCell align="right">\ud83d\udccd LINK</TableCell>
+                <TableCell>📅 DATE</TableCell>
+                <TableCell>⏰ TIME</TableCell>
+                <TableCell align="right">📍 LOCATION</TableCell>
+                <TableCell align="right">🔗 LINK</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -183,12 +189,12 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
 
       {totalPages > 1 && (
         <Box display="flex" justifyContent="center" mt={4}>
-        <Pagination
-          count={totalPages}
-          page={currentPage}
-          onChange={handlePageChange}
-          color="secondary"
-        />
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            color="secondary"
+          />
         </Box>
       )}
     </Section>
