@@ -41,19 +41,19 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
     }),
     name,
     address: (() => {
-      const line = [address?.street, address?.postalCode, address?.city]
+      if (!address?.name) return null;
+      const line = [address.street, address.postalCode, address.city]
         .filter((v) => v != null)
         .join(", ");
-      if (!address?.name && !line) return null;
       return (
         <Typography component="span" variant="body2">
-          {address?.name && (
+          {address.name.toUpperCase()}
+          {(line || address.formattedAddress) && (
             <>
-              {address.name.toUpperCase()}
               <br />
+              {line || address.formattedAddress}
             </>
           )}
-          {line || address?.formattedAddress}
         </Typography>
       );
     })(),
