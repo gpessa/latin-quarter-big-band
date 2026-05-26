@@ -11,6 +11,7 @@ export const QUERY = defineQuery(`{
       url,
       address {
         name,
+        formattedAddress,
         street,
         city,
         postalCode

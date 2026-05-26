@@ -40,15 +40,23 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
       minute: "2-digit",
     }),
     name,
-    address: (
-      <Typography>
-        {address?.name?.toUpperCase()}
-        <br />
-        {[address?.street, address?.postalCode, address?.city]
-          .filter((val) => val != null)
-          .join(", ")}
-      </Typography>
-    ),
+    address: (() => {
+      if (!address?.name) return null;
+      const line = [address.street, address.postalCode, address.city]
+        .filter((v) => v != null)
+        .join(", ");
+      return (
+        <Typography component="span" variant="body2">
+          {address.name.toUpperCase()}
+          {(line || address.formattedAddress) && (
+            <>
+              <br />
+              {line || address.formattedAddress}
+            </>
+          )}
+        </Typography>
+      );
+    })(),
     active: new Date(date).getTime() > new Date().getTime(),
     date: new Date(date),
     url,
@@ -108,7 +116,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                     {name}
                   </Typography>
                   <Typography variant="subtitle1">
-                    📅 {dateString} | ⏰ {timeString}
+                    \ud83d\udcc5 {dateString} | \u23f0 {timeString}
                   </Typography>
                   <Typography variant="body2">{address}</Typography>
                   {url && (
@@ -132,10 +140,10 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
           <Table sx={{ minWidth: 650 }} aria-label="agenda table">
             <TableHead>
               <TableRow>
-                <TableCell>📅 DATE</TableCell>
-                <TableCell>⏰ TIME</TableCell>
-                <TableCell align="right">📍 LOCATION</TableCell>
-                <TableCell align="right">📍 LINK</TableCell>
+                <TableCell>\ud83d\udcc5 DATE</TableCell>
+                <TableCell>\u23f0 TIME</TableCell>
+                <TableCell align="right">\ud83d\udccd LOCATION</TableCell>
+                <TableCell align="right">\ud83d\udccd LINK</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
