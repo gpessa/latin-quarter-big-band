@@ -51,8 +51,8 @@ const Layout: React.FC<{
   children: React.ReactNode;
   menu: QUERYResult["menu"];
   whatsApp: QUERYResult["whatsApp"];
-  locale: string;
-}> = ({ children, menu, whatsApp, locale }) => {
+  footer: string;
+}> = ({ children, menu, whatsApp, footer }) => {
   return (
     <div>
       <Logo
@@ -66,7 +66,7 @@ const Layout: React.FC<{
 
       {whatsApp && <WhatsApp {...whatsApp} />}
 
-      <Footer />
+      <Footer footer={footer} />
     </div>
   );
 };

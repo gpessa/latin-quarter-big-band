@@ -6,9 +6,33 @@ export const generalType = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "metaTitle",
+      title: "Page title (SEO)",
+      description: "Used in the browser tab and search results",
+      type: "internationalizedArrayString",
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
       name: "description",
       title: "Description",
       description: "This description will be used in the meta tag for SEO",
+      type: "internationalizedArrayString",
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: "footer",
+      title: "Footer text",
+      description: "Copyright line shown at the bottom of the page",
+      type: "internationalizedArrayString",
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: "introSlideAlt",
+      title: "Intro slideshow alt text",
+      description: "Base text for homepage slideshow image accessibility labels",
       type: "internationalizedArrayString",
       validation: (Rule) => Rule.required(),
     }),

@@ -1,8 +1,9 @@
 import { JsonLd } from "@/components";
 import { NAME, SITE_URL } from "@/contants";
 import { defaultLocale, locales } from "@/sanity/localeConfig";
+import { fetchGeneral } from "@/sanity/lib/fetchGeneral";
 import { sanityFetch } from "@/sanity/lib/live";
-import { DESCRIPTION_QUERY, QUERY as query } from "@/sanity/lib/queries";
+import { QUERY as query } from "@/sanity/lib/queries";
 import { Metadata } from "next";
 import AboutUs from "./components/AboutUs";
 import Agenda from "./components/Agenda";
@@ -17,12 +18,10 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const { data } = await sanityFetch({
-    query: DESCRIPTION_QUERY,
-    params: { locale, defaultLocale },
-  });
+  const data = await fetchGeneral(locale);
   const description = data?.description || "";
-  const title = NAME;
+  const keywords = data?.keywords || "";
+  const title = data?.metaTitle || NAME;
   const localeUrl = `${SITE_URL}/${locale}`;
 
   return {
@@ -30,9 +29,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     alternates: {
       canonical: localeUrl,
-      languages: Object.fromEntries(
-        locales.map((l) => [l, `${SITE_URL}/${l}`])
-      ),
+      languages: {
+        ...Object.fromEntries(locales.map((l) => [l, `${SITE_URL}/${l}`])),
+        "x-default": `${SITE_URL}/${defaultLocale}`,
+      },
     },
     openGraph: {
       title,
@@ -41,23 +41,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: NAME,
       type: "website",
       locale: locale === "nl" ? "nl_NL" : "en_US",
+      alternateLocale: locale === "nl" ? ["en_US"] : ["nl_NL"],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
     },
-    keywords: [
-      "Latin Quarter Big Band",
-      "big band",
-      "jazz",
-      "swing",
-      "live music",
-      "concerts",
-      "events",
-      "book a band",
-      "live band",
-    ],
+    keywords: keywords
+      .split(",")
+      .map((k: string) => k.trim())
+      .filter(Boolean),
   };
 }
 
@@ -71,15 +65,18 @@ export default async function Home({ params }: Props) {
     params: { locale, defaultLocale },
   });
 
-  const { data } = await sanityFetch({
-    query: DESCRIPTION_QUERY,
-    params: { locale, defaultLocale },
-  });
+  const general = await fetchGeneral(locale);
 
   return (
     <>
-      <JsonLd description={data?.description || ""} concerts={agenda?.concerts} locale={locale} />
-      {intro && <Intro intro={intro} />}
+      <JsonLd
+        description={general?.description || ""}
+        concerts={agenda?.concerts}
+        locale={locale}
+      />
+      {intro && (
+        <Intro intro={intro} slideAlt={general?.introSlideAlt || NAME} />
+      )}
       {aboutUs && <AboutUs {...aboutUs} />}
       {agenda && <Agenda {...agenda} />}
       {bookUs && <BookUs {...bookUs} />}

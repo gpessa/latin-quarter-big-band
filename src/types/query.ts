@@ -82,6 +82,7 @@ export type QUERYResult = {
   } | null;
   gallery: {
     title: string;
+    content?: PortableTextBlock[];
     images: GalleryImage[];
   } | null;
   whatsApp: {

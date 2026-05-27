@@ -19,8 +19,17 @@ function buildMusicGroupSchema(description: string, locale: string) {
     name: NAME,
     url: SITE_URL,
     description,
-    genre: ["Big Band", "Jazz", "Swing"],
-    inLanguage: locale,
+    genre: ["Big Band", "Jazz", "Latin Jazz", "Swing"],
+    inLanguage: locale === "nl" ? "nl-NL" : "en",
+    areaServed: {
+      "@type": "City",
+      name: "Amsterdam",
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Amsterdam",
+      addressCountry: "NL",
+    },
   };
 }
 

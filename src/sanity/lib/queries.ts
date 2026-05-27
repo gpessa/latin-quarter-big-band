@@ -66,6 +66,7 @@ export const QUERY = defineQuery(`{
   },
   "gallery": *[_type == "galleryImage"][0]{
     "title": ${i18n("title")},
+    "content": ${i18n("content")},
     images[]{
       image,
       "title": ${i18n("title")}
@@ -85,6 +86,12 @@ export const QUERY = defineQuery(`{
   }
 }`);
 
-export const DESCRIPTION_QUERY = defineQuery(
-  `*[_type == "general"][0]{ "description": ${i18n("description")}, "keywords": ${i18n("keywords")} }`
+export const GENERAL_QUERY = defineQuery(
+  `*[_type == "general"][0]{
+    "metaTitle": ${i18n("metaTitle")},
+    "description": ${i18n("description")},
+    "keywords": ${i18n("keywords")},
+    "footer": ${i18n("footer")},
+    "introSlideAlt": ${i18n("introSlideAlt")}
+  }`
 );

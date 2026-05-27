@@ -14,6 +14,11 @@ export const galleryImageType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "content",
+      title: "Introduction",
+      type: "internationalizedArrayBlockContent",
+    }),
+    defineField({
       name: "images",
       title: "Images",
       type: "array",
