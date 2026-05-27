@@ -24,16 +24,14 @@ import { QUERYResult } from "@/types/query";
 
 const ITEMS_PER_PAGE = 10;
 
-const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
-  title,
-  content,
-  concerts,
-  tableHeaders,
-}) => {
+const Agenda: React.FC<
+  Exclude<QUERYResult["agenda"], null> & { locale: string }
+> = ({ title, content, concerts, tableHeaders, locale }) => {
+  const dateLocale = locale === "nl" ? "nl-NL" : "en-GB";
   const headers = {
-    date: tableHeaders?.date || "Date",
-    time: tableHeaders?.time || "Time",
-    location: tableHeaders?.location || "Location",
+    date: tableHeaders?.date || (locale === "nl" ? "Datum" : "Date"),
+    time: tableHeaders?.time || (locale === "nl" ? "Tijd" : "Time"),
+    location: tableHeaders?.location || (locale === "nl" ? "Locatie" : "Location"),
     link: tableHeaders?.link || "Link",
   };
   const theme = useTheme();
@@ -46,8 +44,8 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
       .join(", ");
 
     return {
-      dateString: new Date(date).toLocaleDateString("en-GB"),
-      timeString: new Date(date).toLocaleTimeString([], {
+      dateString: new Date(date).toLocaleDateString(dateLocale),
+      timeString: new Date(date).toLocaleTimeString(dateLocale, {
         hour: "2-digit",
         minute: "2-digit",
       }),

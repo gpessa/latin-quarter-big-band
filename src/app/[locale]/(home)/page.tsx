@@ -78,7 +78,7 @@ export default async function Home({ params }: Props) {
         <Intro intro={intro} slideAlt={general?.introSlideAlt || NAME} />
       )}
       {aboutUs && <AboutUs {...aboutUs} />}
-      {agenda && <Agenda {...agenda} />}
+      {agenda && <Agenda {...agenda} locale={locale} />}
       {bookUs && <BookUs {...bookUs} />}
       {gallery && <Gallery {...gallery} />}
       {joinTheBand && <JoinTheBand {...joinTheBand} />}
