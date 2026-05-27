@@ -12,14 +12,13 @@ export const agendaType = defineType({
     defineField({
       name: "title",
       title: "Title",
-      type: "string",
+      type: "internationalizedArrayString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "content",
       title: "Content",
-      type: "array",
-      of: [{ type: "block" }],
+      type: "internationalizedArrayBlockContent",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -95,5 +94,25 @@ export const agendaType = defineType({
         }),
       ],
     }),
+    defineField({
+      name: "tableHeaders",
+      title: "Table Headers",
+      type: "object",
+      fields: [
+        defineField({ name: "date", title: "Date", type: "internationalizedArrayString" }),
+        defineField({ name: "time", title: "Time", type: "internationalizedArrayString" }),
+        defineField({ name: "location", title: "Location", type: "internationalizedArrayString" }),
+        defineField({ name: "link", title: "Link", type: "internationalizedArrayString" }),
+      ],
+    }),
   ],
+  preview: {
+    select: { title: "title" },
+    prepare({ title }) {
+      const defaultTitle = title?.find(
+        (t: { language?: string; value?: string }) => t.language === "nl"
+      );
+      return { title: defaultTitle?.value || "Concerts" };
+    },
+  },
 });

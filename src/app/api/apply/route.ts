@@ -1,5 +1,5 @@
-import { JoinTheBandFormData } from "@/app/(home)/components/JoinTheBand";
-import { LANG } from "@/contants";
+import { JoinTheBandFormData } from "@/app/[locale]/(home)/components/JoinTheBand";
+import { defaultLocale } from "@/sanity/localeConfig";
 import { client } from "@/sanity/lib/client";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
   const html = `
     <!DOCTYPE html>
-    <html lang=${LANG}>
+    <html lang=${defaultLocale}>
       <body>
         <table>
           <tr>

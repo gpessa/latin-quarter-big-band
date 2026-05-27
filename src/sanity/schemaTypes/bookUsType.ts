@@ -8,14 +8,13 @@ export const bookUsType = defineType({
     defineField({
       name: "title",
       title: "Title",
-      type: "string",
+      type: "internationalizedArrayString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "content",
       title: "Content",
-      type: "array",
-      of: [{ type: "block" }],
+      type: "internationalizedArrayBlockContent",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -26,39 +25,48 @@ export const bookUsType = defineType({
         defineField({
           name: "name",
           title: "Name Field Label",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "email",
           title: "Email Field Label",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "phone",
           title: "Phone Field Label",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "message",
           title: "Message Field Label",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "button",
           title: "Button Text",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "confirmationMessage",
           title: "Confirmation Message",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "errorMessage",
           title: "Error Message",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
       ],
     }),
   ],
+  preview: {
+    select: { title: "title" },
+    prepare({ title }) {
+      const defaultTitle = title?.find(
+        (t: { language?: string; value?: string }) => t.language === "nl"
+      );
+      return { title: defaultTitle?.value || "Book Us" };
+    },
+  },
 });

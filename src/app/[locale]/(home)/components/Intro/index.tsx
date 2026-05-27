@@ -2,7 +2,7 @@
 
 import { urlFor } from "@/sanity/lib/image";
 import { useEffect, useState } from "react";
-import { QUERYResult } from "../../../../../sanity.types";
+import { QUERYResult } from "@/types/query";
 import { styled } from "@mui/material/styles";
 import React from "react";
 

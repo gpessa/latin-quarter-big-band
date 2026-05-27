@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 
 import { SECTIONS } from "@/contants";
 import { urlFor } from "@/sanity/lib/image";
-import { QUERYResult } from "../../../../../sanity.types";
+import { QUERYResult } from "@/types/query";
 import { YouTubeEmbed } from "@next/third-parties/google";
 
 const Gallery: React.FC<QUERYResult["gallery"]> = (gallery) => {

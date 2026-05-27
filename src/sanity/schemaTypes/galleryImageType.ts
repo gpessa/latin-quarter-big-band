@@ -10,7 +10,7 @@ export const galleryImageType = defineType({
     defineField({
       name: "title",
       title: "Gallery Title",
-      type: "string",
+      type: "internationalizedArrayString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -35,7 +35,7 @@ export const galleryImageType = defineType({
             defineField({
               name: "title",
               title: "Image Title",
-              type: "string",
+              type: "internationalizedArrayString",
               validation: (Rule) => Rule.required(),
             }),
           ],
@@ -44,9 +44,27 @@ export const galleryImageType = defineType({
               title: "title",
               media: "image",
             },
+            prepare({ title, media }) {
+              const defaultTitle = title?.find(
+                (t: { language?: string; value?: string }) => t.language === "nl"
+              );
+              return {
+                title: defaultTitle?.value || "Image",
+                media,
+              };
+            },
           },
         }),
       ],
     }),
   ],
+  preview: {
+    select: { title: "title" },
+    prepare({ title }) {
+      const defaultTitle = title?.find(
+        (t: { language?: string; value?: string }) => t.language === "nl"
+      );
+      return { title: defaultTitle?.value || "Gallery" };
+    },
+  },
 });

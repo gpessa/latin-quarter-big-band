@@ -1,4 +1,3 @@
-// /schemas/settings.ts
 import { defineType, defineField } from "sanity";
 
 export const generalType = defineType({
@@ -10,11 +9,10 @@ export const generalType = defineType({
       name: "description",
       title: "Description",
       description: "This description will be used in the meta tag for SEO",
-      type: "text",
+      type: "internationalizedArrayString",
       validation: (Rule) => Rule.required(),
     }),
 
-    // Grouped WhatsApp settings
     defineField({
       name: "whatsApp",
       title: "WhatsApp Settings",
@@ -29,17 +27,23 @@ export const generalType = defineType({
         defineField({
           name: "statusMessage",
           title: "Status Message",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "chatMessage",
           title: "Default Chat Message",
-          type: "text",
+          type: "internationalizedArrayString",
         }),
       ],
     }),
 
-    // Email settings
+    defineField({
+      name: "keywords",
+      title: "SEO Keywords",
+      description: "Comma-separated keywords for search engines",
+      type: "internationalizedArrayString",
+    }),
+
     defineField({
       name: "emails",
       title: "Contact Emails",

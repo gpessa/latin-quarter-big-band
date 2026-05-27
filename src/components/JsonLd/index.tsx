@@ -13,13 +13,14 @@ type Concert = {
   } | null;
 };
 
-function buildMusicGroupSchema(description: string) {
+function buildMusicGroupSchema(description: string, locale: string) {
   return {
     "@type": "MusicGroup",
     name: NAME,
     url: SITE_URL,
     description,
     genre: ["Big Band", "Jazz", "Swing"],
+    inLanguage: locale,
   };
 }
 
@@ -66,16 +67,18 @@ function buildEventSchema(concert: Concert) {
 export function JsonLd({
   description,
   concerts,
+  locale,
 }: {
   description: string;
   concerts?: Concert[] | null;
+  locale: string;
 }) {
   const upcomingConcerts = (concerts || []).filter(
     (c) => new Date(c.date).getTime() > Date.now()
   );
 
   const graph: Record<string, unknown>[] = [
-    buildMusicGroupSchema(description),
+    buildMusicGroupSchema(description, locale),
     ...upcomingConcerts.map(buildEventSchema),
   ];
 

@@ -1,45 +1,36 @@
  
 "use client";
 
-import {
-  Grid,
-  MenuItem,
-  Stack,
-  Typography,
-  InputLabel,
-  FormControl,
-} from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { Section } from "@/components";
-import { Alert, Button, TextField, Select } from "@mui/material";
+import { SECTIONS, STANDARD_MARGIN_BOTTOM, STANDARD_SPACING } from "@/contants";
+import { Alert, Button, TextField } from "@mui/material";
 import { PortableText } from "next-sanity";
 import { useState } from "react";
-import { QUERYResult } from "../../../../../sanity.types";
-
-import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import React from "react";
-import { STANDARD_SPACING, STANDARD_MARGIN_BOTTOM, SECTIONS } from "@/contants";
+import { QUERYResult } from "@/types/query";
 
 const schema = yup
   .object({
     email: yup.string().email("Invalid email").required("Email is required"),
     name: yup.string().min(2, "Name too short").required("Name is required"),
     phone: yup.string().min(2, "Phone too short").optional(),
-    message: yup.string(),
-    position: yup.string().required("Position is required"),
+    message: yup
+      .string()
+      .min(10, "Message too short")
+      .required("Message is required"),
   })
   .required();
 
-export type JoinTheBandFormData = yup.InferType<typeof schema>;
+export type BookUsFormData = yup.InferType<typeof schema>;
 
-const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
+const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
   title,
   content,
-  instruments,
   form,
 }) => {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
@@ -49,14 +40,14 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm<JoinTheBandFormData>({
+  } = useForm<BookUsFormData>({
      
     resolver: yupResolver(schema) as any,
   });
 
-  const onSubmit = async (data: JoinTheBandFormData) => {
+  const onSubmit = async (data: BookUsFormData) => {
     setStatus("idle");
-    const res = await fetch("/api/apply", {
+    const res = await fetch("/api/book-us", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -71,8 +62,12 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
   };
 
   return (
-    <Section color="primary" id={SECTIONS.joinTheBand}>
-      <Grid container spacing={STANDARD_SPACING}>
+    <Section color="primary" id={SECTIONS.bookUs}>
+      <Grid
+        container
+        spacing={STANDARD_SPACING}
+        direction={{ md: "row-reverse" }}
+      >
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography variant="h3" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
             {title}
@@ -80,23 +75,7 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
           <Typography component="div">
             <PortableText value={content} />
           </Typography>
-
-          <List dense={true} component="ol">
-            {instruments?.map(({ instrumentName, notes, emoticon }) => (
-              <ListItem key={instrumentName} component={"li"}>
-                <ListItemIcon>{emoticon}</ListItemIcon>
-                <ListItemText
-                  primary={`${instrumentName}`}
-                  secondary={notes ? `(${notes})` : null}
-                  slotProps={{
-                    secondary: { variant: "caption", color: "grey.500" },
-                  }}
-                />
-              </ListItem>
-            ))}
-          </List>
         </Grid>
-
         <Grid size={{ xs: 12, md: 6 }}>
           <Stack spacing={4} component="form" onSubmit={handleSubmit(onSubmit)}>
             <TextField
@@ -132,26 +111,9 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
               helperText={errors.message?.message}
               required
             />
-            <FormControl variant="filled">
-              <InputLabel id="position">{form?.position}</InputLabel>
-              <Select
-                label={form?.position}
-                {...register("position")}
-                error={!!errors.position}
-                variant="filled"
-              >
-                {instruments?.map(({ instrumentName }) => (
-                  <MenuItem value={instrumentName} key={instrumentName}>
-                    {instrumentName}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
             <Button
               variant="contained"
               type="submit"
-              disabled={isSubmitting}
               color="primary"
               loading={isSubmitting}
             >
@@ -171,4 +133,4 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
   );
 };
 
-export default JoinTheBand;
+export default BookUs;

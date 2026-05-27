@@ -20,7 +20,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { PortableText } from "next-sanity";
-import { QUERYResult } from "../../../../../sanity.types";
+import { QUERYResult } from "@/types/query";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -28,7 +28,14 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
   title,
   content,
   concerts,
+  tableHeaders,
 }) => {
+  const headers = {
+    date: tableHeaders?.date || "Date",
+    time: tableHeaders?.time || "Time",
+    location: tableHeaders?.location || "Location",
+    link: tableHeaders?.link || "Link",
+  };
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [currentPage, setCurrentPage] = useState(1);
@@ -133,7 +140,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                       color="secondary"
                       size="small"
                     >
-                      🔗 Link
+                      🔗 {headers.link}
                     </Button>
                   )}
                 </Stack>
@@ -146,10 +153,10 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
           <Table sx={{ minWidth: 650 }} aria-label="agenda table">
             <TableHead>
               <TableRow>
-                <TableCell>📅 DATE</TableCell>
-                <TableCell>⏰ TIME</TableCell>
-                <TableCell align="right">📍 LOCATION</TableCell>
-                <TableCell align="right">🔗 LINK</TableCell>
+                <TableCell>📅 {headers.date.toUpperCase()}</TableCell>
+                <TableCell>⏰ {headers.time.toUpperCase()}</TableCell>
+                <TableCell align="right">📍 {headers.location.toUpperCase()}</TableCell>
+                <TableCell align="right">🔗 {headers.link.toUpperCase()}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -175,8 +182,8 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                           variant="contained"
                           color="secondary"
                         >
-                          Link
-                        </Button>
+                      {headers.link}
+                    </Button>
                       )}
                     </TableCell>
                   </TableRow>

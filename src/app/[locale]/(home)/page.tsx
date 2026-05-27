@@ -1,8 +1,8 @@
 import { JsonLd } from "@/components";
 import { NAME, SITE_URL } from "@/contants";
-import { client } from "@/sanity/lib/client";
+import { defaultLocale, locales } from "@/sanity/localeConfig";
 import { sanityFetch } from "@/sanity/lib/live";
-import { QUERY as query } from "@/sanity/lib/queries";
+import { DESCRIPTION_QUERY, QUERY as query } from "@/sanity/lib/queries";
 import { Metadata } from "next";
 import AboutUs from "./components/AboutUs";
 import Agenda from "./components/Agenda";
@@ -11,31 +11,36 @@ import Gallery from "./components/Gallery";
 import JoinTheBand from "./components/JoinTheBand";
 import Intro from "./components/Intro";
 
-async function getPage() {
-  return client.fetch(
-    `*[_type == "general"][0]{
-      description
-    }`
-  );
-}
+type Props = {
+  params: Promise<{ locale: string }>;
+};
 
-export async function generateMetadata(): Promise<Metadata> {
-  const { description } = await getPage();
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const { data } = await sanityFetch({
+    query: DESCRIPTION_QUERY,
+    params: { locale, defaultLocale },
+  });
+  const description = data?.description || "";
   const title = NAME;
+  const localeUrl = `${SITE_URL}/${locale}`;
 
   return {
     title,
     description,
     alternates: {
-      canonical: SITE_URL,
+      canonical: localeUrl,
+      languages: Object.fromEntries(
+        locales.map((l) => [l, `${SITE_URL}/${l}`])
+      ),
     },
     openGraph: {
       title,
       description,
-      url: SITE_URL,
+      url: localeUrl,
       siteName: NAME,
       type: "website",
-      locale: "en_US",
+      locale: locale === "nl" ? "nl_NL" : "en_US",
     },
     twitter: {
       card: "summary_large_image",
@@ -56,18 +61,24 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Home() {
+export default async function Home({ params }: Props) {
+  const { locale } = await params;
+
   const {
     data: { intro, joinTheBand, gallery, bookUs, agenda, aboutUs },
   } = await sanityFetch({
     query,
+    params: { locale, defaultLocale },
   });
 
-  const { description } = await getPage();
+  const { data } = await sanityFetch({
+    query: DESCRIPTION_QUERY,
+    params: { locale, defaultLocale },
+  });
 
   return (
     <>
-      <JsonLd description={description} concerts={agenda?.concerts} />
+      <JsonLd description={data?.description || ""} concerts={agenda?.concerts} locale={locale} />
       {intro && <Intro intro={intro} />}
       {aboutUs && <AboutUs {...aboutUs} />}
       {agenda && <Agenda {...agenda} />}

@@ -1,4 +1,4 @@
-import { GOOGLE_ANALYTICS, IS_PRODUCTION, LANG } from "@/contants";
+import { GOOGLE_ANALYTICS, IS_PRODUCTION } from "@/contants";
 import { SanityLive } from "@/sanity/lib/live";
 import theme from "@/theme";
 import { CssBaseline, GlobalStyles } from "@mui/material";
@@ -6,6 +6,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Geist, Geist_Mono } from "next/font/google";
+import { defaultLocale } from "@/sanity/localeConfig";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={LANG}>
+    <html lang={defaultLocale}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>

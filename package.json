@@ -23,6 +23,7 @@
     "@next/third-parties": "^16.2.6",
     "@sanity/client": "^7.22.0",
     "@sanity/image-url": "^2.1.1",
+    "@sanity/language-filter": "^5.0.2",
     "@sanity/vision": "^4.22.0",
     "next": "16.2.6",
     "next-sanity": "^11.6.13",
@@ -32,6 +33,7 @@
     "react-hook-form": "^7.75.0",
     "resend": "^6.12.3",
     "sanity": "^4.22.0",
+    "sanity-plugin-internationalized-array": "^5.1.2",
     "styled-components": "^6.4.1",
     "yup": "^1.7.1"
   },
