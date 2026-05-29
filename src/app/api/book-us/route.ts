@@ -1,5 +1,5 @@
 import { BookUsFormData } from "@/app/[locale]/(home)/components/BookUs";
-import { defaultLocale } from "@/sanity/localeConfig";
+import { resolveLocale } from "@/sanity/localeConfig";
 import { client } from "@/sanity/lib/client";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
@@ -13,12 +13,15 @@ export async function POST(req: Request) {
     );
   }
 
-  const { name, email, phone, message }: BookUsFormData = await req.json();
+  const { name, email, phone, message, locale }: BookUsFormData & {
+    locale?: string;
+  } = await req.json();
   const resend = new Resend(apiKey);
+  const lang = resolveLocale(locale);
 
   const html = `
     <!DOCTYPE html>
-    <html lang=${defaultLocale}>
+    <html lang="${lang}">
       <body>
         <table>
           <tr>

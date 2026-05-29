@@ -11,6 +11,7 @@ import { Section } from "@/components";
 import { SECTIONS, STANDARD_MARGIN_BOTTOM, STANDARD_SPACING } from "@/contants";
 import { Alert, Button, TextField } from "@mui/material";
 import { PortableText } from "next-sanity";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { QUERYResult } from "@/types/query";
 
@@ -33,6 +34,7 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
   content,
   form,
 }) => {
+  const { locale } = useParams<{ locale: string }>();
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
   const {
@@ -50,7 +52,7 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
     const res = await fetch("/api/book-us", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, locale }),
     });
 
     if (res.ok) {

@@ -52,7 +52,7 @@ const Agenda: React.FC<
       name,
       address: address?.name ? (
         <Typography component="span" variant="body2">
-          {address.name.toUpperCase()}
+          {address.name}
           {addressLine && (
             <>
               <br />
@@ -151,10 +151,10 @@ const Agenda: React.FC<
           <Table sx={{ minWidth: 650 }} aria-label="agenda table">
             <TableHead>
               <TableRow>
-                <TableCell>📅 {headers.date.toUpperCase()}</TableCell>
-                <TableCell>⏰ {headers.time.toUpperCase()}</TableCell>
-                <TableCell align="right">📍 {headers.location.toUpperCase()}</TableCell>
-                <TableCell align="right">🔗 {headers.link.toUpperCase()}</TableCell>
+                <TableCell>📅 {headers.date}</TableCell>
+                <TableCell>⏰ {headers.time}</TableCell>
+                <TableCell align="right">📍 {headers.location}</TableCell>
+                <TableCell align="right">🔗 {headers.link}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
