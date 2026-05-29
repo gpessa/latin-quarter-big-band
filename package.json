@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "predev": "yarn generate:sanity",
     "prebuild": "yarn generate:sanity",
-    "generate:sanity": "sanity schema extract --enforce-required-fields && sanity typegen generate"
+    "generate:sanity": "sanity schema extract --enforce-required-fields && sanity typegen generate",
+    "sanity:backfill-agenda": "npx tsx scripts/backfill-agenda.ts"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",

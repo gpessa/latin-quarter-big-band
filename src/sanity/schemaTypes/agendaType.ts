@@ -2,6 +2,8 @@ import { GooglePlacesAddressInput } from "@/sanity/components/GooglePlacesAddres
 import { SortedConcertsInput } from "@/sanity/components/SortedConcertsInput";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { defineField, defineType } from "sanity";
+import { locales } from "../localeConfig";
+
 
 export const agendaType = defineType({
   name: "agenda",
@@ -96,13 +98,35 @@ export const agendaType = defineType({
     }),
     defineField({
       name: "tableHeaders",
-      title: "Table Headers",
+      title: "Table column labels",
+      description: "Headers shown above the concerts table (NL and EN).",
       type: "object",
+      options: { collapsible: true, collapsed: false },
       fields: [
-        defineField({ name: "date", title: "Date", type: "internationalizedArrayString" }),
-        defineField({ name: "time", title: "Time", type: "internationalizedArrayString" }),
-        defineField({ name: "location", title: "Location", type: "internationalizedArrayString" }),
-        defineField({ name: "link", title: "Link", type: "internationalizedArrayString" }),
+        defineField({
+          name: "date",
+          title: "Date",
+          type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "time",
+          title: "Time",
+          type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "location",
+          title: "Location",
+          type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "link",
+          title: "Link",
+          type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
+        }),
       ],
     }),
   ],

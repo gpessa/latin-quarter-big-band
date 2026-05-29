@@ -19,12 +19,16 @@ export type General = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  metaTitle: InternationalizedArrayString;
   description: InternationalizedArrayString;
+  footer: InternationalizedArrayString;
+  introSlideAlt: InternationalizedArrayString;
   whatsApp?: {
     phoneNumber: string;
     statusMessage?: InternationalizedArrayString;
     chatMessage?: InternationalizedArrayString;
   };
+  keywords?: InternationalizedArrayString;
   emails?: Array<string>;
 };
 
@@ -39,6 +43,7 @@ export type GalleryImage = {
   _updatedAt: string;
   _rev: string;
   title: InternationalizedArrayString;
+  content?: InternationalizedArrayBlockContent;
   images?: Array<{
     image: {
       asset?: {
@@ -74,6 +79,10 @@ export type SanityImageHotspot = {
   width: number;
 };
 
+export type InternationalizedArrayBlockContent = Array<{
+  _key: string;
+} & InternationalizedArrayBlockContentValue>;
+
 export type AboutUs = {
   _id: string;
   _type: "aboutUs";
@@ -83,10 +92,6 @@ export type AboutUs = {
   title: InternationalizedArrayString;
   content: InternationalizedArrayBlockContent;
 };
-
-export type InternationalizedArrayBlockContent = Array<{
-  _key: string;
-} & InternationalizedArrayBlockContentValue>;
 
 export type BookUs = {
   _id: string;
@@ -278,6 +283,12 @@ export type Agenda = {
     _type: "concert";
     _key: string;
   }>;
+  tableHeaders?: {
+    date: InternationalizedArrayString;
+    time: InternationalizedArrayString;
+    location: InternationalizedArrayString;
+    link: InternationalizedArrayString;
+  };
 };
 
 export type Geopoint = {
@@ -423,5 +434,5 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = General | InternationalizedArrayString | GalleryImage | SanityImageCrop | SanityImageHotspot | AboutUs | InternationalizedArrayBlockContent | BookUs | JoinTheBand | Content | Intro | Agenda | Geopoint | BlockContent | InternationalizedArrayBlockContentValue | InternationalizedArrayTextValue | InternationalizedArrayStringValue | InternationalizedArrayText | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Slug;
+export type AllSanitySchemaTypes = General | InternationalizedArrayString | GalleryImage | SanityImageCrop | SanityImageHotspot | InternationalizedArrayBlockContent | AboutUs | BookUs | JoinTheBand | Content | Intro | Agenda | Geopoint | BlockContent | InternationalizedArrayBlockContentValue | InternationalizedArrayTextValue | InternationalizedArrayStringValue | InternationalizedArrayText | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;

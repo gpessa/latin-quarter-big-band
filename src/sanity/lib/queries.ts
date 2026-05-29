@@ -21,11 +21,11 @@ export const QUERY = defineQuery(`{
         postalCode
       }
     },
-    tableHeaders {
-      "date": ${i18n("date")},
-      "time": ${i18n("time")},
-      "location": ${i18n("location")},
-      "link": ${i18n("link")}
+    "tableHeaders": {
+      "date": ${i18n("tableHeaders.date")},
+      "time": ${i18n("tableHeaders.time")},
+      "location": ${i18n("tableHeaders.location")},
+      "link": ${i18n("tableHeaders.link")}
     }
   },
   "bookUs": *[_type == "bookUs"][0]{

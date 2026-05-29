@@ -46,6 +46,24 @@ export const joinTheBandType = defineType({
               type: "internationalizedArrayString",
             }),
           ],
+          preview: {
+            select: {
+              instrumentName: "instrumentName",
+            },
+            prepare({ instrumentName }) {
+              const pickNl = (
+                entries?: Array<{ language?: string; value?: string }>
+              ) =>
+                entries?.find((t) => t.language === "nl")?.value ??
+                entries?.[0]?.value;
+
+              const name = pickNl(instrumentName) || "Instrument";
+
+              return {
+                title: name,
+              };
+            },
+          },
         }),
       ],
     }),

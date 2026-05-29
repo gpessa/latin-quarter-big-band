@@ -82,9 +82,7 @@ export function JsonLd({
   concerts?: Concert[] | null;
   locale: string;
 }) {
-  const upcomingConcerts = (concerts || []).filter(
-    (c) => new Date(c.date).getTime() > Date.now()
-  );
+  const upcomingConcerts = concerts || [];
 
   const graph: Record<string, unknown>[] = [
     buildMusicGroupSchema(description, locale),

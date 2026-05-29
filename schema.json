@@ -34,7 +34,31 @@
           "type": "string"
         }
       },
+      "metaTitle": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "internationalizedArrayString"
+        },
+        "optional": false
+      },
       "description": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "internationalizedArrayString"
+        },
+        "optional": false
+      },
+      "footer": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "internationalizedArrayString"
+        },
+        "optional": false
+      },
+      "introSlideAlt": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
@@ -71,6 +95,14 @@
               "optional": true
             }
           }
+        },
+        "optional": true
+      },
+      "keywords": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "internationalizedArrayString"
         },
         "optional": true
       },
@@ -150,6 +182,14 @@
           "name": "internationalizedArrayString"
         },
         "optional": false
+      },
+      "content": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "internationalizedArrayBlockContent"
+        },
+        "optional": true
       },
       "images": {
         "type": "objectAttribute",
@@ -349,6 +389,28 @@
     }
   },
   {
+    "name": "internationalizedArrayBlockContent",
+    "type": "type",
+    "value": {
+      "type": "array",
+      "of": {
+        "type": "object",
+        "attributes": {
+          "_key": {
+            "type": "objectAttribute",
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "rest": {
+          "type": "inline",
+          "name": "internationalizedArrayBlockContentValue"
+        }
+      }
+    }
+  },
+  {
     "name": "aboutUs",
     "type": "document",
     "attributes": {
@@ -398,28 +460,6 @@
           "name": "internationalizedArrayBlockContent"
         },
         "optional": false
-      }
-    }
-  },
-  {
-    "name": "internationalizedArrayBlockContent",
-    "type": "type",
-    "value": {
-      "type": "array",
-      "of": {
-        "type": "object",
-        "attributes": {
-          "_key": {
-            "type": "objectAttribute",
-            "value": {
-              "type": "string"
-            }
-          }
-        },
-        "rest": {
-          "type": "inline",
-          "name": "internationalizedArrayBlockContentValue"
-        }
       }
     }
   },
@@ -1840,6 +1880,47 @@
                   }
                 }
               }
+            }
+          }
+        },
+        "optional": true
+      },
+      "tableHeaders": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "date": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "internationalizedArrayString"
+              },
+              "optional": false
+            },
+            "time": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "internationalizedArrayString"
+              },
+              "optional": false
+            },
+            "location": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "internationalizedArrayString"
+              },
+              "optional": false
+            },
+            "link": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "internationalizedArrayString"
+              },
+              "optional": false
             }
           }
         },

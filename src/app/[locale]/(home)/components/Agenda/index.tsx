@@ -29,10 +29,10 @@ const Agenda: React.FC<
 > = ({ title, content, concerts, tableHeaders, locale }) => {
   const dateLocale = locale === "nl" ? "nl-NL" : "en-GB";
   const headers = {
-    date: tableHeaders?.date || (locale === "nl" ? "Datum" : "Date"),
-    time: tableHeaders?.time || (locale === "nl" ? "Tijd" : "Time"),
-    location: tableHeaders?.location || (locale === "nl" ? "Locatie" : "Location"),
-    link: tableHeaders?.link || "Link",
+    date: tableHeaders?.date ?? "",
+    time: tableHeaders?.time ?? "",
+    location: tableHeaders?.location ?? "",
+    link: tableHeaders?.link ?? "",
   };
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));

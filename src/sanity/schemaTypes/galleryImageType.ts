@@ -64,12 +64,36 @@ export const galleryImageType = defineType({
     }),
   ],
   preview: {
-    select: { title: "title" },
-    prepare({ title }) {
+    select: {
+      title: "title",
+      content: "content",
+    },
+    prepare({ title, content }) {
       const defaultTitle = title?.find(
         (t: { language?: string; value?: string }) => t.language === "nl"
       );
-      return { title: defaultTitle?.value || "Gallery" };
+      const nlBlocks = content?.find(
+        (entry: { language?: string; value?: unknown }) =>
+          entry.language === "nl"
+      )?.value ?? content?.[0]?.value;
+
+      const introduction = Array.isArray(nlBlocks)
+        ? nlBlocks
+            .flatMap((block: { children?: Array<{ text?: string }> }) =>
+              block.children?.map((child) => child.text ?? "") ?? []
+            )
+            .join("")
+            .trim()
+        : "";
+
+      return {
+        title: defaultTitle?.value || "Gallery",
+        subtitle: introduction
+          ? introduction.length > 96
+            ? `${introduction.slice(0, 93)}...`
+            : introduction
+          : undefined,
+      };
     },
   },
 });
