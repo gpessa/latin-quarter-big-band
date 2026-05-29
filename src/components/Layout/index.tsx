@@ -51,7 +51,7 @@ const Layout: React.FC<{
   children: React.ReactNode;
   menu: QUERYResult["menu"];
   whatsApp: QUERYResult["whatsApp"];
-  footer: string;
+  footer: { footer: string };
 }> = ({ children, menu, whatsApp, footer }) => {
   return (
     <div>
@@ -66,7 +66,7 @@ const Layout: React.FC<{
 
       {whatsApp && <WhatsApp {...whatsApp} />}
 
-      <Footer footer={footer} />
+      <Footer {...footer} />
     </div>
   );
 };

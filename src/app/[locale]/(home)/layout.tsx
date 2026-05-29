@@ -22,7 +22,7 @@ export default async function HomeLayout({
   ]);
 
   return (
-    <Layout menu={menu} whatsApp={whatsApp} footer={general?.footer || ""}>
+    <Layout menu={menu} whatsApp={whatsApp} footer={{ footer: general?.footer || "" }}>
       {children}
     </Layout>
   );
