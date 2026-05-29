@@ -10,7 +10,7 @@ import { YouTubeEmbed } from "@next/third-parties/google";
 import { PortableText } from "next-sanity";
 
 const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
-  title,
+  title: galleryTitle,
   content,
   images,
 }) => {
@@ -23,7 +23,7 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
           align="center"
           mb={STANDARD_MARGIN_BOTTOM}
         >
-          {title}
+          {galleryTitle}
         </Typography>
 
         {content && (
@@ -33,13 +33,13 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
         )}
 
         <Grid container spacing={4}>
-          {images?.map(({ title: imageTitle, image }, index) => (
+          {images?.map(({ title, image }, index) => (
             <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
               <Box component="figure" sx={{ m: 0 }}>
                 <Box
                   component="img"
                   src={urlFor(image.asset!._ref).width(400).height(400).url()}
-                  alt={imageTitle}
+                  alt={title}
                   loading="lazy"
                   sx={{
                     width: "100%",
@@ -48,7 +48,7 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
                   }}
                 />
                 <Typography component="figcaption" variant="caption">
-                  {imageTitle}
+                  {title}
                 </Typography>
               </Box>
             </Grid>

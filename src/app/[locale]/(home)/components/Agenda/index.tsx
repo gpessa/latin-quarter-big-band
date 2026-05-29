@@ -99,7 +99,7 @@ const Agenda: React.FC<
         {title}
       </Typography>
 
-      <Typography component="div" mb={STANDARD_MARGIN_BOTTOM} align="center">
+      <Typography component="div" align="center">
         <PortableText value={content} />
       </Typography>
 
