@@ -12,7 +12,7 @@ import { internationalizedArray } from "sanity-plugin-internationalized-array";
 import { apiVersion, dataset, projectId } from "./src/sanity/env";
 import { schema } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
-import { defaultStudioLanguages, studioLanguages } from "./src/sanity/localeConfig";
+import { defaultLanguages, languages } from "./src/sanity/localeConfig";
 
 export default defineConfig({
   basePath: "/studio",
@@ -21,8 +21,8 @@ export default defineConfig({
   schema,
   plugins: [
     internationalizedArray({
-      languages: studioLanguages,
-      defaultLanguages: defaultStudioLanguages,
+      languages,
+      defaultLanguages,
       fieldTypes: ["string", "text", "blockContent"],
       languageFilter: {
         documentTypes: [
