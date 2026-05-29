@@ -28,12 +28,6 @@ const Agenda: React.FC<
   Exclude<QUERYResult["agenda"], null> & { locale: string }
 > = ({ title, content, concerts, tableHeaders, locale }) => {
   const dateLocale = locale === "nl" ? "nl-NL" : "en-GB";
-  const headers = {
-    date: tableHeaders?.date ?? "",
-    time: tableHeaders?.time ?? "",
-    location: tableHeaders?.location ?? "",
-    link: tableHeaders?.link ?? "",
-  };
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [currentPage, setCurrentPage] = useState(1);
@@ -138,7 +132,7 @@ const Agenda: React.FC<
                       color="secondary"
                       size="small"
                     >
-                      🔗 {headers.link}
+                      🔗 {tableHeaders?.link}
                     </Button>
                   )}
                 </Stack>
@@ -151,10 +145,10 @@ const Agenda: React.FC<
           <Table sx={{ minWidth: 650 }} aria-label="agenda table">
             <TableHead>
               <TableRow>
-                <TableCell>📅 {headers.date}</TableCell>
-                <TableCell>⏰ {headers.time}</TableCell>
-                <TableCell align="right">📍 {headers.location}</TableCell>
-                <TableCell align="right">🔗 {headers.link}</TableCell>
+                <TableCell>📅 {tableHeaders?.date}</TableCell>
+                <TableCell>⏰ {tableHeaders?.time}</TableCell>
+                <TableCell align="right">📍 {tableHeaders?.location}</TableCell>
+                <TableCell align="right">🔗 {tableHeaders?.link}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -180,7 +174,7 @@ const Agenda: React.FC<
                           variant="contained"
                           color="secondary"
                         >
-                      {headers.link}
+                      {tableHeaders?.link}
                     </Button>
                       )}
                     </TableCell>
