@@ -12,11 +12,9 @@ import Gallery from "./components/Gallery";
 import JoinTheBand from "./components/JoinTheBand";
 import Intro from "./components/Intro";
 
-type Props = {
-  params: Promise<{ locale: string }>;
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
   const data = await fetchGeneral(locale);
   const description = data?.description || "";
@@ -55,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function Home({ params }: Props) {
+export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
 
   const {
