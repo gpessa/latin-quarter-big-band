@@ -24,16 +24,6 @@ export default defineConfig({
       languages,
       defaultLanguages,
       fieldTypes: ["string", "text", "blockContent"],
-      languageFilter: {
-        documentTypes: [
-          "aboutUs",
-          "agenda",
-          "bookUs",
-          "joinTheBand",
-          "galleryImage",
-          "general",
-        ],
-      },
     }),
     structureTool({ structure }),
     visionTool({ defaultApiVersion: apiVersion }),
