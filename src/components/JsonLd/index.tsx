@@ -20,7 +20,7 @@ function buildMusicGroupSchema(description: string, locale: string) {
     url: SITE_URL,
     description,
     genre: ["Big Band", "Jazz", "Latin Jazz", "Swing"],
-    inLanguage: locale === "nl" ? "nl-NL" : "en",
+    inLanguage: locale,
     areaServed: {
       "@type": "City",
       name: "Amsterdam",
