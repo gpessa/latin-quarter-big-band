@@ -1,5 +1,6 @@
 import { defineType, defineField } from "sanity";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
+import { previewString } from "../previewHelpers";
 
 export const joinTheBandType = defineType({
   name: "joinTheBand",
@@ -51,16 +52,8 @@ export const joinTheBandType = defineType({
               instrumentName: "instrumentName",
             },
             prepare({ instrumentName }) {
-              const pickNl = (
-                entries?: Array<{ language?: string; value?: string }>
-              ) =>
-                entries?.find((t) => t.language === "nl")?.value ??
-                entries?.[0]?.value;
-
-              const name = pickNl(instrumentName) || "Instrument";
-
               return {
-                title: name,
+                title: previewString(instrumentName, "Instrument"),
               };
             },
           },
@@ -118,10 +111,7 @@ export const joinTheBandType = defineType({
   preview: {
     select: { title: "title" },
     prepare({ title }) {
-      const defaultTitle = title?.find(
-        (t: { language?: string; value?: string }) => t.language === "nl"
-      );
-      return { title: defaultTitle?.value || "Vacant Seat" };
+      return { title: previewString(title, "Vacant Seat") };
     },
   },
 });

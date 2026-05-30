@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { previewString } from "../previewHelpers";
 
 export const aboutUsType = defineType({
   name: "aboutUs",
@@ -21,10 +22,7 @@ export const aboutUsType = defineType({
   preview: {
     select: { title: "title" },
     prepare({ title }) {
-      const defaultTitle = title?.find(
-        (t: { language?: string; value?: string }) => t.language === "nl"
-      );
-      return { title: defaultTitle?.value || "About Us" };
+      return { title: previewString(title, "About Us") };
     },
   },
 });

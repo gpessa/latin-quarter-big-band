@@ -2,7 +2,7 @@ import { GooglePlacesAddressInput } from "@/sanity/components/GooglePlacesAddres
 import { SortedConcertsInput } from "@/sanity/components/SortedConcertsInput";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { defineField, defineType } from "sanity";
-import { locales } from "../localeConfig";
+import { previewString } from "../previewHelpers";
 
 
 export const agendaType = defineType({
@@ -133,10 +133,7 @@ export const agendaType = defineType({
   preview: {
     select: { title: "title" },
     prepare({ title }) {
-      const defaultTitle = title?.find(
-        (t: { language?: string; value?: string }) => t.language === "nl"
-      );
-      return { title: defaultTitle?.value || "Concerts" };
+      return { title: previewString(title, "Concerts") };
     },
   },
 });
