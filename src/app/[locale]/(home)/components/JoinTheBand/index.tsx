@@ -17,7 +17,6 @@ import * as yup from "yup";
 import { Section } from "@/components";
 import { Alert, Button, TextField, Select } from "@mui/material";
 import { PortableText } from "next-sanity";
-import { useParams } from "next/navigation";
 import { useState } from "react";
 import { QUERYResult } from "@/types/query";
 
@@ -43,7 +42,6 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
   instruments,
   form,
 }) => {
-  const { locale } = useParams<{ locale: string }>();
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
   const {
@@ -61,7 +59,7 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
     const res = await fetch("/api/apply", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...data, locale }),
+      body: JSON.stringify(data),
     });
 
     if (res.ok) {

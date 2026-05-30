@@ -13,7 +13,3 @@ export const defaultLanguages: SiteLocale[] = [defaultLocale];
 export function isValidLocale(locale: string): locale is SiteLocale {
   return locales.includes(locale as SiteLocale);
 }
-
-export function resolveLocale(value: string | null | undefined): SiteLocale {
-  return value && isValidLocale(value) ? value : defaultLocale;
-}

@@ -16,18 +16,17 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
 }) => {
   return (
     <Section color="secondary" id={SECTIONS.gallery}>
-      <Stack gap={4}>
+      <Stack gap={STANDARD_MARGIN_BOTTOM}>
         <Typography
           variant="h3"
           component="h2"
           align="center"
-          mb={STANDARD_MARGIN_BOTTOM}
         >
           {galleryTitle}
         </Typography>
 
         {content && (
-          <Typography component="div" align="center" mb={STANDARD_MARGIN_BOTTOM}>
+          <Typography component="div" align="center">
             <PortableText value={content} />
           </Typography>
         )}
