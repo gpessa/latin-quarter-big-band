@@ -10,7 +10,7 @@ import { YouTubeEmbed } from "@next/third-parties/google";
 import { PortableText } from "next-sanity";
 
 const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
-  title: galleryTitle,
+  title,
   content,
   images,
 }) => {
@@ -22,7 +22,7 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
           component="h2"
           align="center"
         >
-          {galleryTitle}
+          {title}
         </Typography>
 
         {content && (
