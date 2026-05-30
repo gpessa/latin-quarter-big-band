@@ -1,4 +1,3 @@
-// /schemas/settings.ts
 import { defineType, defineField } from "sanity";
 
 export const generalType = defineType({
@@ -7,14 +6,37 @@ export const generalType = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "description",
-      title: "Description",
-      description: "This description will be used in the meta tag for SEO",
-      type: "text",
+      name: "metaTitle",
+      title: "Page title (SEO)",
+      description: "Used in the browser tab and search results",
+      type: "internationalizedArrayString",
       validation: (Rule) => Rule.required(),
     }),
 
-    // Grouped WhatsApp settings
+    defineField({
+      name: "description",
+      title: "Description",
+      description: "This description will be used in the meta tag for SEO",
+      type: "internationalizedArrayString",
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: "footer",
+      title: "Footer text",
+      description: "Copyright line shown at the bottom of the page",
+      type: "internationalizedArrayString",
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: "introSlideAlt",
+      title: "Intro slideshow alt text",
+      description: "Base text for homepage slideshow image accessibility labels",
+      type: "internationalizedArrayString",
+      validation: (Rule) => Rule.required(),
+    }),
+
     defineField({
       name: "whatsApp",
       title: "WhatsApp Settings",
@@ -29,17 +51,23 @@ export const generalType = defineType({
         defineField({
           name: "statusMessage",
           title: "Status Message",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "chatMessage",
           title: "Default Chat Message",
-          type: "text",
+          type: "internationalizedArrayString",
         }),
       ],
     }),
 
-    // Email settings
+    defineField({
+      name: "keywords",
+      title: "SEO Keywords",
+      description: "Comma-separated keywords for search engines",
+      type: "internationalizedArrayString",
+    }),
+
     defineField({
       name: "emails",
       title: "Contact Emails",

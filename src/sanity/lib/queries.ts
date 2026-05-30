@@ -1,10 +1,14 @@
 import { defineQuery } from "next-sanity";
+import { defaultLocale } from "../localeConfig";
+
+const i18n = (path: string) =>
+  `coalesce(${path}[language == $locale][0].value, ${path}[language == "${defaultLocale}"][0].value, ${path}[0].value)`;
 
 export const QUERY = defineQuery(`{
   "intro": *[_type == "intro"],
   "agenda": *[_type == "agenda"][0]{
-    title, 
-    content,
+    "title": ${i18n("title")},
+    "content": ${i18n("content")},
     concerts[] | order(date desc){
       name,
       date,
@@ -16,61 +20,78 @@ export const QUERY = defineQuery(`{
         city,
         postalCode
       }
+    },
+    "tableHeaders": {
+      "date": ${i18n("tableHeaders.date")},
+      "time": ${i18n("tableHeaders.time")},
+      "location": ${i18n("tableHeaders.location")},
+      "link": ${i18n("tableHeaders.link")}
     }
   },
   "bookUs": *[_type == "bookUs"][0]{
-    title, 
-    content,
+    "title": ${i18n("title")},
+    "content": ${i18n("content")},
     form {
-      name,
-      email,
-      phone,
-      message,
-      button,
-      confirmationMessage,
-      errorMessage
+      "name": ${i18n("name")},
+      "email": ${i18n("email")},
+      "phone": ${i18n("phone")},
+      "message": ${i18n("message")},
+      "button": ${i18n("button")},
+      "confirmationMessage": ${i18n("confirmationMessage")},
+      "errorMessage": ${i18n("errorMessage")}
     }
   },
   "aboutUs": *[_type == "aboutUs"][0]{
-    title, 
-    content
+    "title": ${i18n("title")},
+    "content": ${i18n("content")}
   },
   "joinTheBand": *[_type == "joinTheBand"][0]{
-    title, 
-    content,
+    "title": ${i18n("title")},
+    "content": ${i18n("content")},
     instruments[]{
-      instrumentName,
+      "instrumentName": ${i18n("instrumentName")},
       emoticon,
-      notes
+      "notes": ${i18n("notes")}
     },
     form {
-      name,
-      email,
-      phone,
-      message,
-      position,
-      button,
-      confirmationMessage,
-      errorMessage
+      "name": ${i18n("name")},
+      "email": ${i18n("email")},
+      "phone": ${i18n("phone")},
+      "message": ${i18n("message")},
+      "position": ${i18n("position")},
+      "button": ${i18n("button")},
+      "confirmationMessage": ${i18n("confirmationMessage")},
+      "errorMessage": ${i18n("errorMessage")}
     }
   },
   "gallery": *[_type == "galleryImage"][0]{
-    title, 
+    "title": ${i18n("title")},
+    "content": ${i18n("content")},
     images[]{
       image,
-      title
+      "title": ${i18n("title")}
     }
   },
   "whatsApp": *[_type == "general"][0].whatsApp{
     phoneNumber,
-    statusMessage,
-    chatMessage,
+    "statusMessage": ${i18n("statusMessage")},
+    "chatMessage": ${i18n("chatMessage")}
   },
   "menu": {
-    "aboutUs": *[_type == "aboutUs"][0].title,
-    "agenda": *[_type == "agenda"][0].title,
-    "bookUs": *[_type == "bookUs"][0].title,
-    "gallery": *[_type == "galleryImage"][0].title,
-    "joinTheBand": *[_type == "joinTheBand"][0].title
+    "aboutUs": ${i18n('*[_type == "aboutUs"][0].title')},
+    "agenda": ${i18n('*[_type == "agenda"][0].title')},
+    "bookUs": ${i18n('*[_type == "bookUs"][0].title')},
+    "gallery": ${i18n('*[_type == "galleryImage"][0].title')},
+    "joinTheBand": ${i18n('*[_type == "joinTheBand"][0].title')}
   }
 }`);
+
+export const GENERAL_QUERY = defineQuery(
+  `*[_type == "general"][0]{
+    "metaTitle": ${i18n("metaTitle")},
+    "description": ${i18n("description")},
+    "keywords": ${i18n("keywords")},
+    "footer": ${i18n("footer")},
+    "introSlideAlt": ${i18n("introSlideAlt")}
+  }`
+);

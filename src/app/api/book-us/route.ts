@@ -1,5 +1,5 @@
-import { BookUsFormData } from "@/app/(home)/components/BookUs";
-import { LANG } from "@/contants";
+import { BookUsFormData } from "@/app/[locale]/(home)/components/BookUs";
+import { defaultLocale } from "@/sanity/localeConfig";
 import { client } from "@/sanity/lib/client";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
   const html = `
     <!DOCTYPE html>
-    <html lang=${LANG}>
+    <html lang="${defaultLocale}">
       <body>
         <table>
           <tr>

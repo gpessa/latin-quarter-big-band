@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import React from "react";
 import { Footer, Menu } from "..";
-import { QUERYResult } from "../../../sanity.types";
+import { QUERYResult } from "@/types/query";
 import WhatsApp from "../WhatsApp";
 import { BREAKPOINT } from "@/theme";
 
@@ -14,14 +14,12 @@ const Logo = styled(Image)(({ theme }) => ({
   height: "300px",
   position: "fixed",
   zIndex: 1,
-  padding: theme.spacing(4), // 🔹 use theme spacing instead of raw px
+  padding: theme.spacing(4),
 
-  // Center at start
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
 
-  // Animation
   animationName: "move-box",
   animationTimeline: "scroll(root)",
   animationRange: "0px 600px",
@@ -41,7 +39,7 @@ const Logo = styled(Image)(({ theme }) => ({
     "100%": {
       top: theme.spacing(2),
       left: "50%",
-      padding: theme.spacing(1.25), // instead of 10px
+      padding: theme.spacing(1.25),
       width: 140,
       height: 140,
       transform: "translate(-50%, 0%)",
@@ -53,7 +51,8 @@ const Layout: React.FC<{
   children: React.ReactNode;
   menu: QUERYResult["menu"];
   whatsApp: QUERYResult["whatsApp"];
-}> = ({ children, menu, whatsApp }) => {
+  footer: { footer: string };
+}> = ({ children, menu, whatsApp, footer }) => {
   return (
     <div>
       <Logo
@@ -67,7 +66,7 @@ const Layout: React.FC<{
 
       {whatsApp && <WhatsApp {...whatsApp} />}
 
-      <Footer />
+      <Footer {...footer} />
     </div>
   );
 };

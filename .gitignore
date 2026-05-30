@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Sanity dataset export/import artifacts (local only)
+*.ndjson
+assets.json
+/images/
+development-export-*/
+dev-*.tar.gz
+prod-*.tar.gz

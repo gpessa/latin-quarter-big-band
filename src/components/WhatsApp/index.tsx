@@ -6,7 +6,7 @@ import { sendGAEvent } from "@next/third-parties/google";
 
 import React from "react";
 import { FloatingWhatsApp } from "react-floating-whatsapp";
-import { QUERYResult } from "../../../sanity.types";
+import { QUERYResult } from "@/types/query";
 
 const FloatingWhatsAppStyled = styled(FloatingWhatsApp)(
   ({ theme }) => `

@@ -19,14 +19,22 @@ export type General = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  description: string;
+  metaTitle: InternationalizedArrayString;
+  description: InternationalizedArrayString;
+  footer: InternationalizedArrayString;
+  introSlideAlt: InternationalizedArrayString;
   whatsApp?: {
     phoneNumber: string;
-    statusMessage?: string;
-    chatMessage?: string;
+    statusMessage?: InternationalizedArrayString;
+    chatMessage?: InternationalizedArrayString;
   };
+  keywords?: InternationalizedArrayString;
   emails?: Array<string>;
 };
+
+export type InternationalizedArrayString = Array<{
+  _key: string;
+} & InternationalizedArrayStringValue>;
 
 export type GalleryImage = {
   _id: string;
@@ -34,7 +42,8 @@ export type GalleryImage = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title: string;
+  title: InternationalizedArrayString;
+  content?: InternationalizedArrayBlockContent;
   images?: Array<{
     image: {
       asset?: {
@@ -48,7 +57,7 @@ export type GalleryImage = {
       crop?: SanityImageCrop;
       _type: "image";
     };
-    title: string;
+    title: InternationalizedArrayString;
     _type: "galleryImageItem";
     _key: string;
   }>;
@@ -70,31 +79,18 @@ export type SanityImageHotspot = {
   width: number;
 };
 
+export type InternationalizedArrayBlockContent = Array<{
+  _key: string;
+} & InternationalizedArrayBlockContentValue>;
+
 export type AboutUs = {
   _id: string;
   _type: "aboutUs";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title: string;
-  content: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
+  title: InternationalizedArrayString;
+  content: InternationalizedArrayBlockContent;
 };
 
 export type BookUs = {
@@ -103,33 +99,16 @@ export type BookUs = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title: string;
-  content: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
+  title: InternationalizedArrayString;
+  content: InternationalizedArrayBlockContent;
   form?: {
-    name?: string;
-    email?: string;
-    phone?: string;
-    message?: string;
-    button?: string;
-    confirmationMessage?: string;
-    errorMessage?: string;
+    name?: InternationalizedArrayString;
+    email?: InternationalizedArrayString;
+    phone?: InternationalizedArrayString;
+    message?: InternationalizedArrayString;
+    button?: InternationalizedArrayString;
+    confirmationMessage?: InternationalizedArrayString;
+    errorMessage?: InternationalizedArrayString;
   };
 };
 
@@ -139,41 +118,24 @@ export type JoinTheBand = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title: string;
-  content: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
+  title: InternationalizedArrayString;
+  content: InternationalizedArrayBlockContent;
   instruments?: Array<{
-    instrumentName: string;
+    instrumentName: InternationalizedArrayString;
     emoticon?: string;
-    notes?: string;
+    notes?: InternationalizedArrayString;
     _type: "member";
     _key: string;
   }>;
   form?: {
-    name?: string;
-    email?: string;
-    phone?: string;
-    position?: string;
-    message?: string;
-    button?: string;
-    confirmationMessage?: string;
-    errorMessage?: string;
+    name?: InternationalizedArrayString;
+    email?: InternationalizedArrayString;
+    phone?: InternationalizedArrayString;
+    position?: InternationalizedArrayString;
+    message?: InternationalizedArrayString;
+    button?: InternationalizedArrayString;
+    confirmationMessage?: InternationalizedArrayString;
+    errorMessage?: InternationalizedArrayString;
   };
 };
 
@@ -303,39 +265,79 @@ export type Agenda = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title: string;
-  content: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
+  title: InternationalizedArrayString;
+  content: InternationalizedArrayBlockContent;
   concerts?: Array<{
     name: string;
     date: string;
     address?: {
-      name?: string;
+      name: string;
+      formattedAddress?: string;
       street?: string;
-      city: string;
+      city?: string;
       postalCode?: string;
+      googlePlaceId?: string;
+      location?: Geopoint;
     };
     url?: string;
     _type: "concert";
     _key: string;
   }>;
+  tableHeaders?: {
+    date: InternationalizedArrayString;
+    time: InternationalizedArrayString;
+    location: InternationalizedArrayString;
+    link: InternationalizedArrayString;
+  };
 };
+
+export type Geopoint = {
+  _type: "geopoint";
+  lat?: number;
+  lng?: number;
+  alt?: number;
+};
+
+export type BlockContent = Array<{
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  }>;
+  style?: "normal" | "h2" | "h3" | "blockquote";
+  listItem?: "bullet" | "number";
+  markDefs?: Array<{
+    href?: string;
+    _type: "link";
+    _key: string;
+  }>;
+  level?: number;
+  _type: "block";
+  _key: string;
+}>;
+
+export type InternationalizedArrayBlockContentValue = {
+  _type: "internationalizedArrayBlockContentValue";
+  value?: BlockContent;
+  language: string;
+};
+
+export type InternationalizedArrayTextValue = {
+  _type: "internationalizedArrayTextValue";
+  value?: string;
+  language: string;
+};
+
+export type InternationalizedArrayStringValue = {
+  _type: "internationalizedArrayStringValue";
+  value?: string;
+  language: string;
+};
+
+export type InternationalizedArrayText = Array<{
+  _key: string;
+} & InternationalizedArrayTextValue>;
 
 export type SanityImagePaletteSwatch = {
   _type: "sanity.imagePaletteSwatch";
@@ -426,199 +428,11 @@ export type SanityImageAsset = {
   source?: SanityAssetSourceData;
 };
 
-export type Geopoint = {
-  _type: "geopoint";
-  lat?: number;
-  lng?: number;
-  alt?: number;
-};
-
 export type Slug = {
   _type: "slug";
   current: string;
   source?: string;
 };
 
-export type AllSanitySchemaTypes = General | GalleryImage | SanityImageCrop | SanityImageHotspot | AboutUs | BookUs | JoinTheBand | Content | Intro | Agenda | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint | Slug;
+export type AllSanitySchemaTypes = General | InternationalizedArrayString | GalleryImage | SanityImageCrop | SanityImageHotspot | InternationalizedArrayBlockContent | AboutUs | BookUs | JoinTheBand | Content | Intro | Agenda | Geopoint | BlockContent | InternationalizedArrayBlockContentValue | InternationalizedArrayTextValue | InternationalizedArrayStringValue | InternationalizedArrayText | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./src/sanity/lib/queries.ts
-// Variable: QUERY
-// Query: {  "intro": *[_type == "intro"],  "agenda": *[_type == "agenda"][0]{    title,     content,    concerts[] | order(date desc){      name,      date,      url,      address {        name,        street,        city,        postalCode      }    }  },  "bookUs": *[_type == "bookUs"][0]{    title,     content,    form {      name,      email,      phone,      message,      button,      confirmationMessage,      errorMessage    }  },  "aboutUs": *[_type == "aboutUs"][0]{    title,     content  },  "joinTheBand": *[_type == "joinTheBand"][0]{    title,     content,    instruments[]{      instrumentName,      emoticon,      notes    },    form {      name,      email,      phone,      message,      position,      button,      confirmationMessage,      errorMessage    }  },  "gallery": *[_type == "galleryImage"][0]{    title,     images[]{      image,      title    }  },  "whatsApp": *[_type == "general"][0].whatsApp{    phoneNumber,    statusMessage,    chatMessage,  },  "menu": {    "aboutUs": *[_type == "aboutUs"][0].title,    "agenda": *[_type == "agenda"][0].title,    "bookUs": *[_type == "bookUs"][0].title,    "gallery": *[_type == "galleryImage"][0].title,    "joinTheBand": *[_type == "joinTheBand"][0].title  }}
-export type QUERYResult = {
-  intro: Array<{
-    _id: string;
-    _type: "intro";
-    _createdAt: string;
-    _updatedAt: string;
-    _rev: string;
-    image: {
-      asset?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-      };
-      media?: unknown;
-      hotspot?: SanityImageHotspot;
-      crop?: SanityImageCrop;
-      _type: "image";
-    };
-  }>;
-  agenda: {
-    title: string;
-    content: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    concerts: Array<{
-      name: string;
-      date: string;
-      url: string | null;
-      address: {
-        name: string | null;
-        street: string | null;
-        city: string;
-        postalCode: string | null;
-      } | null;
-    }> | null;
-  } | null;
-  bookUs: {
-    title: string;
-    content: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    form: {
-      name: string | null;
-      email: string | null;
-      phone: string | null;
-      message: string | null;
-      button: string | null;
-      confirmationMessage: string | null;
-      errorMessage: string | null;
-    } | null;
-  } | null;
-  aboutUs: {
-    title: string;
-    content: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-  } | null;
-  joinTheBand: {
-    title: string;
-    content: Array<{
-      children?: Array<{
-        marks?: Array<string>;
-        text?: string;
-        _type: "span";
-        _key: string;
-      }>;
-      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-      listItem?: "bullet" | "number";
-      markDefs?: Array<{
-        href?: string;
-        _type: "link";
-        _key: string;
-      }>;
-      level?: number;
-      _type: "block";
-      _key: string;
-    }>;
-    instruments: Array<{
-      instrumentName: string;
-      emoticon: string | null;
-      notes: string | null;
-    }> | null;
-    form: {
-      name: string | null;
-      email: string | null;
-      phone: string | null;
-      message: string | null;
-      position: string | null;
-      button: string | null;
-      confirmationMessage: string | null;
-      errorMessage: string | null;
-    } | null;
-  } | null;
-  gallery: {
-    title: string;
-    images: Array<{
-      image: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        media?: unknown;
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-      };
-      title: string;
-    }> | null;
-  } | null;
-  whatsApp: {
-    phoneNumber: string;
-    statusMessage: string | null;
-    chatMessage: string | null;
-  } | null;
-  menu: {
-    aboutUs: string | null;
-    agenda: string | null;
-    bookUs: string | null;
-    gallery: string | null;
-    joinTheBand: string | null;
-  };
-};
-
-// Query TypeMap
-import "@sanity/client";
-declare module "@sanity/client" {
-  interface SanityQueries {
-    "{\n  \"intro\": *[_type == \"intro\"],\n  \"agenda\": *[_type == \"agenda\"][0]{\n    title, \n    content,\n    concerts[] | order(date desc){\n      name,\n      date,\n      url,\n      address {\n        name,\n        street,\n        city,\n        postalCode\n      }\n    }\n  },\n  \"bookUs\": *[_type == \"bookUs\"][0]{\n    title, \n    content,\n    form {\n      name,\n      email,\n      phone,\n      message,\n      button,\n      confirmationMessage,\n      errorMessage\n    }\n  },\n  \"aboutUs\": *[_type == \"aboutUs\"][0]{\n    title, \n    content\n  },\n  \"joinTheBand\": *[_type == \"joinTheBand\"][0]{\n    title, \n    content,\n    instruments[]{\n      instrumentName,\n      emoticon,\n      notes\n    },\n    form {\n      name,\n      email,\n      phone,\n      message,\n      position,\n      button,\n      confirmationMessage,\n      errorMessage\n    }\n  },\n  \"gallery\": *[_type == \"galleryImage\"][0]{\n    title, \n    images[]{\n      image,\n      title\n    }\n  },\n  \"whatsApp\": *[_type == \"general\"][0].whatsApp{\n    phoneNumber,\n    statusMessage,\n    chatMessage,\n  },\n  \"menu\": {\n    \"aboutUs\": *[_type == \"aboutUs\"][0].title,\n    \"agenda\": *[_type == \"agenda\"][0].title,\n    \"bookUs\": *[_type == \"bookUs\"][0].title,\n    \"gallery\": *[_type == \"galleryImage\"][0].title,\n    \"joinTheBand\": *[_type == \"joinTheBand\"][0].title\n  }\n}": QUERYResult;
-  }
-}

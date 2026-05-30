@@ -1,6 +1,6 @@
-// /schemas/settings.ts
 import { defineType, defineField } from "sanity";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
+import { previewString } from "../previewHelpers";
 
 export const joinTheBandType = defineType({
   name: "joinTheBand",
@@ -11,14 +11,13 @@ export const joinTheBandType = defineType({
     defineField({
       name: "title",
       title: "Title",
-      type: "string",
+      type: "internationalizedArrayString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "content",
       title: "Content",
-      type: "array",
-      of: [{ type: "block" }],
+      type: "internationalizedArrayBlockContent",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -34,7 +33,7 @@ export const joinTheBandType = defineType({
             defineField({
               name: "instrumentName",
               title: "Instrument Name",
-              type: "string",
+              type: "internationalizedArrayString",
               validation: (Rule) => Rule.required(),
             }),
             defineField({
@@ -45,10 +44,19 @@ export const joinTheBandType = defineType({
             defineField({
               name: "notes",
               title: "Notes",
-              type: "text",
-              rows: 3,
+              type: "internationalizedArrayString",
             }),
           ],
+          preview: {
+            select: {
+              instrumentName: "instrumentName",
+            },
+            prepare({ instrumentName }) {
+              return {
+                title: previewString(instrumentName, "Instrument"),
+              };
+            },
+          },
         }),
       ],
     }),
@@ -60,44 +68,50 @@ export const joinTheBandType = defineType({
         defineField({
           name: "name",
           title: "Name Field Label",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "email",
           title: "Email Field Label",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "phone",
           title: "Phone Field Label",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "position",
           title: "Position Field Label",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "message",
           title: "Message Field Label",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "button",
           title: "Button Text",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "confirmationMessage",
           title: "Confirmation Message",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
         defineField({
           name: "errorMessage",
           title: "Error Message",
-          type: "string",
+          type: "internationalizedArrayString",
         }),
       ],
     }),
   ],
+  preview: {
+    select: { title: "title" },
+    prepare({ title }) {
+      return { title: previewString(title, "Vacant Seat") };
+    },
+  },
 });
