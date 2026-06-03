@@ -46,7 +46,7 @@ const JoinTheBand: React.FC<
     formState: { errors, isSubmitting },
     reset,
   } = useForm<JoinTheBandFormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   const onSubmit = async (data: JoinTheBandFormData) => {

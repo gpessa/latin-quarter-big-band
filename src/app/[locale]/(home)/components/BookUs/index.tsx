@@ -36,7 +36,7 @@ const BookUs: React.FC<
     formState: { errors, isSubmitting },
     reset,
   } = useForm<BookUsFormData>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as any,
   });
 
   const onSubmit = async (data: BookUsFormData) => {
