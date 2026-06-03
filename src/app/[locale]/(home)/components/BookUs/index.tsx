@@ -5,35 +5,30 @@ import { Grid, Stack, Typography } from "@mui/material";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 
 import { Section } from "@/components";
 import { SECTIONS, STANDARD_MARGIN_BOTTOM, STANDARD_SPACING } from "@/contants";
+import {
+  BookUsFormData,
+  createBookUsSchema,
+} from "@/sanity/formSchemas";
+import type { SiteLocale } from "@/sanity/localeConfig";
+import { getValidationMessages } from "@/sanity/validationMessages";
 import { Alert, Button, TextField } from "@mui/material";
 import { PortableText } from "next-sanity";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { QUERYResult } from "@/types/query";
 
-const schema = yup
-  .object({
-    email: yup.string().email("Invalid email").required("Email is required"),
-    name: yup.string().min(2, "Name too short").required("Name is required"),
-    phone: yup.string().min(2, "Phone too short").optional(),
-    message: yup
-      .string()
-      .min(10, "Message too short")
-      .required("Message is required"),
-  })
-  .required();
+export type { BookUsFormData };
 
-export type BookUsFormData = yup.InferType<typeof schema>;
-
-const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
-  title,
-  content,
-  form,
-}) => {
+const BookUs: React.FC<
+  Exclude<QUERYResult["bookUs"], null> & { locale: SiteLocale }
+> = ({ title, content, form, locale }) => {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const schema = useMemo(
+    () => createBookUsSchema(getValidationMessages(locale)),
+    [locale]
+  );
 
   const {
     register,
@@ -41,8 +36,7 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
     formState: { errors, isSubmitting },
     reset,
   } = useForm<BookUsFormData>({
-     
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
   });
 
   const onSubmit = async (data: BookUsFormData) => {

@@ -12,37 +12,33 @@ import {
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 
 import { Section } from "@/components";
 import { Alert, Button, TextField, Select } from "@mui/material";
 import { PortableText } from "next-sanity";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { QUERYResult } from "@/types/query";
+import {
+  JoinTheBandFormData,
+  createJoinTheBandSchema,
+} from "@/sanity/formSchemas";
+import type { SiteLocale } from "@/sanity/localeConfig";
+import { getValidationMessages } from "@/sanity/validationMessages";
 
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
 import { STANDARD_SPACING, STANDARD_MARGIN_BOTTOM, SECTIONS } from "@/contants";
 
-const schema = yup
-  .object({
-    email: yup.string().email("Invalid email").required("Email is required"),
-    name: yup.string().min(2, "Name too short").required("Name is required"),
-    phone: yup.string().min(2, "Phone too short").optional(),
-    message: yup.string(),
-    position: yup.string().required("Position is required"),
-  })
-  .required();
+export type { JoinTheBandFormData };
 
-export type JoinTheBandFormData = yup.InferType<typeof schema>;
-
-const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
-  title,
-  content,
-  instruments,
-  form,
-}) => {
+const JoinTheBand: React.FC<
+  Exclude<QUERYResult["joinTheBand"], null> & { locale: SiteLocale }
+> = ({ title, content, instruments, form, locale }) => {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const schema = useMemo(
+    () => createJoinTheBandSchema(getValidationMessages(locale)),
+    [locale]
+  );
 
   const {
     register,
@@ -50,8 +46,7 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
     formState: { errors, isSubmitting },
     reset,
   } = useForm<JoinTheBandFormData>({
-     
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(schema),
   });
 
   const onSubmit = async (data: JoinTheBandFormData) => {

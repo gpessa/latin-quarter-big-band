@@ -1,4 +1,4 @@
-import { BookUsFormData } from "@/app/[locale]/(home)/components/BookUs";
+import { BookUsFormData } from "@/sanity/formSchemas";
 import { defaultLocale } from "@/sanity/localeConfig";
 import { client } from "@/sanity/lib/client";
 import { NextResponse } from "next/server";
