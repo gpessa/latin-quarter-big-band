@@ -1,5 +1,6 @@
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { defineField, defineType } from "sanity";
+import { previewString } from "../previewHelpers";
 
 export const galleryImageType = defineType({
   name: "galleryImage",
@@ -10,8 +11,13 @@ export const galleryImageType = defineType({
     defineField({
       name: "title",
       title: "Gallery Title",
-      type: "string",
+      type: "internationalizedArrayString",
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "content",
+      title: "Introduction",
+      type: "internationalizedArrayBlockContent",
     }),
     defineField({
       name: "images",
@@ -35,7 +41,7 @@ export const galleryImageType = defineType({
             defineField({
               name: "title",
               title: "Image Title",
-              type: "string",
+              type: "internationalizedArrayString",
               validation: (Rule) => Rule.required(),
             }),
           ],
@@ -44,9 +50,21 @@ export const galleryImageType = defineType({
               title: "title",
               media: "image",
             },
+            prepare({ title, media }) {
+              return {
+                title: previewString(title, "Image"),
+                media,
+              };
+            },
           },
         }),
       ],
     }),
   ],
+  preview: {
+    select: { title: "title" },
+    prepare({ title }) {
+      return { title: previewString(title, "Gallery") };
+    },
+  },
 });

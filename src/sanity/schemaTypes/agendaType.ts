@@ -2,6 +2,8 @@ import { GooglePlacesAddressInput } from "@/sanity/components/GooglePlacesAddres
 import { SortedConcertsInput } from "@/sanity/components/SortedConcertsInput";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { defineField, defineType } from "sanity";
+import { previewString } from "../previewHelpers";
+
 
 export const agendaType = defineType({
   name: "agenda",
@@ -12,14 +14,13 @@ export const agendaType = defineType({
     defineField({
       name: "title",
       title: "Title",
-      type: "string",
+      type: "internationalizedArrayString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "content",
       title: "Content",
-      type: "array",
-      of: [{ type: "block" }],
+      type: "internationalizedArrayBlockContent",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -95,5 +96,44 @@ export const agendaType = defineType({
         }),
       ],
     }),
+    defineField({
+      name: "tableHeaders",
+      title: "Table column labels",
+      description: "Headers shown above the concerts table (NL and EN).",
+      type: "object",
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({
+          name: "date",
+          title: "Date",
+          type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "time",
+          title: "Time",
+          type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "location",
+          title: "Location",
+          type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "link",
+          title: "Link",
+          type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
+        }),
+      ],
+    }),
   ],
+  preview: {
+    select: { title: "title" },
+    prepare({ title }) {
+      return { title: previewString(title, "Concerts") };
+    },
+  },
 });

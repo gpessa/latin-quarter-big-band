@@ -20,15 +20,14 @@ import {
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { PortableText } from "next-sanity";
-import { QUERYResult } from "../../../../../sanity.types";
+import { QUERYResult } from "@/types/query";
 
 const ITEMS_PER_PAGE = 10;
 
-const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
-  title,
-  content,
-  concerts,
-}) => {
+const Agenda: React.FC<
+  Exclude<QUERYResult["agenda"], null> & { locale: string }
+> = ({ title, content, concerts, tableHeaders, locale }) => {
+  const dateLocale = locale === "nl" ? "nl-NL" : "en-GB";
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,15 +38,15 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
       .join(", ");
 
     return {
-      dateString: new Date(date).toLocaleDateString("en-GB"),
-      timeString: new Date(date).toLocaleTimeString([], {
+      dateString: new Date(date).toLocaleDateString(dateLocale),
+      timeString: new Date(date).toLocaleTimeString(dateLocale, {
         hour: "2-digit",
         minute: "2-digit",
       }),
       name,
       address: address?.name ? (
         <Typography component="span" variant="body2">
-          {address.name.toUpperCase()}
+          {address.name}
           {addressLine && (
             <>
               <br />
@@ -94,7 +93,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
         {title}
       </Typography>
 
-      <Typography component="div" mb={STANDARD_MARGIN_BOTTOM} align="center">
+      <Typography component="div" align="center">
         <PortableText value={content} />
       </Typography>
 
@@ -133,7 +132,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                       color="secondary"
                       size="small"
                     >
-                      🔗 Link
+                      🔗 {tableHeaders?.link}
                     </Button>
                   )}
                 </Stack>
@@ -146,10 +145,10 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
           <Table sx={{ minWidth: 650 }} aria-label="agenda table">
             <TableHead>
               <TableRow>
-                <TableCell>📅 DATE</TableCell>
-                <TableCell>⏰ TIME</TableCell>
-                <TableCell align="right">📍 LOCATION</TableCell>
-                <TableCell align="right">🔗 LINK</TableCell>
+                <TableCell>📅 {tableHeaders?.date}</TableCell>
+                <TableCell>⏰ {tableHeaders?.time}</TableCell>
+                <TableCell align="right">📍 {tableHeaders?.location}</TableCell>
+                <TableCell align="right">🔗 {tableHeaders?.link}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -175,8 +174,8 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                           variant="contained"
                           color="secondary"
                         >
-                          Link
-                        </Button>
+                      {tableHeaders?.link}
+                    </Button>
                       )}
                     </TableCell>
                   </TableRow>

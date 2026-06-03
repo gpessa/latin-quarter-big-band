@@ -19,6 +19,13 @@ type AddressValue = {
   location?: { lat?: number; lng?: number };
 };
 
+function formatAddressLine(addr: AddressValue): string {
+  if (addr.formattedAddress?.trim()) return addr.formattedAddress.trim();
+  return [addr.name, addr.street, addr.postalCode, addr.city]
+    .filter((part) => part?.trim())
+    .join(", ");
+}
+
 export function GooglePlacesAddressInput(props: ObjectInputProps) {
   const { value, onChange, schemaType } = props;
   const addr = (value ?? {}) as AddressValue;
@@ -34,6 +41,7 @@ export function GooglePlacesAddressInput(props: ObjectInputProps) {
   const lat = addr.location?.lat;
   const lng = addr.location?.lng;
   const hasCoords = typeof lat === "number" && typeof lng === "number";
+  const displayAddress = formatAddressLine(addr);
 
   const setField = useCallback(
     (field: keyof AddressValue, v: string | undefined) => {
@@ -117,6 +125,12 @@ export function GooglePlacesAddressInput(props: ObjectInputProps) {
     if (ready && hasCoords) updateMap(lat, lng);
   }, [hasCoords, lat, lng, ready, updateMap]);
 
+  useEffect(() => {
+    if (searchRef.current && displayAddress) {
+      searchRef.current.value = displayAddress;
+    }
+  }, [displayAddress]);
+
   return (
     <Stack space={4} padding={3}>
       <Text size={1} weight="semibold">
@@ -129,7 +143,7 @@ export function GooglePlacesAddressInput(props: ObjectInputProps) {
         </Text>
         <input
           ref={searchRef}
-          defaultValue={addr.formattedAddress ?? ""}
+          defaultValue={displayAddress}
           placeholder={
             ready ? "Search venue or address\u2026" : loadError ? "See error below" : "Loading Google Maps\u2026"
           }
@@ -148,10 +162,12 @@ export function GooglePlacesAddressInput(props: ObjectInputProps) {
             {loadError}
           </Text>
         )}
-        {addr.googlePlaceId && (
-          <Card padding={3} radius={2} tone="positive" border>
+        {(addr.googlePlaceId || displayAddress) && (
+          <Card padding={3} radius={2} tone={addr.googlePlaceId ? "positive" : "caution"} border>
             <Text size={1}>
-              Google place selected{addr.formattedAddress ? `: ${addr.formattedAddress}` : ""}
+              {addr.googlePlaceId
+                ? `Google place selected${displayAddress ? `: ${displayAddress}` : ""}`
+                : `Saved address${displayAddress ? `: ${displayAddress}` : ""} (pick a Google suggestion to refresh coordinates)`}
             </Text>
           </Card>
         )}

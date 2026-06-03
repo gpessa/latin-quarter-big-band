@@ -1,11 +1,13 @@
-import { GOOGLE_ANALYTICS, IS_PRODUCTION, LANG } from "@/contants";
+import { GOOGLE_ANALYTICS, IS_PRODUCTION } from "@/contants";
 import { SanityLive } from "@/sanity/lib/live";
+import { defaultLocale, isValidLocale } from "@/sanity/localeConfig";
 import theme from "@/theme";
 import { CssBaseline, GlobalStyles } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Geist, Geist_Mono } from "next/font/google";
+import { headers } from "next/headers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,13 +19,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const localeHeader = (await headers()).get("x-locale");
+  const lang =
+    localeHeader && isValidLocale(localeHeader) ? localeHeader : defaultLocale;
+
   return (
-    <html lang={LANG}>
+    <html lang={lang}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>

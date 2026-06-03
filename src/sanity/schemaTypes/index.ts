@@ -1,6 +1,7 @@
 import { type SchemaTypeDefinition } from "sanity";
 
 import { agendaType } from "./agendaType";
+import { blockContentType } from "./blockContentType";
 import { bookUsType } from "./bookUsType";
 import { contentType } from "./contentType";
 import { generalType } from "./generalType";
@@ -11,6 +12,7 @@ import { introType } from "./introType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
+    blockContentType,
     agendaType,
     introType,
     contentType,
