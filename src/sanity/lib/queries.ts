@@ -72,10 +72,17 @@ export const QUERY = defineQuery(`{
       "title": ${i18n("title")}
     }
   },
-  "whatsApp": *[_type == "general"][0].whatsApp{
-    phoneNumber,
-    "statusMessage": ${i18n("statusMessage")},
-    "chatMessage": ${i18n("chatMessage")}
+  "general": *[_type == "general"][0]{
+    "metaTitle": ${i18n("metaTitle")},
+    "description": ${i18n("description")},
+    "keywords": ${i18n("keywords")},
+    "footer": ${i18n("footer")},
+    "introSlideAlt": ${i18n("introSlideAlt")},
+    "whatsApp": whatsApp{
+      phoneNumber,
+      "statusMessage": ${i18n("whatsApp.statusMessage")},
+      "chatMessage": ${i18n("whatsApp.chatMessage")}
+    }
   },
   "menu": {
     "aboutUs": ${i18n('*[_type == "aboutUs"][0].title')},
@@ -85,13 +92,3 @@ export const QUERY = defineQuery(`{
     "joinTheBand": ${i18n('*[_type == "joinTheBand"][0].title')}
   }
 }`);
-
-export const GENERAL_QUERY = defineQuery(
-  `*[_type == "general"][0]{
-    "metaTitle": ${i18n("metaTitle")},
-    "description": ${i18n("description")},
-    "keywords": ${i18n("keywords")},
-    "footer": ${i18n("footer")},
-    "introSlideAlt": ${i18n("introSlideAlt")}
-  }`
-);

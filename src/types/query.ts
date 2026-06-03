@@ -85,10 +85,17 @@ export type QUERYResult = {
     content?: PortableTextBlock[];
     images: GalleryImage[];
   } | null;
-  whatsApp: {
-    phoneNumber: string;
-    statusMessage?: string;
-    chatMessage?: string;
+  general: {
+    metaTitle?: string;
+    description?: string;
+    keywords?: string;
+    footer?: string;
+    introSlideAlt?: string;
+    whatsApp: {
+      phoneNumber: string;
+      statusMessage?: string;
+      chatMessage?: string;
+    } | null;
   } | null;
   menu: {
     aboutUs: string | null;

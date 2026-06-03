@@ -1,9 +1,7 @@
 import { JsonLd } from "@/components";
 import { NAME, SITE_URL } from "@/contants";
 import { defaultLocale, locales } from "@/sanity/localeConfig";
-import { fetchGeneral } from "@/sanity/lib/fetchGeneral";
-import { sanityFetch } from "@/sanity/lib/live";
-import { QUERY as query } from "@/sanity/lib/queries";
+import { fetchSiteData } from "@/sanity/lib/fetchGeneral";
 import { Metadata } from "next";
 import AboutUs from "./components/AboutUs";
 import Agenda from "./components/Agenda";
@@ -16,10 +14,10 @@ export async function generateMetadata({
   params,
 }: PageProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
-  const data = await fetchGeneral(locale);
-  const description = data?.description || "";
-  const keywords = data?.keywords || "";
-  const title = data?.metaTitle || NAME;
+  const { general } = await fetchSiteData(locale);
+  const description = general?.description || "";
+  const keywords = general?.keywords || "";
+  const title = general?.metaTitle || NAME;
   const localeUrl = `${SITE_URL}/${locale}`;
 
   return {
@@ -57,13 +55,14 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
 
   const {
-    data: { intro, joinTheBand, gallery, bookUs, agenda, aboutUs },
-  } = await sanityFetch({
-    query,
-    params: { locale, defaultLocale },
-  });
-
-  const general = await fetchGeneral(locale);
+    intro,
+    joinTheBand,
+    gallery,
+    bookUs,
+    agenda,
+    aboutUs,
+    general,
+  } = await fetchSiteData(locale);
 
   return (
     <>

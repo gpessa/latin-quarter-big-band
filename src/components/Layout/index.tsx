@@ -50,7 +50,7 @@ const Logo = styled(Image)(({ theme }) => ({
 const Layout: React.FC<{
   children: React.ReactNode;
   menu: QUERYResult["menu"];
-  whatsApp: QUERYResult["whatsApp"];
+  whatsApp: NonNullable<QUERYResult["general"]>["whatsApp"];
   footer: { footer: string };
 }> = ({ children, menu, whatsApp, footer }) => {
   return (

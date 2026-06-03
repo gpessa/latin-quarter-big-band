@@ -21,7 +21,9 @@ const FloatingWhatsAppStyled = styled(FloatingWhatsApp)(
 `
 );
 
-const WhatsApp: React.FC<Exclude<QUERYResult["whatsApp"], null>> = ({
+const WhatsApp: React.FC<
+  NonNullable<NonNullable<QUERYResult["general"]>["whatsApp"]>
+> = ({
   phoneNumber,
   statusMessage,
   chatMessage,

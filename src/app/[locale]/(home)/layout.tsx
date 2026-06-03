@@ -1,25 +1,19 @@
 import { Layout } from "@/components";
-import { defaultLocale } from "@/sanity/localeConfig";
-import { fetchGeneral } from "@/sanity/lib/fetchGeneral";
-import { sanityFetch } from "@/sanity/lib/live";
-import { QUERY as query } from "@/sanity/lib/queries";
+import { fetchSiteData } from "@/sanity/lib/fetchGeneral";
 
 export default async function HomeLayout({
   children,
   params,
 }: LayoutProps<"/[locale]">) {
   const { locale } = await params;
-
-  const [{ data: { menu, whatsApp } }, general] = await Promise.all([
-    sanityFetch({
-      query,
-      params: { locale, defaultLocale },
-    }),
-    fetchGeneral(locale),
-  ]);
+  const { general, menu } = await fetchSiteData(locale);
 
   return (
-    <Layout menu={menu} whatsApp={whatsApp} footer={{ footer: general?.footer || "" }}>
+    <Layout
+      menu={menu}
+      whatsApp={general?.whatsApp}
+      footer={{ footer: general?.footer || "" }}
+    >
       {children}
     </Layout>
   );
