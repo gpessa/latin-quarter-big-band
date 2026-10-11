@@ -6,18 +6,7 @@ import { CssBaseline, GlobalStyles } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { Geist, Geist_Mono } from "next/font/google";
 import { headers } from "next/headers";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export default async function RootLayout({
   children,
@@ -30,13 +19,17 @@ export default async function RootLayout({
 
   return (
     <html lang={lang}>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <GlobalStyles
               styles={{
-                p: { margin: 0, padding: 0, marginBottom: "1em" },
+                "h1, h2, h3": { margin: 0 },
+                "@media (prefers-reduced-motion: no-preference)": {
+                  html: { scrollBehavior: "smooth" },
+                },
+                html: { scrollPaddingTop: "104px" },
               }}
             />
             {children}
