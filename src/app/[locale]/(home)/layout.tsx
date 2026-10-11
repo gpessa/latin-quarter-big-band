@@ -11,6 +11,7 @@ export default async function HomeLayout({
   return (
     <Layout
       menu={menu}
+      locale={locale}
       whatsApp={general?.whatsApp}
       footer={{ footer: general?.footer || "" }}
     >

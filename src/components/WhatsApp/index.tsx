@@ -11,7 +11,7 @@ import { QUERYResult } from "@/types/query";
 const FloatingWhatsAppStyled = styled(FloatingWhatsApp)(
   ({ theme }) => `
   .floating-whatsapp-chatbox {
-    border-radius: 0px;
+    border-radius: 12px;
   }
 
   .floating-whatsapp-button {

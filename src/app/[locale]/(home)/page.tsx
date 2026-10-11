@@ -77,7 +77,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
       {aboutUs && <AboutUs {...aboutUs} />}
       {agenda && <Agenda {...agenda} locale={locale} />}
       {bookUs && <BookUs {...bookUs} locale={locale} />}
-      {gallery && <Gallery {...gallery} />}
+      {gallery && <Gallery {...gallery} locale={locale} />}
       {joinTheBand && <JoinTheBand {...joinTheBand} locale={locale} />}
     </>
   );

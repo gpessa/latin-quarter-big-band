@@ -27,7 +27,13 @@ export function createBookUsSchema(messages: ValidationMessages) {
         .string()
         .min(2, messages.nameTooShort)
         .required(messages.nameRequired),
-      phone: yup.string().min(2, messages.phoneTooShort).optional(),
+      phone: yup
+        .string()
+        .test(
+          "phone",
+          messages.phoneTooShort,
+          (value) => !value || value.length >= 2
+        ),
       message: yup
         .string()
         .min(10, messages.messageTooShort)
@@ -47,7 +53,13 @@ export function createJoinTheBandSchema(messages: ValidationMessages) {
         .string()
         .min(2, messages.nameTooShort)
         .required(messages.nameRequired),
-      phone: yup.string().min(2, messages.phoneTooShort).optional(),
+      phone: yup
+        .string()
+        .test(
+          "phone",
+          messages.phoneTooShort,
+          (value) => !value || value.length >= 2
+        ),
       message: yup.string(),
       position: yup.string().required(messages.positionRequired),
     })
