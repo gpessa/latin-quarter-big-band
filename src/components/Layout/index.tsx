@@ -1,10 +1,10 @@
 "use client";
 
-import { QUERYResult } from "@/types/query";
 import React from "react";
 import Footer from "../Footer";
-import Header from "../Header";
+import { QUERYResult } from "@/types/query";
 import WhatsApp from "../WhatsApp";
+import Header from "../Header";
 
 const Layout: React.FC<{
   children: React.ReactNode;

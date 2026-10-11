@@ -1,15 +1,20 @@
 "use client";
 
+import { useState } from "react";
 import { Section } from "@/components";
 import { SECTIONS, copyFor } from "@/contants";
-import { brand } from "@/theme";
+import {
+  Box,
+  Button,
+  Pagination,
+  Typography,
+} from "@mui/material";
+import { PortableText } from "next-sanity";
 import { Concert, QUERYResult } from "@/types/query";
+import { brand } from "@/theme";
 import AccessTimeOutlined from "@mui/icons-material/AccessTimeOutlined";
 import CalendarTodayOutlined from "@mui/icons-material/CalendarTodayOutlined";
 import PlaceOutlined from "@mui/icons-material/PlaceOutlined";
-import { Box, Button, Pagination, Typography } from "@mui/material";
-import { PortableText } from "next-sanity";
-import { useState } from "react";
 
 const ITEMS_PER_PAGE = 8;
 

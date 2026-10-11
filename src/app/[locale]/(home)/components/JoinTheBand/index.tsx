@@ -1,20 +1,28 @@
 "use client";
 
-import { FormCard, LabeledField, submitButtonSx } from "@/components/FormCard";
+import {
+  Grid,
+  MenuItem,
+  Typography,
+} from "@mui/material";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+
 import { Section } from "@/components";
-import { SECTIONS, copyFor } from "@/contants";
+import { Alert, Box, Button } from "@mui/material";
+import { PortableText } from "next-sanity";
+import { useMemo, useState } from "react";
+import { QUERYResult } from "@/types/query";
 import {
   JoinTheBandFormData,
   createJoinTheBandSchema,
 } from "@/sanity/formSchemas";
 import type { SiteLocale } from "@/sanity/localeConfig";
 import { getValidationMessages } from "@/sanity/validationMessages";
-import { QUERYResult } from "@/types/query";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Alert, Box, Button, Grid, MenuItem, Typography } from "@mui/material";
-import { PortableText } from "next-sanity";
-import { useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
+
+import { SECTIONS, copyFor } from "@/contants";
+import { FormCard, LabeledField, submitButtonSx } from "@/components/FormCard";
 
 export type { JoinTheBandFormData };
 

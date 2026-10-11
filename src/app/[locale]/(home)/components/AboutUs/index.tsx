@@ -2,9 +2,9 @@
 
 import { Section } from "@/components";
 import { SECTIONS } from "@/contants";
-import { QUERYResult } from "@/types/query";
 import { Grid, Typography } from "@mui/material";
 import { PortableText } from "next-sanity";
+import { QUERYResult } from "@/types/query";
 
 const AboutUs = ({ title, content }: Exclude<QUERYResult["aboutUs"], null>) => (
   <Section id={SECTIONS.aboutUs}>

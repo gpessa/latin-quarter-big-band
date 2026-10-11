@@ -1,8 +1,8 @@
 "use client";
 
-import { brand } from "@/theme";
 import { Box, Container, ContainerProps } from "@mui/material";
 import React from "react";
+import { brand } from "@/theme";
 
 const tones = {
   cream: { bgcolor: brand.cream, color: brand.ink },

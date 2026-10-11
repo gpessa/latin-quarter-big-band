@@ -1,10 +1,10 @@
 "use client";
-
 import { Section } from "@/components";
+import { Box, Grid, Typography } from "@mui/material";
+
 import { SECTIONS, copyFor } from "@/contants";
 import { urlFor } from "@/sanity/lib/image";
 import { QUERYResult } from "@/types/query";
-import { Box, Grid, Typography } from "@mui/material";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { PortableText } from "next-sanity";
 

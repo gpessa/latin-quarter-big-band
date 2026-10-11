@@ -1,11 +1,11 @@
 "use client";
 
-import { NAME } from "@/contants";
 import { urlFor } from "@/sanity/lib/image";
+import { useEffect, useState } from "react";
 import { QUERYResult } from "@/types/query";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { NAME } from "@/contants";
 
 const Intro: React.FC<
   Pick<QUERYResult, "intro"> & { slideAlt: string }

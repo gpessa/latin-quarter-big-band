@@ -1,9 +1,9 @@
 "use client";
 
 import { SECTIONS } from "@/contants";
-import { titleFontFamily } from "@/theme";
 import { QUERYResult } from "@/types/query";
 import { Box } from "@mui/material";
+import { titleFontFamily } from "@/theme";
 
 const NAV_ITEMS: Array<{
   key: keyof QUERYResult["menu"];
