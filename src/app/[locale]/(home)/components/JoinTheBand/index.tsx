@@ -9,7 +9,7 @@ import {
 } from "@/sanity/formSchemas";
 import type { SiteLocale } from "@/sanity/localeConfig";
 import { getValidationMessages } from "@/sanity/validationMessages";
-import { displayTitleSx, proseSx } from "@/theme";
+import { proseSx } from "@/theme";
 import { QUERYResult } from "@/types/query";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert, Box, Button, Grid, MenuItem, Typography } from "@mui/material";
@@ -59,7 +59,7 @@ const JoinTheBand: React.FC<
     <Section tone="red" id={SECTIONS.joinTheBand}>
       <Grid container spacing={{ xs: 4, md: 8 }} alignItems="flex-start">
         <Grid size={{ xs: 12, md: 6 }}>
-          <Typography variant="h2" component="h2" sx={{ ...displayTitleSx, mb: 3 }}>
+          <Typography variant="h2" component="h2" sx={{ mb: 3 }}>
             {title}
           </Typography>
           <Typography component="div" sx={{ ...proseSx, maxWidth: 480 }}>

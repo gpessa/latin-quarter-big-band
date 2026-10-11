@@ -78,8 +78,10 @@ const theme = createTheme({
     h2: {
       fontFamily: title.style.fontFamily,
       fontWeight: 400,
+      fontSize: "3.02rem",
       lineHeight: 1.12,
-      letterSpacing: "0.01em",
+      letterSpacing: "0.012em",
+      textTransform: "uppercase",
     },
     h3: {
       fontFamily: title.style.fontFamily,
@@ -93,14 +95,6 @@ const theme = createTheme({
   },
 });
 
-export const displayTitleSx = {
-  fontSize: { xs: "3.02rem", md: "4.82rem" },
-  lineHeight: 1.12,
-  letterSpacing: "0.012em",
-  textTransform: "uppercase",
-  fontWeight: 400,
-} as const;
-
 export const proseSx = {
   fontSize: "1.0625rem",
   lineHeight: 1.65,
@@ -113,4 +107,26 @@ export const proseSx = {
   "& a": { color: "inherit" },
 } as const;
 
-export default responsiveFontSizes(theme);
+theme.typography.h2 = {
+  ...theme.typography.h2,
+  [theme.breakpoints.up("md")]: {
+    fontSize: "4.82rem",
+  },
+};
+
+export default responsiveFontSizes(theme, {
+  variants: [
+    "h1",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "subtitle1",
+    "subtitle2",
+    "body1",
+    "body2",
+    "caption",
+    "button",
+    "overline",
+  ],
+});

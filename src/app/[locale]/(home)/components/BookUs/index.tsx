@@ -9,7 +9,7 @@ import {
 } from "@/sanity/formSchemas";
 import type { SiteLocale } from "@/sanity/localeConfig";
 import { getValidationMessages } from "@/sanity/validationMessages";
-import { displayTitleSx, proseSx } from "@/theme";
+import { proseSx } from "@/theme";
 import { QUERYResult } from "@/types/query";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert, Box, Button, Grid, Typography } from "@mui/material";
@@ -113,7 +113,6 @@ const BookUs: React.FC<
             variant="h2"
             component="h2"
             sx={{
-              ...displayTitleSx,
               color: "primary.main",
               fontSize: { xs: "2.88rem", md: "4.1rem" },
               mb: 3,

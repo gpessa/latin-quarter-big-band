@@ -2,7 +2,7 @@
 
 import { Section } from "@/components";
 import { SECTIONS } from "@/contants";
-import { displayTitleSx, proseSx } from "@/theme";
+import { proseSx } from "@/theme";
 import { QUERYResult } from "@/types/query";
 import { Grid, Typography } from "@mui/material";
 import { PortableText } from "next-sanity";
@@ -11,7 +11,7 @@ const AboutUs = ({ title, content }: Exclude<QUERYResult["aboutUs"], null>) => (
   <Section id={SECTIONS.aboutUs}>
     <Grid container spacing={{ xs: 3, md: 8 }} alignItems="flex-start">
       <Grid size={{ xs: 12, md: 5 }}>
-        <Typography variant="h2" component="h2" sx={displayTitleSx}>
+        <Typography variant="h2" component="h2">
           {title}
         </Typography>
       </Grid>

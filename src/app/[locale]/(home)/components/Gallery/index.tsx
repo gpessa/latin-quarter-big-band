@@ -3,7 +3,7 @@
 import { Section } from "@/components";
 import { SECTIONS, copyFor } from "@/contants";
 import { urlFor } from "@/sanity/lib/image";
-import { displayTitleSx, proseSx } from "@/theme";
+import { proseSx } from "@/theme";
 import { QUERYResult } from "@/types/query";
 import { Box, Grid, Typography } from "@mui/material";
 import { YouTubeEmbed } from "@next/third-parties/google";
@@ -19,7 +19,7 @@ const Gallery: React.FC<
       <Typography
         variant="h2"
         component="h2"
-        sx={{ ...displayTitleSx, mb: content ? 3 : 5 }}
+        sx={{ mb: content ? 3 : 5 }}
       >
         {copy.galleryTitle}
       </Typography>
