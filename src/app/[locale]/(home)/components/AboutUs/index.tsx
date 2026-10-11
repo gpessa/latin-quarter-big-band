@@ -2,7 +2,6 @@
 
 import { Section } from "@/components";
 import { SECTIONS } from "@/contants";
-import { proseSx } from "@/theme";
 import { QUERYResult } from "@/types/query";
 import { Grid, Typography } from "@mui/material";
 import { PortableText } from "next-sanity";
@@ -16,7 +15,7 @@ const AboutUs = ({ title, content }: Exclude<QUERYResult["aboutUs"], null>) => (
         </Typography>
       </Grid>
       <Grid size={{ xs: 12, md: 7 }}>
-        <Typography component="div" sx={{ ...proseSx, maxWidth: 560 }}>
+        <Typography component="div" sx={{ maxWidth: 560 }}>
           {content && <PortableText value={content} />}
         </Typography>
       </Grid>

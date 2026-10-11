@@ -95,18 +95,6 @@ const theme = createTheme({
   },
 });
 
-export const proseSx = {
-  fontSize: "1.0625rem",
-  lineHeight: 1.65,
-  "& p": { margin: 0, marginBottom: "1em" },
-  "& p:empty": { display: "none" },
-  "& p:last-child": { marginBottom: 0 },
-  "& ul, & ol": { margin: "0.6em 0 1em", paddingLeft: "1.2em" },
-  "& li": { marginBottom: "0.35em" },
-  "& strong": { fontWeight: 700 },
-  "& a": { color: "inherit" },
-} as const;
-
 theme.typography.h2 = {
   ...theme.typography.h2,
   [theme.breakpoints.up("md")]: {

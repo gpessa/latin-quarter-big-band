@@ -9,7 +9,6 @@ import {
 } from "@/sanity/formSchemas";
 import type { SiteLocale } from "@/sanity/localeConfig";
 import { getValidationMessages } from "@/sanity/validationMessages";
-import { proseSx } from "@/theme";
 import { QUERYResult } from "@/types/query";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert, Box, Button, Grid, Typography } from "@mui/material";
@@ -121,7 +120,7 @@ const BookUs: React.FC<
           >
             {copy.bookTitle}
           </Typography>
-          <Box sx={{ ...proseSx, maxWidth: 520 }}>
+          <Box sx={{ maxWidth: 520 }}>
             <BookCopy value={content} />
           </Box>
         </Grid>

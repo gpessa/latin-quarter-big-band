@@ -9,7 +9,6 @@ import {
 } from "@/sanity/formSchemas";
 import type { SiteLocale } from "@/sanity/localeConfig";
 import { getValidationMessages } from "@/sanity/validationMessages";
-import { proseSx } from "@/theme";
 import { QUERYResult } from "@/types/query";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert, Box, Button, Grid, MenuItem, Typography } from "@mui/material";
@@ -62,7 +61,7 @@ const JoinTheBand: React.FC<
           <Typography variant="h2" component="h2" sx={{ mb: 3 }}>
             {title}
           </Typography>
-          <Typography component="div" sx={{ ...proseSx, maxWidth: 480 }}>
+          <Typography component="div" sx={{ maxWidth: 480 }}>
             <PortableText value={content} />
           </Typography>
           <Box

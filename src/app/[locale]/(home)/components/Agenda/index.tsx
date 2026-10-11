@@ -2,7 +2,7 @@
 
 import { Section } from "@/components";
 import { SECTIONS, copyFor } from "@/contants";
-import { proseSx, brand } from "@/theme";
+import { brand } from "@/theme";
 import { Concert, QUERYResult } from "@/types/query";
 import AccessTimeOutlined from "@mui/icons-material/AccessTimeOutlined";
 import CalendarTodayOutlined from "@mui/icons-material/CalendarTodayOutlined";
@@ -77,7 +77,7 @@ const Agenda: React.FC<
         {copy.agendaTitle}
       </Typography>
 
-      <Typography component="div" sx={{ ...proseSx, maxWidth: 920, mb: 2 }}>
+      <Typography component="div" sx={{ maxWidth: 920, mb: 2 }}>
         <PortableText value={content} />
       </Typography>
 

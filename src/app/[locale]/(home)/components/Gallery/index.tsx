@@ -3,7 +3,6 @@
 import { Section } from "@/components";
 import { SECTIONS, copyFor } from "@/contants";
 import { urlFor } from "@/sanity/lib/image";
-import { proseSx } from "@/theme";
 import { QUERYResult } from "@/types/query";
 import { Box, Grid, Typography } from "@mui/material";
 import { YouTubeEmbed } from "@next/third-parties/google";
@@ -25,7 +24,7 @@ const Gallery: React.FC<
       </Typography>
 
       {content && (
-        <Typography component="div" sx={{ ...proseSx, maxWidth: 720, mb: 5 }}>
+        <Typography component="div" sx={{ maxWidth: 720, mb: 5 }}>
           <PortableText value={content} />
         </Typography>
       )}
