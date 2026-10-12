@@ -1,5 +1,4 @@
 import * as yup from "yup";
-import type { ValidationMessages } from "./validationMessages";
 
 export type BookUsFormData = {
   email: string;
@@ -16,40 +15,24 @@ export type JoinTheBandFormData = {
   position: string;
 };
 
-export function createBookUsSchema(messages: ValidationMessages) {
-  return yup
-    .object({
-      email: yup
-        .string()
-        .email(messages.invalidEmail)
-        .required(messages.emailRequired),
-      name: yup
-        .string()
-        .min(2, messages.nameTooShort)
-        .required(messages.nameRequired),
-      phone: yup.string().min(2, messages.phoneTooShort).optional(),
-      message: yup
-        .string()
-        .min(10, messages.messageTooShort)
-        .required(messages.messageRequired),
-    })
-    .required();
-}
+export const bookUsSchema = yup
+  .object({
+    email: yup.string().email("Invalid email").required("Email is required"),
+    name: yup.string().min(2, "Name too short").required("Name is required"),
+    phone: yup.string().min(2, "Phone too short").optional(),
+    message: yup
+      .string()
+      .min(10, "Message too short")
+      .required("Message is required"),
+  })
+  .required();
 
-export function createJoinTheBandSchema(messages: ValidationMessages) {
-  return yup
-    .object({
-      email: yup
-        .string()
-        .email(messages.invalidEmail)
-        .required(messages.emailRequired),
-      name: yup
-        .string()
-        .min(2, messages.nameTooShort)
-        .required(messages.nameRequired),
-      phone: yup.string().min(2, messages.phoneTooShort).optional(),
-      message: yup.string(),
-      position: yup.string().required(messages.positionRequired),
-    })
-    .required();
-}
+export const joinTheBandSchema = yup
+  .object({
+    email: yup.string().email("Invalid email").required("Email is required"),
+    name: yup.string().min(2, "Name too short").required("Name is required"),
+    phone: yup.string().min(2, "Phone too short").optional(),
+    message: yup.string(),
+    position: yup.string().required("Position is required"),
+  })
+  .required();

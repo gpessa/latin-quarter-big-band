@@ -16,14 +16,9 @@ import { useForm } from "react-hook-form";
 import { Section } from "@/components";
 import { Alert, Button, TextField, Select } from "@mui/material";
 import { PortableText } from "next-sanity";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { QUERYResult } from "@/types/query";
-import {
-  JoinTheBandFormData,
-  createJoinTheBandSchema,
-} from "@/sanity/formSchemas";
-import type { SiteLocale } from "@/sanity/localeConfig";
-import { getValidationMessages } from "@/sanity/validationMessages";
+import { JoinTheBandFormData, joinTheBandSchema } from "@/sanity/formSchemas";
 
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import React from "react";
@@ -31,14 +26,13 @@ import { STANDARD_SPACING, STANDARD_MARGIN_BOTTOM, SECTIONS } from "@/contants";
 
 export type { JoinTheBandFormData };
 
-const JoinTheBand: React.FC<
-  Exclude<QUERYResult["joinTheBand"], null> & { locale: SiteLocale }
-> = ({ title, content, instruments, form, locale }) => {
+const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
+  title,
+  content,
+  instruments,
+  form,
+}) => {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const schema = useMemo(
-    () => createJoinTheBandSchema(getValidationMessages(locale)),
-    [locale]
-  );
 
   const {
     register,
@@ -46,7 +40,7 @@ const JoinTheBand: React.FC<
     formState: { errors, isSubmitting },
     reset,
   } = useForm<JoinTheBandFormData>({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(joinTheBandSchema) as any,
   });
 
   const onSubmit = async (data: JoinTheBandFormData) => {

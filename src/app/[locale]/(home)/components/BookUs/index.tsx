@@ -8,27 +8,20 @@ import { useForm } from "react-hook-form";
 
 import { Section } from "@/components";
 import { SECTIONS, STANDARD_MARGIN_BOTTOM, STANDARD_SPACING } from "@/contants";
-import {
-  BookUsFormData,
-  createBookUsSchema,
-} from "@/sanity/formSchemas";
-import type { SiteLocale } from "@/sanity/localeConfig";
-import { getValidationMessages } from "@/sanity/validationMessages";
+import { BookUsFormData, bookUsSchema } from "@/sanity/formSchemas";
 import { Alert, Button, TextField } from "@mui/material";
 import { PortableText } from "next-sanity";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { QUERYResult } from "@/types/query";
 
 export type { BookUsFormData };
 
-const BookUs: React.FC<
-  Exclude<QUERYResult["bookUs"], null> & { locale: SiteLocale }
-> = ({ title, content, form, locale }) => {
+const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
+  title,
+  content,
+  form,
+}) => {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
-  const schema = useMemo(
-    () => createBookUsSchema(getValidationMessages(locale)),
-    [locale]
-  );
 
   const {
     register,
@@ -36,7 +29,7 @@ const BookUs: React.FC<
     formState: { errors, isSubmitting },
     reset,
   } = useForm<BookUsFormData>({
-    resolver: yupResolver(schema) as any,
+    resolver: yupResolver(bookUsSchema) as any,
   });
 
   const onSubmit = async (data: BookUsFormData) => {

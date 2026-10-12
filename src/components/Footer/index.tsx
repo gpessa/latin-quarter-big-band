@@ -7,7 +7,7 @@ export default function Footer({ footer }: { footer: string }) {
   return (
     <Section>
       <Typography variant="body2" align="center" color="text.secondary">
-        &copy; {new Date().getFullYear()} Latin Quarter Big Band. {footer}
+        &copy; {new Date().getFullYear()} {footer}
       </Typography>
     </Section>
   );
