@@ -6,7 +6,7 @@ import { sendGAEvent } from "@next/third-parties/google";
 
 import React from "react";
 import { FloatingWhatsApp } from "react-floating-whatsapp";
-import { QUERYResult } from "../../../sanity.types";
+import { QUERYResult } from "@/sanity/types/sanity.types";
 
 const FloatingWhatsAppStyled = styled(FloatingWhatsApp)(
   ({ theme }) => `
@@ -21,7 +21,9 @@ const FloatingWhatsAppStyled = styled(FloatingWhatsApp)(
 `
 );
 
-const WhatsApp: React.FC<Exclude<QUERYResult["whatsApp"], null>> = ({
+const WhatsApp: React.FC<
+  NonNullable<NonNullable<QUERYResult["general"]>["whatsApp"]>
+> = ({
   phoneNumber,
   statusMessage,
   chatMessage,
@@ -30,9 +32,9 @@ const WhatsApp: React.FC<Exclude<QUERYResult["whatsApp"], null>> = ({
     <FloatingWhatsAppStyled
       accountName={NAME}
       phoneNumber={phoneNumber}
-      statusMessage={statusMessage!}
+      statusMessage={statusMessage}
       onSubmit={() => sendGAEvent("event", "submit_on_whatsapp")}
-      chatMessage={chatMessage!}
+      chatMessage={chatMessage}
     />
   );
 };

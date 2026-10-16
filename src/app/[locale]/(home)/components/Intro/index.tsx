@@ -2,7 +2,7 @@
 
 import { urlFor } from "@/sanity/lib/image";
 import { useEffect, useState } from "react";
-import { QUERYResult } from "../../../../../sanity.types";
+import { QUERYResult } from "@/sanity/types/sanity.types";
 import { styled } from "@mui/material/styles";
 import React from "react";
 
@@ -25,7 +25,9 @@ const Slide = styled("img")(({ theme }) => ({
   transition: "opacity 1s ease-in-out", // smooth fade
 }));
 
-const Gallery: React.FC<Pick<QUERYResult, "intro">> = ({ intro }) => {
+const Gallery: React.FC<
+  Pick<QUERYResult, "intro"> & { slideAlt: string }
+> = ({ intro, slideAlt }) => {
   const [index, setIndex] = useState<number>(0);
 
   useEffect(() => {
@@ -37,14 +39,16 @@ const Gallery: React.FC<Pick<QUERYResult, "intro">> = ({ intro }) => {
 
   return (
     <Wrapper>
-      {intro.map((item, i) => (
-        <Slide
-          key={i}
-          src={urlFor(item.image).width(1600).url()}
-          alt={`Slide ${i}`}
-          sx={{ opacity: i === index ? 1 : 0 }}
-        />
-      ))}
+      {intro.map((item, i) =>
+        item.image ? (
+          <Slide
+            key={i}
+            src={urlFor(item.image).width(1600).url()}
+            alt={`${slideAlt} (${i + 1})`}
+            sx={{ opacity: i === index ? 1 : 0 }}
+          />
+        ) : null
+      )}
     </Wrapper>
   );
 };

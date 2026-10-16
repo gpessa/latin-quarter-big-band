@@ -2,6 +2,8 @@ import { GooglePlacesAddressInput } from "@/sanity/components/GooglePlacesAddres
 import { SortedConcertsInput } from "@/sanity/components/SortedConcertsInput";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { defineField, defineType } from "sanity";
+import { previewString } from "../previewHelpers";
+
 
 export const agendaType = defineType({
   name: "agenda",
@@ -12,20 +14,20 @@ export const agendaType = defineType({
     defineField({
       name: "title",
       title: "Title",
-      type: "string",
+      type: "internationalizedArrayString",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "content",
       title: "Content",
-      type: "array",
-      of: [{ type: "block" }],
+      type: "internationalizedArrayBlockContent",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "concerts",
       title: "Concerts",
       type: "array",
+      validation: (Rule) => Rule.required(),
       components: {
         input: SortedConcertsInput,
       },
@@ -34,19 +36,34 @@ export const agendaType = defineType({
           name: "concert",
           type: "object",
           title: "Concert",
+          validation: (Rule) =>
+            Rule.custom((value) => {
+              if (!value || typeof value !== "object") {
+                return "Concert name and date are required";
+              }
+              const concert = value as { name?: string; date?: string };
+              if (!concert.name?.trim()) return "Concert name is required";
+              if (!concert.date) return "Concert date is required";
+              return true;
+            }),
           fields: [
-            {
+            defineField({
               name: "name",
               type: "string",
               title: "Name",
-              validation: (Rule) => Rule.required(),
-            },
-            {
+              validation: (Rule) =>
+                Rule.required().custom((name) =>
+                  typeof name === "string" && name.trim().length > 0
+                    ? true
+                    : "Concert name is required"
+                ),
+            }),
+            defineField({
               name: "date",
               type: "datetime",
               title: "Date and Time",
               validation: (Rule) => Rule.required(),
-            },
+            }),
             defineField({
               name: "address",
               type: "object",
@@ -95,5 +112,44 @@ export const agendaType = defineType({
         }),
       ],
     }),
+    defineField({
+      name: "tableHeaders",
+      title: "Table column labels",
+      description: "Headers shown above the concerts table (NL and EN).",
+      type: "object",
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({
+          name: "date",
+          title: "Date",
+          type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "time",
+          title: "Time",
+          type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "location",
+          title: "Location",
+          type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "link",
+          title: "Link",
+          type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
+        }),
+      ],
+    }),
   ],
+  preview: {
+    select: { title: "title" },
+    prepare({ title }) {
+      return { title: previewString(title, "Concerts") };
+    },
+  },
 });
