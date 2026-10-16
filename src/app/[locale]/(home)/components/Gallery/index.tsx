@@ -39,7 +39,7 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
                 <Box
                   component="img"
                   src={urlFor(image.asset._ref).width(400).height(400).url()}
-                  alt={title ?? ""}
+                  alt={title}
                   loading="lazy"
                   sx={{
                     width: "100%",
