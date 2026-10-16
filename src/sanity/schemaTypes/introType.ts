@@ -10,7 +10,7 @@ export const introType = defineType({
     defineField({
       name: "image",
       type: "image",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().assetRequired(),
     }),
   ],
   preview: {

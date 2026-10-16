@@ -24,6 +24,7 @@ export const joinTheBandType = defineType({
       name: "instruments",
       title: "Instruments",
       type: "array",
+      validation: (Rule) => Rule.required(),
       of: [
         defineField({
           name: "member",
@@ -34,7 +35,17 @@ export const joinTheBandType = defineType({
               name: "instrumentName",
               title: "Instrument Name",
               type: "internationalizedArrayString",
-              validation: (Rule) => Rule.required(),
+              validation: (Rule) =>
+                Rule.required().custom((items) => {
+                  const hasName = Array.isArray(items)
+                    ? items.some(
+                        (item) =>
+                          typeof item?.value === "string" &&
+                          item.value.trim().length > 0
+                      )
+                    : false;
+                  return hasName || "Instrument name is required";
+                }),
             }),
             defineField({
               name: "emoticon",
@@ -64,46 +75,55 @@ export const joinTheBandType = defineType({
       name: "form",
       title: "Form",
       type: "object",
+      validation: (Rule) => Rule.required(),
       fields: [
         defineField({
           name: "name",
           title: "Name Field Label",
           type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
         }),
         defineField({
           name: "email",
           title: "Email Field Label",
           type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
         }),
         defineField({
           name: "phone",
           title: "Phone Field Label",
           type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
         }),
         defineField({
           name: "position",
           title: "Position Field Label",
           type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
         }),
         defineField({
           name: "message",
           title: "Message Field Label",
           type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
         }),
         defineField({
           name: "button",
           title: "Button Text",
           type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
         }),
         defineField({
           name: "confirmationMessage",
           title: "Confirmation Message",
           type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
         }),
         defineField({
           name: "errorMessage",
           title: "Error Message",
           type: "internationalizedArrayString",
+          validation: (Rule) => Rule.required(),
         }),
       ],
     }),

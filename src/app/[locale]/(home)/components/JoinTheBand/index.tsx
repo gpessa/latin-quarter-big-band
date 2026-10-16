@@ -17,7 +17,7 @@ import { Section } from "@/components";
 import { Alert, Button, TextField, Select } from "@mui/material";
 import { PortableText } from "next-sanity";
 import { useState } from "react";
-import { QUERYResult } from "@/types/query";
+import { QUERYResult } from "@/sanity/types/sanity.types";
 import { JoinTheBandFormData, joinTheBandSchema } from "@/sanity/formSchemas";
 
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
@@ -129,7 +129,7 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
                 error={!!errors.position}
                 variant="filled"
               >
-                {instruments?.map(({ instrumentName }) => (
+                {instruments.map(({ instrumentName }) => (
                   <MenuItem value={instrumentName} key={instrumentName}>
                     {instrumentName}
                   </MenuItem>

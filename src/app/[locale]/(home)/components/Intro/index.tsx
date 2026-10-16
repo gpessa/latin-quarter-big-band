@@ -2,7 +2,7 @@
 
 import { urlFor } from "@/sanity/lib/image";
 import { useEffect, useState } from "react";
-import { QUERYResult } from "@/types/query";
+import { QUERYResult } from "@/sanity/types/sanity.types";
 import { styled } from "@mui/material/styles";
 import React from "react";
 
@@ -39,14 +39,16 @@ const Gallery: React.FC<
 
   return (
     <Wrapper>
-      {intro.map((item, i) => (
-        <Slide
-          key={i}
-          src={urlFor(item.image).width(1600).url()}
-          alt={`${slideAlt} (${i + 1})`}
-          sx={{ opacity: i === index ? 1 : 0 }}
-        />
-      ))}
+      {intro.map((item, i) =>
+        item.image ? (
+          <Slide
+            key={i}
+            src={urlFor(item.image).width(1600).url()}
+            alt={`${slideAlt} (${i + 1})`}
+            sx={{ opacity: i === index ? 1 : 0 }}
+          />
+        ) : null
+      )}
     </Wrapper>
   );
 };

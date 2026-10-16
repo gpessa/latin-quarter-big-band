@@ -2,7 +2,7 @@
 "use client";
 
 import { SECTIONS } from "@/contants";
-import { QUERYResult } from "@/types/query";
+import { QUERYResult } from "@/sanity/types/sanity.types";
 import { List, ListItemButton, ListItemText } from "@mui/material";
 
 const MENU_SECTIONS: Array<{

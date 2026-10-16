@@ -20,7 +20,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { PortableText } from "next-sanity";
-import { QUERYResult } from "@/types/query";
+import { QUERYResult } from "@/sanity/types/sanity.types";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -32,14 +32,17 @@ const Agenda: React.FC<
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [currentPage, setCurrentPage] = useState(1);
 
-  const rows = (concerts || []).map(({ date, name, address, url }) => {
+  const rows = (concerts || []).flatMap(({ date, name, address, url }) => {
+    if (!date) return [];
+
+    const when = new Date(date);
     const addressLine = [address?.street, address?.postalCode, address?.city]
       .filter((val) => val != null)
       .join(", ");
 
-    return {
-      dateString: new Date(date).toLocaleDateString(dateLocale),
-      timeString: new Date(date).toLocaleTimeString(dateLocale, {
+    return [{
+      dateString: when.toLocaleDateString(dateLocale),
+      timeString: when.toLocaleTimeString(dateLocale, {
         hour: "2-digit",
         minute: "2-digit",
       }),
@@ -55,10 +58,10 @@ const Agenda: React.FC<
           )}
         </Typography>
       ) : null,
-      active: new Date(date).getTime() > new Date().getTime(),
-      date: new Date(date),
+      active: when.getTime() > new Date().getTime(),
+      date: when,
       url,
-    };
+    }];
   });
 
   const oldConcerts = rows

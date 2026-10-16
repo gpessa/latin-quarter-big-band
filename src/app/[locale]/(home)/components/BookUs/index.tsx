@@ -12,7 +12,7 @@ import { BookUsFormData, bookUsSchema } from "@/sanity/formSchemas";
 import { Alert, Button, TextField } from "@mui/material";
 import { PortableText } from "next-sanity";
 import { useState } from "react";
-import { QUERYResult } from "@/types/query";
+import { QUERYResult } from "@/sanity/types/sanity.types";
 
 export type { BookUsFormData };
 

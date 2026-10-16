@@ -18,11 +18,13 @@ export const galleryImageType = defineType({
       name: "content",
       title: "Introduction",
       type: "internationalizedArrayBlockContent",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "images",
       title: "Images",
       type: "array",
+      validation: (Rule) => Rule.required(),
       of: [
         defineField({
           name: "galleryImageItem",
@@ -33,7 +35,7 @@ export const galleryImageType = defineType({
               name: "image",
               title: "Image",
               type: "image",
-              validation: (Rule) => Rule.required(),
+              validation: (Rule) => Rule.required().assetRequired(),
               options: {
                 hotspot: true,
               },

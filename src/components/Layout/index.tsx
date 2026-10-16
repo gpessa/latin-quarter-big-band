@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 import Image from "next/image";
 import React from "react";
 import { Footer, Menu } from "..";
-import { QUERYResult } from "@/types/query";
+import { QUERYResult } from "@/sanity/types/sanity.types";
 import WhatsApp from "../WhatsApp";
 import { BREAKPOINT } from "@/theme";
 
@@ -64,7 +64,7 @@ const Layout: React.FC<{
 
       {children}
 
-      {whatsApp && <WhatsApp {...whatsApp} />}
+      <WhatsApp {...whatsApp} />
 
       <Footer {...footer} />
     </div>

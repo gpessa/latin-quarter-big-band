@@ -41,6 +41,29 @@ export const generalType = defineType({
       name: "whatsApp",
       title: "WhatsApp Settings",
       type: "object",
+      validation: (Rule) =>
+        Rule.required().custom((value) => {
+          if (!value || typeof value !== "object") {
+            return "WhatsApp settings are required";
+          }
+
+          const settings = value as {
+            phoneNumber?: string;
+            statusMessage?: Array<{ value?: string }>;
+            chatMessage?: Array<{ value?: string }>;
+          };
+          const hasText = (items?: Array<{ value?: string }>) =>
+            Array.isArray(items) &&
+            items.some(
+              (item) =>
+                typeof item?.value === "string" && item.value.trim().length > 0
+            );
+
+          if (!settings.phoneNumber?.trim()) return "Phone number is required";
+          if (!hasText(settings.statusMessage)) return "Status message is required";
+          if (!hasText(settings.chatMessage)) return "Chat message is required";
+          return true;
+        }),
       fields: [
         defineField({
           name: "phoneNumber",
@@ -52,11 +75,33 @@ export const generalType = defineType({
           name: "statusMessage",
           title: "Status Message",
           type: "internationalizedArrayString",
+          validation: (Rule) =>
+            Rule.required().custom((items) => {
+              const hasMessage = Array.isArray(items)
+                ? items.some(
+                    (item) =>
+                      typeof item?.value === "string" &&
+                      item.value.trim().length > 0
+                  )
+                : false;
+              return hasMessage || "Status message is required";
+            }),
         }),
         defineField({
           name: "chatMessage",
           title: "Default Chat Message",
           type: "internationalizedArrayString",
+          validation: (Rule) =>
+            Rule.required().custom((items) => {
+              const hasMessage = Array.isArray(items)
+                ? items.some(
+                    (item) =>
+                      typeof item?.value === "string" &&
+                      item.value.trim().length > 0
+                  )
+                : false;
+              return hasMessage || "Chat message is required";
+            }),
         }),
       ],
     }),
@@ -66,6 +111,7 @@ export const generalType = defineType({
       title: "SEO Keywords",
       description: "Comma-separated keywords for search engines",
       type: "internationalizedArrayString",
+      validation: (Rule) => Rule.required(),
     }),
 
     defineField({

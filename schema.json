@@ -84,7 +84,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "chatMessage": {
               "type": "objectAttribute",
@@ -92,11 +92,11 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "keywords": {
         "type": "objectAttribute",
@@ -104,7 +104,7 @@
           "type": "inline",
           "name": "internationalizedArrayString"
         },
-        "optional": true
+        "optional": false
       },
       "emails": {
         "type": "objectAttribute",
@@ -189,7 +189,7 @@
           "type": "inline",
           "name": "internationalizedArrayBlockContent"
         },
-        "optional": true
+        "optional": false
       },
       "images": {
         "type": "objectAttribute",
@@ -231,7 +231,7 @@
                         },
                         "dereferencesTo": "sanity.imageAsset"
                       },
-                      "optional": true
+                      "optional": false
                     },
                     "media": {
                       "type": "objectAttribute",
@@ -296,7 +296,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -525,7 +525,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "email": {
               "type": "objectAttribute",
@@ -533,7 +533,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "phone": {
               "type": "objectAttribute",
@@ -541,7 +541,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "message": {
               "type": "objectAttribute",
@@ -549,7 +549,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "button": {
               "type": "objectAttribute",
@@ -557,7 +557,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "confirmationMessage": {
               "type": "objectAttribute",
@@ -565,7 +565,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "errorMessage": {
               "type": "objectAttribute",
@@ -573,11 +573,11 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             }
           }
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -683,7 +683,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "form": {
         "type": "objectAttribute",
@@ -696,7 +696,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "email": {
               "type": "objectAttribute",
@@ -704,7 +704,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "phone": {
               "type": "objectAttribute",
@@ -712,7 +712,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "position": {
               "type": "objectAttribute",
@@ -720,7 +720,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "message": {
               "type": "objectAttribute",
@@ -728,7 +728,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "button": {
               "type": "objectAttribute",
@@ -736,7 +736,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "confirmationMessage": {
               "type": "objectAttribute",
@@ -744,7 +744,7 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             },
             "errorMessage": {
               "type": "objectAttribute",
@@ -752,11 +752,11 @@
                 "type": "inline",
                 "name": "internationalizedArrayString"
               },
-              "optional": true
+              "optional": false
             }
           }
         },
-        "optional": true
+        "optional": false
       }
     }
   },
@@ -1686,7 +1686,7 @@
                 },
                 "dereferencesTo": "sanity.imageAsset"
               },
-              "optional": true
+              "optional": false
             },
             "media": {
               "type": "objectAttribute",
@@ -1883,7 +1883,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "tableHeaders": {
         "type": "objectAttribute",

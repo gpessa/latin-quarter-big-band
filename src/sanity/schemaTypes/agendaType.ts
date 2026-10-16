@@ -27,6 +27,7 @@ export const agendaType = defineType({
       name: "concerts",
       title: "Concerts",
       type: "array",
+      validation: (Rule) => Rule.required(),
       components: {
         input: SortedConcertsInput,
       },
@@ -35,19 +36,34 @@ export const agendaType = defineType({
           name: "concert",
           type: "object",
           title: "Concert",
+          validation: (Rule) =>
+            Rule.custom((value) => {
+              if (!value || typeof value !== "object") {
+                return "Concert name and date are required";
+              }
+              const concert = value as { name?: string; date?: string };
+              if (!concert.name?.trim()) return "Concert name is required";
+              if (!concert.date) return "Concert date is required";
+              return true;
+            }),
           fields: [
-            {
+            defineField({
               name: "name",
               type: "string",
               title: "Name",
-              validation: (Rule) => Rule.required(),
-            },
-            {
+              validation: (Rule) =>
+                Rule.required().custom((name) =>
+                  typeof name === "string" && name.trim().length > 0
+                    ? true
+                    : "Concert name is required"
+                ),
+            }),
+            defineField({
               name: "date",
               type: "datetime",
               title: "Date and Time",
               validation: (Rule) => Rule.required(),
-            },
+            }),
             defineField({
               name: "address",
               type: "object",

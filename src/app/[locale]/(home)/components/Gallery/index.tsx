@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 
 import { SECTIONS, STANDARD_MARGIN_BOTTOM } from "@/contants";
 import { urlFor } from "@/sanity/lib/image";
-import { QUERYResult } from "@/types/query";
+import { QUERYResult } from "@/sanity/types/sanity.types";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { PortableText } from "next-sanity";
 
@@ -32,13 +32,14 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
         )}
 
         <Grid container spacing={4}>
-          {images?.map(({ title, image }, index) => (
+          {images?.map(({ title, image }, index) =>
+            image?.asset?._ref ? (
             <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
               <Box component="figure" sx={{ m: 0 }}>
                 <Box
                   component="img"
-                  src={urlFor(image.asset!._ref).width(400).height(400).url()}
-                  alt={title}
+                  src={urlFor(image.asset._ref).width(400).height(400).url()}
+                  alt={title ?? ""}
                   loading="lazy"
                   sx={{
                     width: "100%",
@@ -51,7 +52,8 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
                 </Typography>
               </Box>
             </Grid>
-          ))}
+            ) : null
+          )}
         </Grid>
 
         <YouTubeEmbed

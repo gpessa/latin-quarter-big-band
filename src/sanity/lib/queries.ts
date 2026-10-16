@@ -1,14 +1,22 @@
 import { defineQuery } from "next-sanity";
-import { defaultLocale } from "../localeConfig";
 
-const i18n = (path: string) =>
-  `coalesce(${path}[language == $locale][0].value, ${path}[language == "${defaultLocale}"][0].value, ${path}[0].value)`;
+// "en" matches defaultLocale in localeConfig. The path stays a string literal so
+// typegen can expand it, and the final fallback keeps the result non-null.
+const i18n = <const Path extends string>(
+  path: Path,
+): `coalesce(${Path}[language == $locale][0].value, ${Path}[language == "en"][0].value, ${Path}[0].value, "")` =>
+  `coalesce(${path}[language == $locale][0].value, ${path}[language == "en"][0].value, ${path}[0].value, "")`;
+
+const i18nBlocks = <const Path extends string>(
+  path: Path,
+): `coalesce(${Path}[language == $locale][0].value, ${Path}[language == "en"][0].value, ${Path}[0].value, [])` =>
+  `coalesce(${path}[language == $locale][0].value, ${path}[language == "en"][0].value, ${path}[0].value, [])`;
 
 export const QUERY = defineQuery(`{
   "intro": *[_type == "intro"],
   "agenda": *[_type == "agenda"][0]{
     "title": ${i18n("title")},
-    "content": ${i18n("content")},
+    "content": ${i18nBlocks("content")},
     concerts[] | order(date desc){
       name,
       date,
@@ -30,7 +38,7 @@ export const QUERY = defineQuery(`{
   },
   "bookUs": *[_type == "bookUs"][0]{
     "title": ${i18n("title")},
-    "content": ${i18n("content")},
+    "content": ${i18nBlocks("content")},
     form {
       "name": ${i18n("name")},
       "email": ${i18n("email")},
@@ -43,11 +51,11 @@ export const QUERY = defineQuery(`{
   },
   "aboutUs": *[_type == "aboutUs"][0]{
     "title": ${i18n("title")},
-    "content": ${i18n("content")}
+    "content": ${i18nBlocks("content")}
   },
   "joinTheBand": *[_type == "joinTheBand"][0]{
     "title": ${i18n("title")},
-    "content": ${i18n("content")},
+    "content": ${i18nBlocks("content")},
     instruments[]{
       "instrumentName": ${i18n("instrumentName")},
       emoticon,
@@ -66,7 +74,7 @@ export const QUERY = defineQuery(`{
   },
   "gallery": *[_type == "galleryImage"][0]{
     "title": ${i18n("title")},
-    "content": ${i18n("content")},
+    "content": ${i18nBlocks("content")},
     images[]{
       image,
       "title": ${i18n("title")}
@@ -80,8 +88,8 @@ export const QUERY = defineQuery(`{
     "introSlideAlt": ${i18n("introSlideAlt")},
     "whatsApp": whatsApp{
       phoneNumber,
-      "statusMessage": ${i18n("whatsApp.statusMessage")},
-      "chatMessage": ${i18n("whatsApp.chatMessage")}
+      "statusMessage": ${i18n("statusMessage")},
+      "chatMessage": ${i18n("chatMessage")}
     }
   },
   "menu": {
