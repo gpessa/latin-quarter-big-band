@@ -1,15 +1,22 @@
 "use client";
 
-import { Typography } from "@mui/material";
-import Section from "../Section";
+import { Box, Typography } from "@mui/material";
 
 export default function Footer() {
   return (
-    <Section>
-      <Typography variant="body2" align="center" color="textSecondary">
+    <Box
+      component="footer"
+      sx={{
+        py: { xs: 5, md: 7 },
+        px: 2,
+        textAlign: "center",
+        bgcolor: "background.default",
+      }}
+    >
+      <Typography variant="body2" color="text.secondary">
         &copy; {new Date().getFullYear()} Latin Quarter Big Band. All rights
         reserved.
       </Typography>
-    </Section>
+    </Box>
   );
 }
