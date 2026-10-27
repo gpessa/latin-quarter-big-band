@@ -74,7 +74,11 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
     <Section color="primary" id={SECTIONS.joinTheBand}>
       <Grid container spacing={STANDARD_SPACING}>
         <Grid size={{ xs: 12, md: 6 }}>
-          <Typography variant="h3" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{ mb: STANDARD_MARGIN_BOTTOM }}
+          >
             {title}
           </Typography>
           <Typography component="div">
@@ -89,7 +93,7 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
                   primary={`${instrumentName}`}
                   secondary={notes ? `(${notes})` : null}
                   slotProps={{
-                    secondary: { variant: "caption", color: "grey.500" },
+                    secondary: { variant: "caption", sx: { color: "grey.500" } },
                   }}
                 />
               </ListItem>

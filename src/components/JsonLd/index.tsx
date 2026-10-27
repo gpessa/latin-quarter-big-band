@@ -71,7 +71,7 @@ export function JsonLd({
   concerts?: Concert[] | null;
 }) {
   const upcomingConcerts = (concerts || []).filter(
-    (c) => new Date(c.date).getTime() > Date.now()
+    (c) => new Date(c.date).getTime() > new Date().getTime()
   );
 
   const graph: Record<string, unknown>[] = [

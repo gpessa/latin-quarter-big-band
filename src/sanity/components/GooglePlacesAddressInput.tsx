@@ -1,5 +1,6 @@
 "use client";
 
+/// <reference types="google.maps" />
 import {
   loadGoogleMaps,
   parseGooglePlace,

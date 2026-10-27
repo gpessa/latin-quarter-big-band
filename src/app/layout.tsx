@@ -2,7 +2,7 @@ import { GOOGLE_ANALYTICS, IS_PRODUCTION, LANG } from "@/contants";
 import { SanityLive } from "@/sanity/lib/live";
 import theme from "@/theme";
 import { CssBaseline, GlobalStyles } from "@mui/material";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Geist, Geist_Mono } from "next/font/google";

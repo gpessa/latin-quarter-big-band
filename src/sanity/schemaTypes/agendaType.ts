@@ -60,7 +60,12 @@ export const agendaType = defineType({
                 defineField({ name: "name", type: "string", title: "Venue name", validation: (Rule) => Rule.required() }),
                 defineField({ name: "formattedAddress", type: "text", title: "Full address", hidden: true }),
                 defineField({ name: "street", type: "string", title: "Street" }),
-                defineField({ name: "city", type: "string", title: "City" }),
+                defineField({
+                  name: "city",
+                  type: "string",
+                  title: "City",
+                  validation: (Rule) => Rule.required(),
+                }),
                 defineField({ name: "postalCode", type: "string", title: "Postal Code" }),
                 defineField({ name: "googlePlaceId", type: "string", title: "Google Place ID", hidden: true }),
                 defineField({ name: "location", type: "geopoint", title: "Coordinates", hidden: true }),
