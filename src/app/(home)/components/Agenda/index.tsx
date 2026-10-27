@@ -88,21 +88,23 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
       <Typography
         variant="h3"
         component="h2"
-        mb={STANDARD_MARGIN_BOTTOM}
         align="center"
+        sx={{ mb: STANDARD_MARGIN_BOTTOM }}
       >
         {title}
       </Typography>
 
-      <Typography component="div" mb={STANDARD_MARGIN_BOTTOM} align="center">
+      <Typography
+        component="div"
+        align="center"
+        sx={{ mb: STANDARD_MARGIN_BOTTOM }}
+      >
         <PortableText value={content} />
       </Typography>
 
       {isMobile ? (
         <Stack
-          display="flex"
-          flexDirection="column"
-          gap={3}
+          sx={{ gap: 3 }}
           divider={<Divider orientation="horizontal" flexItem />}
         >
           {paginatedConcerts.map(
@@ -188,7 +190,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
       )}
 
       {totalPages > 1 && (
-        <Box display="flex" justifyContent="center" mt={4}>
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <Pagination
             count={totalPages}
             page={currentPage}

@@ -69,7 +69,11 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
         direction={{ md: "row-reverse" }}
       >
         <Grid size={{ xs: 12, md: 6 }}>
-          <Typography variant="h3" component="h2" mb={STANDARD_MARGIN_BOTTOM}>
+          <Typography
+            variant="h3"
+            component="h2"
+            sx={{ mb: STANDARD_MARGIN_BOTTOM }}
+          >
             {title}
           </Typography>
           <Typography component="div">

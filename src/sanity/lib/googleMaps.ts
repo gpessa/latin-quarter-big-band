@@ -1,3 +1,4 @@
+/// <reference types="google.maps" />
 import { importLibrary, setOptions } from "@googlemaps/js-api-loader";
 
 export type ParsedGooglePlace = {

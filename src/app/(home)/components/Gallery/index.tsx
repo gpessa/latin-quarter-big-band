@@ -11,7 +11,7 @@ import { YouTubeEmbed } from "@next/third-parties/google";
 const Gallery: React.FC<QUERYResult["gallery"]> = (gallery) => {
   return (
     <Section color="secondary" id={SECTIONS.gallery}>
-      <Stack gap={4}>
+      <Stack sx={{ gap: 4 }}>
         <Grid container spacing={4}>
           {gallery?.images?.map(({ title, image }, index) => (
             <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>

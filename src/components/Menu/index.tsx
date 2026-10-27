@@ -27,7 +27,7 @@ export default function Menu({ menu }: { menu: QUERYResult["menu"] }) {
       {items.map((item) => (
         <ListItemButton key={item.href} href={`#${item.href}`}>
           <ListItemText
-            slotProps={{ primary: { variant: "h6", textAlign: "center" } }}
+            slotProps={{ primary: { variant: "h6", align: "center" } }}
           >
             {item.title}
           </ListItemText>
