@@ -14,19 +14,3 @@ export const SECTIONS = {
   gallery: "gallery",
   bookUs: "bookUs",
 };
-
-export const pageCopy = {
-  agendaTitle: "Come share the groove",
-  bookTitle: "Let's make your event unforgettable",
-  galleryTitle: "The band, in full swing",
-  moreInfo: "More info",
-  openMenu: "Open menu",
-  closeMenu: "Close menu",
-  navLabel: "Primary",
-  placeholders: {
-    name: "Your name",
-    email: "Your email address",
-    phone: "Your phone number",
-    message: "Tell us about your event…",
-  },
-} as const;

@@ -1,6 +1,6 @@
 "use client";
 
-import { SECTIONS, pageCopy } from "@/contants";
+import { SECTIONS } from "@/contants";
 import { QUERYResult } from "../../../sanity.types";
 import { Box } from "@mui/material";
 import { titleFontFamily } from "@/theme";
@@ -32,7 +32,7 @@ export default function Menu({
   return (
     <Box
       component="nav"
-      aria-label={pageCopy.navLabel}
+      aria-label="Primary"
       sx={{
         display: "flex",
         flexDirection: direction,

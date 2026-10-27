@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Section } from "@/components";
-import { SECTIONS, pageCopy } from "@/contants";
+import { SECTIONS } from "@/contants";
 import { Box, Button, Pagination, Typography } from "@mui/material";
 import { PortableText } from "next-sanity";
 import { QUERYResult } from "../../../../../sanity.types";
@@ -30,6 +30,7 @@ function placeLine(address?: ConcertAddress | null) {
 }
 
 const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
+  title,
   content,
   concerts,
 }) => {
@@ -74,7 +75,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
   return (
     <Section tone="teal" id={SECTIONS.agenda}>
       <Typography variant="h2" component="h2" sx={{ mb: 3, maxWidth: 980 }}>
-        {pageCopy.agendaTitle}
+        {title}
       </Typography>
 
       <Typography component="div" sx={{ maxWidth: 920, mb: 2 }}>
@@ -157,7 +158,7 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
                     },
                   }}
                 >
-                  {pageCopy.moreInfo}
+                  Link
                 </Button>
               ) : (
                 <Box sx={{ display: { xs: "none", md: "block" } }} />

@@ -1,6 +1,6 @@
 "use client";
 
-import { NAME, SECTIONS, pageCopy } from "@/contants";
+import { NAME, SECTIONS } from "@/contants";
 import { QUERYResult } from "../../../sanity.types";
 import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -108,7 +108,7 @@ export default function Header({ menu }: { menu: QUERYResult["menu"] }) {
         </Box>
 
         <IconButton
-          aria-label={pageCopy.openMenu}
+          aria-label="Open menu"
           onClick={() => setOpen(true)}
           sx={{ display: { md: "none" }, color: "text.primary" }}
         >
@@ -134,7 +134,7 @@ export default function Header({ menu }: { menu: QUERYResult["menu"] }) {
         }}
       >
         <IconButton
-          aria-label={pageCopy.closeMenu}
+          aria-label="Close menu"
           onClick={close}
           sx={{ alignSelf: "flex-end", color: "text.primary" }}
         >

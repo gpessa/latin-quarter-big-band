@@ -2,25 +2,26 @@
 import { Section } from "@/components";
 import { Box, Grid, Typography } from "@mui/material";
 
-import { SECTIONS, pageCopy } from "@/contants";
+import { SECTIONS } from "@/contants";
 import { urlFor } from "@/sanity/lib/image";
 import { QUERYResult } from "../../../../../sanity.types";
 import { YouTubeEmbed } from "@next/third-parties/google";
 
 const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
+  title,
   images,
 }) => {
   return (
     <Section id={SECTIONS.gallery} tone="teal">
       <Typography variant="h2" component="h2" sx={{ mb: 5 }}>
-        {pageCopy.galleryTitle}
+        {title}
       </Typography>
 
       <Grid container spacing={2.5}>
-        {images?.map(({ title, image }, index) => {
+        {images?.map(({ title: imageTitle, image }, index) => {
           if (!image?.asset?._ref) return null;
           return (
-            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={`${title}-${index}`}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={`${imageTitle}-${index}`}>
               <Box component="figure" sx={{ m: 0 }}>
                 <Box
                   component="img"
@@ -30,7 +31,7 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
                     .fit("crop")
                     .auto("format")
                     .url()}
-                  alt={title}
+                  alt={imageTitle}
                   loading="lazy"
                   sx={{
                     width: "100%",
@@ -40,7 +41,7 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
                     borderRadius: "10px",
                   }}
                 />
-                {title && (
+                {imageTitle && (
                   <Box
                     component="figcaption"
                     sx={{
@@ -53,7 +54,7 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
                       color: "rgba(255,255,255,0.78)",
                     }}
                   >
-                    {title}
+                    {imageTitle}
                   </Box>
                 )}
               </Box>

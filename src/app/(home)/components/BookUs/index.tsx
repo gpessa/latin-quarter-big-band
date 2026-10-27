@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { Section } from "@/components";
-import { SECTIONS, pageCopy } from "@/contants";
+import { SECTIONS } from "@/contants";
 import { Alert, Box, Button } from "@mui/material";
 import { useState, type ReactNode } from "react";
 import { QUERYResult } from "../../../../../sanity.types";
@@ -86,6 +86,7 @@ function BookCopy({ value }: { value: BookContent }) {
 }
 
 const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
+  title,
   content,
   form,
 }) => {
@@ -131,7 +132,7 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
               maxWidth: 560,
             }}
           >
-            {pageCopy.bookTitle}
+            {title}
           </Typography>
           <Box sx={{ maxWidth: 520 }}>
             <BookCopy value={content} />
@@ -142,7 +143,6 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
             <LabeledField
               id="book-name"
               label={form?.name ?? undefined}
-              placeholder={pageCopy.placeholders.name}
               autoComplete="name"
               {...register("name")}
               error={!!errors.name}
@@ -152,7 +152,6 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
             <LabeledField
               id="book-email"
               label={form?.email ?? undefined}
-              placeholder={pageCopy.placeholders.email}
               type="email"
               autoComplete="email"
               {...register("email")}
@@ -163,7 +162,6 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
             <LabeledField
               id="book-phone"
               label={form?.phone ?? undefined}
-              placeholder={pageCopy.placeholders.phone}
               type="tel"
               autoComplete="tel"
               {...register("phone")}
@@ -173,7 +171,6 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
             <LabeledField
               id="book-message"
               label={form?.message ?? undefined}
-              placeholder={pageCopy.placeholders.message}
               multiline
               minRows={4}
               {...register("message")}

@@ -12,7 +12,7 @@ import { PortableText } from "next-sanity";
 import { useState } from "react";
 import { QUERYResult } from "../../../../../sanity.types";
 
-import { SECTIONS, pageCopy } from "@/contants";
+import { SECTIONS } from "@/contants";
 import { FormCard, LabeledField, submitButtonSx } from "@/components/FormCard";
 
 const schema = yup
@@ -133,7 +133,6 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
             <LabeledField
               id="join-name"
               label={form?.name ?? undefined}
-              placeholder={pageCopy.placeholders.name}
               autoComplete="name"
               {...register("name")}
               error={!!errors.name}
@@ -143,7 +142,6 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
             <LabeledField
               id="join-email"
               label={form?.email ?? undefined}
-              placeholder={pageCopy.placeholders.email}
               type="email"
               autoComplete="email"
               {...register("email")}
@@ -154,7 +152,6 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
             <LabeledField
               id="join-phone"
               label={form?.phone ?? undefined}
-              placeholder={pageCopy.placeholders.phone}
               type="tel"
               autoComplete="tel"
               {...register("phone")}
@@ -164,7 +161,6 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
             <LabeledField
               id="join-message"
               label={form?.message ?? undefined}
-              placeholder={pageCopy.placeholders.message}
               multiline
               minRows={4}
               {...register("message")}
