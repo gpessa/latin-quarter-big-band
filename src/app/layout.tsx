@@ -19,7 +19,6 @@ export default function RootLayout({
             <CssBaseline />
             <GlobalStyles
               styles={{
-                "h1, h2, h3": { margin: 0 },
                 p: { margin: 0, padding: 0, marginBottom: "1em" },
                 "@media (prefers-reduced-motion: no-preference)": {
                   html: { scrollBehavior: "smooth" },
