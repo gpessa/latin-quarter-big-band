@@ -35,7 +35,7 @@ const Section: React.FC<Props> = ({
       sx={{
         bgcolor: colors.bgcolor,
         color: colors.color,
-        py: { xs: 8, md: 12 },
+        py: { xs: 5, md: 8 },
         scrollMarginTop: "104px",
       }}
     >
