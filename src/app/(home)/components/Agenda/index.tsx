@@ -1,15 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { Section } from "@/components";
 import { SECTIONS } from "@/contants";
-import { Box, Button, Pagination, Typography } from "@mui/material";
-import { PortableText } from "next-sanity";
-import { QUERYResult } from "../../../../../sanity.types";
-import { brand } from "@/theme";
 import AccessTimeOutlined from "@mui/icons-material/AccessTimeOutlined";
 import CalendarTodayOutlined from "@mui/icons-material/CalendarTodayOutlined";
 import PlaceOutlined from "@mui/icons-material/PlaceOutlined";
+import { Box, Button, Pagination, Table, TableCell, TableRow, Typography } from "@mui/material";
+import { PortableText } from "next-sanity";
+import { useState } from "react";
+import { QUERYResult } from "../../../../../sanity.types";
 
 const ITEMS_PER_PAGE = 8;
 
@@ -23,7 +22,7 @@ function placeLine(address?: ConcertAddress | null) {
   const detail = address.street
     ? [address.street, address.postalCode, address.city].filter(Boolean).join(", ")
     : address.formattedAddress ||
-      [address.postalCode, address.city].filter(Boolean).join(", ");
+    [address.postalCode, address.city].filter(Boolean).join(", ");
 
   if (venue && detail) return `${venue.toUpperCase()} — ${detail}`;
   return venue ? venue.toUpperCase() : detail;
@@ -60,9 +59,11 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
   const upcoming = rows
     .filter(({ active }) => active)
     .sort((a, b) => a.date.getTime() - b.date.getTime());
+
   const past = rows
     .filter(({ active }) => !active)
     .sort((a, b) => b.date.getTime() - a.date.getTime());
+
   const concertsSorted = [...upcoming, ...past];
 
   const totalPages = Math.ceil(concertsSorted.length / ITEMS_PER_PAGE);
@@ -74,99 +75,56 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
 
   return (
     <Section tone="teal" id={SECTIONS.agenda}>
-      <Typography variant="h2" component="h2" sx={{ mb: 3, maxWidth: 980 }}>
+      <Typography variant="h2" component="h2" gutterBottom>
         {title}
       </Typography>
 
-      <Typography component="div" sx={{ maxWidth: 920, mb: 2 }}>
+      <Typography component="div" gutterBottom>
         <PortableText value={content} />
       </Typography>
 
-      <Box>
+      <Table>
         {paginatedConcerts.map(
           ({ dateString, timeString, name, place, active, url, date }) => (
-            <Box
+            <TableRow
               key={`${name}-${date.toISOString()}`}
               sx={{
-                display: "grid",
-                gridTemplateColumns: { xs: "1fr", md: "168px 1fr auto" },
-                gap: { xs: 1.5, md: 3 },
-                alignItems: { md: "center" },
-                py: 2.5,
-                borderTop: "1px solid rgba(255,255,255,0.2)",
-                opacity: active ? 1 : 0.72,
+                opacity: active ? 1 : 0.72
               }}
             >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: { xs: "row", md: "column" },
-                  flexWrap: "wrap",
-                  alignItems: "center",
-                  columnGap: 2.5,
-                  rowGap: 0.75,
-                }}
-              >
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <CalendarTodayOutlined sx={{ fontSize: 16 }} />
-                  <Typography sx={{ fontSize: 15 }}>{dateString}</Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <AccessTimeOutlined sx={{ fontSize: 16 }} />
-                  <Typography sx={{ fontSize: 15 }}>{timeString}</Typography>
-                </Box>
-              </Box>
+              <TableCell >
+                <Typography><CalendarTodayOutlined /> {dateString}</Typography>
+                <Typography><AccessTimeOutlined /> {timeString}</Typography>
+              </TableCell>
 
-              <Box>
-                <Typography sx={{ fontWeight: 700, fontSize: { xs: 17, md: 18 } }}>
+              <TableCell>
+                <Typography>
                   {name}
                 </Typography>
                 {place && (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "flex-start",
-                      gap: 0.75,
-                      mt: 0.5,
-                      opacity: 0.9,
-                    }}
-                  >
-                    <PlaceOutlined sx={{ fontSize: 16, mt: "3px" }} />
-                    <Typography sx={{ fontSize: 14, letterSpacing: "0.02em" }}>
-                      {place}
-                    </Typography>
-                  </Box>
+                  <Typography variant="body2">
+                    <PlaceOutlined />
+                    {place}
+                  </Typography>
                 )}
-              </Box>
+              </TableCell>
 
-              {url ? (
-                <Button
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="contained"
-                  sx={{
-                    justifySelf: { md: "end" },
-                    width: { xs: "100%", md: "auto" },
-                    bgcolor: active ? brand.red : brand.mutedRed,
-                    color: "#fff",
-                    px: 2.25,
-                    py: 1,
-                    whiteSpace: "nowrap",
-                    "&:hover": {
-                      bgcolor: active ? brand.redDark : "#6E3638",
-                    },
-                  }}
-                >
-                  Link
-                </Button>
-              ) : (
-                <Box sx={{ display: { xs: "none", md: "block" } }} />
-              )}
-            </Box>
+              <TableCell>
+                {url && (
+                  <Button
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="contained"
+                  >
+                    Link
+                  </Button>
+                )}
+              </TableCell>
+            </TableRow>
           )
         )}
-      </Box>
+      </Table>
 
       {totalPages > 1 && (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
@@ -178,12 +136,6 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
               document
                 .getElementById(SECTIONS.agenda)
                 ?.scrollIntoView({ behavior: "smooth", block: "start" });
-            }}
-            sx={{
-              "& .MuiPaginationItem-root": { color: "#fff" },
-              "& .Mui-selected": {
-                bgcolor: "rgba(255,255,255,0.16) !important",
-              },
             }}
           />
         </Box>
