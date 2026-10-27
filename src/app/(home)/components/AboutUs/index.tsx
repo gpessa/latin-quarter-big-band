@@ -15,7 +15,7 @@ const AboutUs = ({ title, content }: Exclude<QUERYResult["aboutUs"], null>) => (
         </Typography>
       </Grid>
       <Grid size={{ xs: 12, md: 7 }}>
-        <Typography component="div" sx={{ maxWidth: 560 }}>
+        <Typography component="div">
           {content && <PortableText value={content} />}
         </Typography>
       </Grid>
