@@ -13,7 +13,7 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
 }) => {
   return (
     <Section id={SECTIONS.gallery} tone="teal">
-      <Typography variant="h2" component="h2" sx={{ mb: 5 }}>
+      <Typography variant="h2" component="h2" gutterBottom>
         {title}
       </Typography>
 
@@ -35,27 +35,17 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
                   loading="lazy"
                   sx={{
                     width: "100%",
-                    aspectRatio: "1 / 1",
-                    objectFit: "cover",
+                    height: "auto",
                     display: "block",
-                    borderRadius: "10px",
                   }}
                 />
                 {imageTitle && (
-                  <Box
+                  <Typography
                     component="figcaption"
-                    sx={{
-                      mt: 0.75,
-                      fontSize: "13px",
-                      fontWeight: 500,
-                      lineHeight: 1.4,
-                      letterSpacing: "0.01em",
-                      textTransform: "none",
-                      color: "rgba(255,255,255,0.78)",
-                    }}
+                    variant="body2"
                   >
                     {imageTitle}
-                  </Box>
+                  </Typography>
                 )}
               </Box>
             </Grid>

@@ -13,7 +13,8 @@ import { useState } from "react";
 import { QUERYResult } from "../../../../../sanity.types";
 
 import { SECTIONS } from "@/contants";
-import { FormCard, LabeledField, submitButtonSx } from "@/components/FormCard";
+import { FormCard } from "@/components/FormCard";
+import LabeledField from "@/components/LabeledField";
 
 const schema = yup
   .object({
@@ -191,7 +192,6 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
               type="submit"
               color="primary"
               loading={isSubmitting}
-              sx={submitButtonSx}
             >
               {form?.button}
             </Button>

@@ -6,12 +6,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
-import { Section } from "@/components";
+import { LabeledField, Section } from "@/components";
+import { FormCard } from "@/components/FormCard";
 import { SECTIONS } from "@/contants";
 import { Alert, Box, Button } from "@mui/material";
 import { useState, type ReactNode } from "react";
 import { QUERYResult } from "../../../../../sanity.types";
-import { FormCard, LabeledField, submitButtonSx } from "@/components/FormCard";
 
 type BookContent = Exclude<QUERYResult["bookUs"], null>["content"];
 type BookBlock = BookContent[number];
@@ -183,7 +183,6 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
               type="submit"
               color="primary"
               loading={isSubmitting}
-              sx={submitButtonSx}
             >
               {form?.button}
             </Button>
