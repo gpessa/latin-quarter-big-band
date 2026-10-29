@@ -1,6 +1,6 @@
 "use client";
 
-import { Grid, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -12,6 +12,7 @@ import { SECTIONS } from "@/contants";
 import { Alert, Box, Button } from "@mui/material";
 import { useState, type ReactNode } from "react";
 import { QUERYResult } from "../../../../../sanity.types";
+import { SPACING } from "@/theme";
 
 type BookContent = Exclude<QUERYResult["bookUs"], null>["content"];
 type BookBlock = BookContent[number];
@@ -140,58 +141,60 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <FormCard onSubmit={handleSubmit(onSubmit)}>
-            <LabeledField
-              id="book-name"
-              label={form?.name ?? undefined}
-              autoComplete="name"
-              {...register("name")}
-              error={!!errors.name}
-              helperText={errors.name?.message}
-              required
-            />
-            <LabeledField
-              id="book-email"
-              label={form?.email ?? undefined}
-              type="email"
-              autoComplete="email"
-              {...register("email")}
-              error={!!errors.email}
-              helperText={errors.email?.message}
-              required
-            />
-            <LabeledField
-              id="book-phone"
-              label={form?.phone ?? undefined}
-              type="tel"
-              autoComplete="tel"
-              {...register("phone")}
-              error={!!errors.phone}
-              helperText={errors.phone?.message}
-            />
-            <LabeledField
-              id="book-message"
-              label={form?.message ?? undefined}
-              multiline
-              minRows={4}
-              {...register("message")}
-              error={!!errors.message}
-              helperText={errors.message?.message}
-              required
-            />
-            <Button
-              variant="contained"
-              type="submit"
-              color="primary"
-              loading={isSubmitting}
-            >
-              {form?.button}
-            </Button>
-            {status === "success" && (
-              <Alert severity="success">{form?.confirmationMessage}</Alert>
-            )}
-            {status === "error" && (
-              <Alert severity="error">{form?.errorMessage}</Alert>
-            )}
+            <Stack spacing={SPACING}>
+              <LabeledField
+                id="book-name"
+                label={form?.name ?? undefined}
+                autoComplete="name"
+                {...register("name")}
+                error={!!errors.name}
+                helperText={errors.name?.message}
+                required
+              />
+              <LabeledField
+                id="book-email"
+                label={form?.email ?? undefined}
+                type="email"
+                autoComplete="email"
+                {...register("email")}
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                required
+              />
+              <LabeledField
+                id="book-phone"
+                label={form?.phone ?? undefined}
+                type="tel"
+                autoComplete="tel"
+                {...register("phone")}
+                error={!!errors.phone}
+                helperText={errors.phone?.message}
+              />
+              <LabeledField
+                id="book-message"
+                label={form?.message ?? undefined}
+                multiline
+                minRows={4}
+                {...register("message")}
+                error={!!errors.message}
+                helperText={errors.message?.message}
+                required
+              />
+              <Button
+                variant="contained"
+                type="submit"
+                color="primary"
+                loading={isSubmitting}
+              >
+                {form?.button}
+              </Button>
+              {status === "success" && (
+                <Alert severity="success">{form?.confirmationMessage}</Alert>
+              )}
+              {status === "error" && (
+                <Alert severity="error">{form?.errorMessage}</Alert>
+              )}
+            </Stack>
           </FormCard>
         </Grid>
       </Grid>

@@ -5,6 +5,8 @@ import { Anton as Title, Outfit as Text } from "next/font/google";
 
 export const BREAKPOINT = "md";
 
+export const SPACING = 4;
+
 export const brand = {
   cream: "#F4F0E6",
   ink: "#10202C",
@@ -62,6 +64,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          backgroundColor: brand.field,
+        }
+      }
+    }
   },
   typography: {
     allVariants: {

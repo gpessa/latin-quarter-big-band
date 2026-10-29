@@ -1,6 +1,6 @@
 "use client";
 
-import { Grid, MenuItem, Typography } from "@mui/material";
+import { Grid, MenuItem, Stack, Typography } from "@mui/material";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -15,6 +15,7 @@ import { QUERYResult } from "../../../../../sanity.types";
 import { SECTIONS } from "@/contants";
 import { FormCard } from "@/components/FormCard";
 import LabeledField from "@/components/LabeledField";
+import { SPACING } from "@/theme";
 
 const schema = yup
   .object({
@@ -131,76 +132,78 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
 
         <Grid size={{ xs: 12, md: 6 }}>
           <FormCard onSubmit={handleSubmit(onSubmit)}>
-            <LabeledField
-              id="join-name"
-              label={form?.name ?? undefined}
-              autoComplete="name"
-              {...register("name")}
-              error={!!errors.name}
-              helperText={errors.name?.message}
-              required
-            />
-            <LabeledField
-              id="join-email"
-              label={form?.email ?? undefined}
-              type="email"
-              autoComplete="email"
-              {...register("email")}
-              error={!!errors.email}
-              helperText={errors.email?.message}
-              required
-            />
-            <LabeledField
-              id="join-phone"
-              label={form?.phone ?? undefined}
-              type="tel"
-              autoComplete="tel"
-              {...register("phone")}
-              error={!!errors.phone}
-              helperText={errors.phone?.message}
-            />
-            <LabeledField
-              id="join-message"
-              label={form?.message ?? undefined}
-              multiline
-              minRows={4}
-              {...register("message")}
-              error={!!errors.message}
-              helperText={errors.message?.message}
-            />
-            <LabeledField
-              id="join-position"
-              label={form?.position ?? undefined}
-              select
-              defaultValue=""
-              slotProps={{ select: { displayEmpty: true } }}
-              {...register("position")}
-              error={!!errors.position}
-              helperText={errors.position?.message}
-            >
-              <MenuItem value="" disabled>
-                {form?.position}
-              </MenuItem>
-              {instruments?.map(({ instrumentName }) => (
-                <MenuItem value={instrumentName} key={instrumentName}>
-                  {instrumentName}
+            <Stack spacing={SPACING} >
+              <LabeledField
+                id="join-name"
+                label={form?.name ?? undefined}
+                autoComplete="name"
+                {...register("name")}
+                error={!!errors.name}
+                helperText={errors.name?.message}
+                required
+              />
+              <LabeledField
+                id="join-email"
+                label={form?.email ?? undefined}
+                type="email"
+                autoComplete="email"
+                {...register("email")}
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                required
+              />
+              <LabeledField
+                id="join-phone"
+                label={form?.phone ?? undefined}
+                type="tel"
+                autoComplete="tel"
+                {...register("phone")}
+                error={!!errors.phone}
+                helperText={errors.phone?.message}
+              />
+              <LabeledField
+                id="join-message"
+                label={form?.message ?? undefined}
+                multiline
+                minRows={4}
+                {...register("message")}
+                error={!!errors.message}
+                helperText={errors.message?.message}
+              />
+              <LabeledField
+                id="join-position"
+                label={form?.position ?? undefined}
+                select
+                defaultValue=""
+                slotProps={{ select: { displayEmpty: true } }}
+                {...register("position")}
+                error={!!errors.position}
+                helperText={errors.position?.message}
+              >
+                <MenuItem value="" disabled>
+                  {form?.position}
                 </MenuItem>
-              ))}
-            </LabeledField>
-            <Button
-              variant="contained"
-              type="submit"
-              color="primary"
-              loading={isSubmitting}
-            >
-              {form?.button}
-            </Button>
-            {status === "success" && (
-              <Alert severity="success">{form?.confirmationMessage}</Alert>
-            )}
-            {status === "error" && (
-              <Alert severity="error">{form?.errorMessage}</Alert>
-            )}
+                {instruments?.map(({ instrumentName }) => (
+                  <MenuItem value={instrumentName} key={instrumentName}>
+                    {instrumentName}
+                  </MenuItem>
+                ))}
+              </LabeledField>
+              <Button
+                variant="contained"
+                type="submit"
+                color="primary"
+                loading={isSubmitting}
+              >
+                {form?.button}
+              </Button>
+              {status === "success" && (
+                <Alert severity="success">{form?.confirmationMessage}</Alert>
+              )}
+              {status === "error" && (
+                <Alert severity="error">{form?.errorMessage}</Alert>
+              )}
+            </Stack>
           </FormCard>
         </Grid>
       </Grid>
