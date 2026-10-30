@@ -44,7 +44,6 @@ const Intro: React.FC<Pick<QUERYResult, "intro">> = ({ intro }) => {
             width: "100%",
             overflow: "hidden",
             aspectRatio: { xs: "16 / 10", md: "16 / 7" },
-            bgcolor: "rgba(16, 32, 44, 0.08)",
           }}
         >
           {intro.map((item, i) => (
