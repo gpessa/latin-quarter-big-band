@@ -9,10 +9,11 @@ import * as yup from "yup";
 import { LabeledField, Section } from "@/components";
 import { FormCard } from "@/components/FormCard";
 import { SECTIONS } from "@/contants";
-import { Alert, Box, Button } from "@mui/material";
-import { useState, type ReactNode } from "react";
-import { QUERYResult } from "../../../../../sanity.types";
 import { GRID_SPACING, SPACING } from "@/theme";
+import { Alert, Box, Button } from "@mui/material";
+import { PortableText } from "next-sanity";
+import { useState } from "react";
+import { QUERYResult } from "../../../../../sanity.types";
 
 type BookContent = Exclude<QUERYResult["bookUs"], null>["content"];
 type BookBlock = BookContent[number];
@@ -36,55 +37,6 @@ const schema = yup
   .required();
 
 export type BookUsFormData = yup.InferType<typeof schema>;
-
-function plainText(block: BookBlock) {
-  const children = block.children || [];
-  return children.map((child) => child.text || "").join("").trim();
-}
-
-function BookCopy({ value }: { value: BookContent }) {
-  const nodes: ReactNode[] = [];
-  let items: Array<{ key: string; text: string }> = [];
-
-  const flush = () => {
-    if (!items.length) return;
-    const list = items;
-    nodes.push(
-      <Box
-        component="ul"
-        key={`list-${nodes.length}`}
-        sx={{ my: 1.5, pl: "1.15em" }}
-      >
-        {list.map((item) => (
-          <Box component="li" key={item.key} sx={{ mb: 0.45 }}>
-            {item.text}
-          </Box>
-        ))}
-      </Box>
-    );
-    items = [];
-  };
-
-  for (const block of value || []) {
-    if (block._type !== "block") continue;
-    const text = plainText(block);
-    if (!text) continue;
-    const listLike = text.length < 80 && !/[.!?]$/.test(text);
-    if (listLike) {
-      items.push({ key: block._key || text, text });
-    } else {
-      flush();
-      nodes.push(
-        <Box component="p" key={block._key} sx={{ m: 0, mb: "1em" }}>
-          {text}
-        </Box>
-      );
-    }
-  }
-
-  flush();
-  return nodes;
-}
 
 const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
   title,
@@ -136,7 +88,7 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
             {title}
           </Typography>
           <Box sx={{ maxWidth: 520 }}>
-            <BookCopy value={content} />
+              <PortableText value={content} />
           </Box>
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
