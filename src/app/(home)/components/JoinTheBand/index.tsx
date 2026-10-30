@@ -1,6 +1,6 @@
 "use client";
 
-import { Grid, MenuItem, Stack, Typography } from "@mui/material";
+import { Grid, List, ListItem, ListItemAvatar, ListItemText, MenuItem, Stack, Typography } from "@mui/material";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -85,49 +85,18 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
           <Typography component="div" sx={{ maxWidth: 480 }}>
             <PortableText value={content} />
           </Typography>
-          <Box
-            component="ul"
-            sx={{
-              listStyle: "none",
-              m: 0,
-              mt: 3,
-              p: 0,
-              display: "flex",
-              flexDirection: "column",
-              gap: 1.75,
-            }}
-          >
+          <List>
             {instruments?.map(({ instrumentName, notes, emoticon }) => (
-              <Typography
-                component="li"
-                key={instrumentName}
-                sx={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: 1.25,
-                  fontWeight: 700,
-                  fontSize: "1.2rem",
-                  lineHeight: 1.3,
-                }}
-              >
+              <ListItem>
                 {emoticon ? (
-                  <Box component="span" aria-hidden="true">
+                  <ListItemAvatar>
                     {emoticon}
-                  </Box>
+                  </ListItemAvatar>
                 ) : null}
-                <span>
-                  {instrumentName}
-                  {notes?.trim()
-                    ? ` ${
-                        notes.trim().startsWith("(")
-                          ? notes.trim()
-                          : `(${notes.trim()})`
-                      }`
-                    : ""}
-                </span>
-              </Typography>
+                <ListItemText primary={instrumentName} secondary={notes} />
+              </ListItem>
             ))}
-          </Box>
+          </List>
         </Grid>
 
         <Grid size={{ xs: 12, md: 6 }}>

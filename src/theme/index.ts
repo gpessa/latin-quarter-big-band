@@ -116,11 +116,5 @@ const theme = createTheme({
   },
 });
 
-theme.typography.h2 = {
-  ...theme.typography.h2,
-  [theme.breakpoints.up("md")]: {
-    fontSize: "4.82rem",
-  },
-};
 
 export default responsiveFontSizes(theme);
