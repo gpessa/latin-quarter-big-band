@@ -1,6 +1,6 @@
 import { GOOGLE_ANALYTICS, IS_PRODUCTION, LANG } from "@/contants";
 import { SanityLive } from "@/sanity/lib/live";
-import theme from "@/theme";
+import theme, { SCROLL_PADDING_TOP } from "@/theme";
 import { CssBaseline, GlobalStyles } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
@@ -23,7 +23,7 @@ export default function RootLayout({
                 "@media (prefers-reduced-motion: no-preference)": {
                   html: { scrollBehavior: "smooth" },
                 },
-                html: { scrollPaddingTop: "104px" },
+                html: { scrollPaddingTop: SCROLL_PADDING_TOP },
               }}
             />
             {children}

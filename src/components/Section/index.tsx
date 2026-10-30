@@ -2,7 +2,7 @@
 
 import { Box, Container, ContainerProps } from "@mui/material";
 import React from "react";
-import { brand } from "@/theme";
+import { brand, SCROLL_PADDING_TOP } from "@/theme";
 
 const tones = {
   cream: { bgcolor: brand.cream, color: brand.ink },
@@ -36,7 +36,7 @@ const Section: React.FC<Props> = ({
         bgcolor: colors.bgcolor,
         color: colors.color,
         py: { xs: 5, md: 8 },
-        scrollMarginTop: "104px",
+        scrollMarginTop: SCROLL_PADDING_TOP,
       }}
     >
       <Container maxWidth={maxWidth}>{children}</Container>

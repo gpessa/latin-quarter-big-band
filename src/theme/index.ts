@@ -3,9 +3,11 @@ import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 import { Anton as Title, Outfit as Text } from "next/font/google";
 
+export const SCROLL_PADDING_TOP = '70px';
+
 export const BREAKPOINT = "md";
 
-export const SPACING = 4;
+export const SPACING = 3;
 
 export const brand = {
   cream: "#F4F0E6",
@@ -68,6 +70,15 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: brand.field,
+          borderWidth: '3px'
+        }
+      }
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
+          padding: 10
         }
       }
     }
