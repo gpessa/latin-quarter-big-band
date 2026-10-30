@@ -15,7 +15,7 @@ import { QUERYResult } from "../../../../../sanity.types";
 import { SECTIONS } from "@/contants";
 import { FormCard } from "@/components/FormCard";
 import LabeledField from "@/components/LabeledField";
-import { SPACING } from "@/theme";
+import { GRID_SPACING, SPACING } from "@/theme";
 
 const schema = yup
   .object({
@@ -77,7 +77,7 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
 
   return (
     <Section tone="red" id={SECTIONS.joinTheBand}>
-      <Grid container spacing={{ xs: 4, md: 8 }} sx={{ alignItems: "flex-start" }}>
+      <Grid container spacing={GRID_SPACING} sx={{ alignItems: "flex-start" }}>
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography variant="h2" component="h2" sx={{ mb: 3 }}>
             {title}

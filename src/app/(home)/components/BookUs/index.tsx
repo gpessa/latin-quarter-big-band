@@ -12,7 +12,7 @@ import { SECTIONS } from "@/contants";
 import { Alert, Box, Button } from "@mui/material";
 import { useState, type ReactNode } from "react";
 import { QUERYResult } from "../../../../../sanity.types";
-import { SPACING } from "@/theme";
+import { GRID_SPACING, SPACING } from "@/theme";
 
 type BookContent = Exclude<QUERYResult["bookUs"], null>["content"];
 type BookBlock = BookContent[number];
@@ -121,7 +121,7 @@ const BookUs: React.FC<Exclude<QUERYResult["bookUs"], null>> = ({
 
   return (
     <Section id={SECTIONS.bookUs}>
-      <Grid container spacing={{ xs: 4, md: 8 }} sx={{ alignItems: "flex-start" }}>
+      <Grid container spacing={GRID_SPACING} sx={{ alignItems: "flex-start" }}>
         <Grid size={{ xs: 12, md: 6 }}>
           <Typography
             variant="h2"
