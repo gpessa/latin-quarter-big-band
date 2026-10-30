@@ -2,7 +2,7 @@
 
 import { Box, Container, ContainerProps } from "@mui/material";
 import React from "react";
-import { brand, SCROLL_PADDING_TOP } from "@/theme";
+import { brand, GRID_SPACING, SCROLL_PADDING_TOP } from "@/theme";
 
 const tones = {
   cream: { bgcolor: brand.cream, color: brand.ink },
@@ -35,7 +35,7 @@ const Section: React.FC<Props> = ({
       sx={{
         bgcolor: colors.bgcolor,
         color: colors.color,
-        py: { xs: 5, md: 8 },
+        py: GRID_SPACING,
         scrollMarginTop: SCROLL_PADDING_TOP,
       }}
     >
