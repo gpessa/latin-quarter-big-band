@@ -9,7 +9,7 @@ export const BREAKPOINT = "md";
 
 export const SPACING = 3;
 
-export const GRID_SPACING = { xs: 4, md: 8 };
+export const GRID_SPACING = { xs: 3, md: 5 };
 
 export const brand = {
   cream: "#F4F0E6",
@@ -79,8 +79,7 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          boxShadow: "none",
-          padding: 10
+          boxShadow: "none"
         }
       }
     }
