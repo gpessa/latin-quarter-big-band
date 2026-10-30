@@ -1,76 +1,70 @@
 "use client";
 
-import { useState } from "react";
 import { Section } from "@/components";
-import { SECTIONS, STANDARD_MARGIN_BOTTOM } from "@/contants";
-import {
-  Box,
-  Button,
-  Divider,
-  Pagination,
-  Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import { SECTIONS } from "@/contants";
+import AccessTimeOutlined from "@mui/icons-material/AccessTimeOutlined";
+import CalendarTodayOutlined from "@mui/icons-material/CalendarTodayOutlined";
+import PlaceOutlined from "@mui/icons-material/PlaceOutlined";
+import { Box, Button, Pagination, Table, TableCell, TableRow, Typography } from "@mui/material";
 import { PortableText } from "next-sanity";
+import { useState } from "react";
 import { QUERYResult } from "../../../../../sanity.types";
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 8;
+
+type ConcertAddress = NonNullable<
+  NonNullable<NonNullable<QUERYResult["agenda"]>["concerts"]>[number]["address"]
+>;
+
+function placeLine(address?: ConcertAddress | null) {
+  if (!address) return "";
+  const venue = address.name?.trim();
+  const detail = address.street
+    ? [address.street, address.postalCode, address.city].filter(Boolean).join(", ")
+    : address.formattedAddress ||
+    [address.postalCode, address.city].filter(Boolean).join(", ");
+
+  if (venue && detail) return `${venue.toUpperCase()} — ${detail}`;
+  return venue ? venue.toUpperCase() : detail;
+}
 
 const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
   title,
   content,
   concerts,
 }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [currentPage, setCurrentPage] = useState(1);
+  const [now] = useState(() => Date.now());
 
   const rows = (concerts || []).map(({ date, name, address, url }) => {
-    const addressLine = [address?.street, address?.postalCode, address?.city]
-      .filter((val) => val != null)
-      .join(", ");
-
+    const when = new Date(date);
     return {
-      dateString: new Date(date).toLocaleDateString("en-GB"),
-      timeString: new Date(date).toLocaleTimeString([], {
+      dateString: when.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }),
+      timeString: when.toLocaleTimeString("en-US", {
         hour: "2-digit",
         minute: "2-digit",
       }),
       name,
-      address: address?.name ? (
-        <Typography component="span" variant="body2">
-          {address.name.toUpperCase()}
-          {addressLine && (
-            <>
-              <br />
-              {addressLine}
-            </>
-          )}
-        </Typography>
-      ) : null,
-      active: new Date(date).getTime() > new Date().getTime(),
-      date: new Date(date),
+      place: placeLine(address),
+      active: when.getTime() > now,
+      date: when,
       url,
     };
   });
 
-  const oldConcerts = rows
-    .filter(({ active }) => !active)
-    .sort((a, b) => b.date.getTime() - a.date.getTime());
-
-  const newConcerts = rows
+  const upcoming = rows
     .filter(({ active }) => active)
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 
-  const concertsSorted = [...newConcerts, ...oldConcerts];
+  const past = rows
+    .filter(({ active }) => !active)
+    .sort((a, b) => b.date.getTime() - a.date.getTime());
+
+  const concertsSorted = [...upcoming, ...past];
 
   const totalPages = Math.ceil(concertsSorted.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -79,123 +73,70 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
     startIndex + ITEMS_PER_PAGE
   );
 
-  const handlePageChange = (event: any, page: number) => {
-    setCurrentPage(page);
-  };
-
   return (
-    <Section color="secondary" id={SECTIONS.agenda}>
-      <Typography
-        variant="h3"
-        component="h2"
-        align="center"
-        sx={{ mb: STANDARD_MARGIN_BOTTOM }}
-      >
+    <Section tone="teal" id={SECTIONS.agenda}>
+      <Typography variant="h2" component="h2" gutterBottom>
         {title}
       </Typography>
 
-      <Typography
-        component="div"
-        align="center"
-        sx={{ mb: STANDARD_MARGIN_BOTTOM }}
-      >
+      <Typography component="div" gutterBottom>
         <PortableText value={content} />
       </Typography>
 
-      {isMobile ? (
-        <Stack
-          sx={{ gap: 3 }}
-          divider={<Divider orientation="horizontal" flexItem />}
-        >
-          {paginatedConcerts.map(
-            ({ dateString, timeString, name, address, active, url }) => (
-              <Stack key={dateString} sx={{ opacity: active ? 1 : 0.5 }}>
-                <Stack spacing={1}>
-                  <Typography
-                    variant="body1"
-                    sx={{ mt: 1, fontWeight: "bold" }}
+      <Table>
+        {paginatedConcerts.map(
+          ({ dateString, timeString, name, place, active, url, date }) => (
+            <TableRow
+              key={`${name}-${date.toISOString()}`}
+              sx={{
+                opacity: active ? 1 : 0.72
+              }}
+            >
+              <TableCell >
+                <Typography><CalendarTodayOutlined /> {dateString}</Typography>
+                <Typography><AccessTimeOutlined /> {timeString}</Typography>
+              </TableCell>
+
+              <TableCell>
+                <Typography>
+                  {name}
+                </Typography>
+                {place && (
+                  <Typography variant="body2">
+                    <PlaceOutlined />
+                    {place}
+                  </Typography>
+                )}
+              </TableCell>
+
+              <TableCell>
+                {url && (
+                  <Button
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="contained"
                   >
-                    {name}
-                  </Typography>
-                  <Typography variant="body2">
-                    📅 {dateString}
-                  </Typography>
-                  <Typography variant="body2">
-                    ⏰ {timeString}
-                  </Typography>
-                  {address && (
-                    <Typography variant="body2">📍 {address}</Typography>
-                  )}
-                  {url && (
-                    <Button
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      variant="contained"
-                      color="secondary"
-                      size="small"
-                    >
-                      🔗 Link
-                    </Button>
-                  )}
-                </Stack>
-              </Stack>
-            )
-          )}
-        </Stack>
-      ) : (
-        <TableContainer>
-          <Table sx={{ minWidth: 650 }} aria-label="agenda table">
-            <TableHead>
-              <TableRow>
-                <TableCell>📅 DATE</TableCell>
-                <TableCell>⏰ TIME</TableCell>
-                <TableCell align="right">📍 LOCATION</TableCell>
-                <TableCell align="right">🔗 LINK</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {paginatedConcerts.map(
-                (
-                  { dateString, timeString, name, address, active, url },
-                  index
-                ) => (
-                  <TableRow key={index} sx={{ opacity: active ? 1 : 0.5 }}>
-                    <TableCell>{dateString}</TableCell>
-                    <TableCell>{timeString}</TableCell>
-                    <TableCell align="right">
-                      <strong>{name}</strong>
-                      <br />
-                      {address}
-                    </TableCell>
-                    <TableCell align="right">
-                      {url && (
-                        <Button
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          variant="contained"
-                          color="secondary"
-                        >
-                          Link
-                        </Button>
-                      )}
-                    </TableCell>
-                  </TableRow>
-                )
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+                    Link
+                  </Button>
+                )}
+              </TableCell>
+            </TableRow>
+          )
+        )}
+      </Table>
 
       {totalPages > 1 && (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
           <Pagination
             count={totalPages}
             page={currentPage}
-            onChange={handlePageChange}
-            color="secondary"
+            onChange={(_event, page) => {
+              setCurrentPage(page);
+              document
+                .getElementById(SECTIONS.agenda)
+                ?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }}
           />
         </Box>
       )}

@@ -1,57 +1,87 @@
 "use client";
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
-import { Monoton as Title, Roboto_Serif as Text } from "next/font/google";
-// import { Gravitas_One as Title, Poppins as Text } from "next/font/google";
+import { Anton as Title, Outfit as Text } from "next/font/google";
+
+export const SCROLL_PADDING_TOP = '70px';
 
 export const BREAKPOINT = "md";
 
+export const SPACING = 3;
+
+export const GRID_SPACING = { xs: 3, md: 5 };
+
+export const brand = {
+  cream: "#F4F0E6",
+  ink: "#10202C",
+  red: "#C02B2B",
+  redDark: "#9E2222",
+  teal: "#1B5164",
+  field: "#EFE8DC",
+  mutedRed: "#8A4548",
+};
+
 const text = Text({
-  weight: ["400", "700"],
-  preload: false,
-  // subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
 });
 
 const title = Title({
   weight: "400",
-  preload: false,
+  subsets: ["latin"],
+  display: "swap",
 });
 
-const Colors = {
-  rosso_latino_vivo: "#C02B2B",
-  giallo_oro: "#F7C325",
-  blu: "#2a6583",
-};
+export const titleFontFamily = title.style.fontFamily;
 
 const theme = createTheme({
   palette: {
-    primary: { main: Colors.rosso_latino_vivo },
-    secondary: { main: Colors.blu },
+    primary: { main: brand.red, dark: brand.redDark, contrastText: "#ffffff" },
+    secondary: { main: brand.teal, contrastText: "#ffffff" },
+    background: { default: brand.cream, paper: "#ffffff" },
+    text: {
+      primary: brand.ink,
+      secondary: "rgba(16, 32, 44, 0.62)",
+    },
   },
   shape: {
-    borderRadius: 0,
+    borderRadius: 8,
   },
   components: {
     MuiButton: {
       defaultProps: {
         disableElevation: true,
       },
-    },
-    MuiTableCell: {
       styleOverrides: {
         root: {
-          color: "inherit",
+          textTransform: "none",
+          fontWeight: 600,
+          borderRadius: 8,
         },
       },
     },
-    MuiPagination: {
+    MuiCssBaseline: {
       styleOverrides: {
-        root: {
-          "& .MuiButtonBase-root": {
-            color: "white",
-          },
+        body: {
+          backgroundColor: brand.cream,
         },
       },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          backgroundColor: brand.field,
+          borderWidth: '3px'
+        }
+      }
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none"
+        }
+      }
     }
   },
   typography: {
@@ -62,25 +92,29 @@ const theme = createTheme({
     fontSize: 17,
     h1: {
       fontFamily: title.style.fontFamily,
-      lineHeight: 1,
+      fontWeight: 400,
+      lineHeight: 1.12,
+      letterSpacing: "0.01em",
     },
     h2: {
       fontFamily: title.style.fontFamily,
-      lineHeight: 1,
+      fontWeight: 400,
+      fontSize: "3.02rem",
+      lineHeight: 1.12,
+      letterSpacing: "0.012em",
+      textTransform: "uppercase",
     },
     h3: {
       fontFamily: title.style.fontFamily,
-      lineHeight: 1,
+      fontWeight: 400,
+      lineHeight: 1.12,
     },
-    h5: {
-      fontFamily: title.style.fontFamily,
-      lineHeight: 1,
-    },
-    h6: {
-      fontFamily: title.style.fontFamily,
-      lineHeight: 1,
+    button: {
+      fontFamily: text.style.fontFamily,
+      fontWeight: 600,
     },
   },
 });
+
 
 export default responsiveFontSizes(theme);

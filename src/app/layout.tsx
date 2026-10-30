@@ -1,21 +1,10 @@
 import { GOOGLE_ANALYTICS, IS_PRODUCTION, LANG } from "@/contants";
 import { SanityLive } from "@/sanity/lib/live";
-import theme from "@/theme";
+import theme, { SCROLL_PADDING_TOP } from "@/theme";
 import { CssBaseline, GlobalStyles } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { Geist, Geist_Mono } from "next/font/google";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export default function RootLayout({
   children,
@@ -24,13 +13,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={LANG}>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <GlobalStyles
               styles={{
                 p: { margin: 0, padding: 0, marginBottom: "1em" },
+                "@media (prefers-reduced-motion: no-preference)": {
+                  html: { scrollBehavior: "smooth" },
+                },
+                html: { scrollPaddingTop: SCROLL_PADDING_TOP },
               }}
             />
             {children}

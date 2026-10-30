@@ -3,50 +3,99 @@
 import { urlFor } from "@/sanity/lib/image";
 import { useEffect, useState } from "react";
 import { QUERYResult } from "../../../../../sanity.types";
-import { styled } from "@mui/material/styles";
-import React from "react";
+import { Box, Typography } from "@mui/material";
+import Image from "next/image";
+import { NAME } from "@/contants";
 
-const Wrapper = styled("div")(() => ({
-  position: "relative",
-  height: "85vh",
-  width: "100%",
-  overflow: "hidden",
-}));
-
-const Slide = styled("img")(({ theme }) => ({
-  position: "absolute",
-  top: -4,
-  left: -4,
-  width: "calc(100% + 8px)",
-  height: "calc(100% + 8px)",
-  objectFit: "cover",
-  filter: "blur(3px)",
-  opacity: 0,
-  transition: "opacity 1s ease-in-out", // smooth fade
-}));
-
-const Gallery: React.FC<Pick<QUERYResult, "intro">> = ({ intro }) => {
-  const [index, setIndex] = useState<number>(0);
+const Intro: React.FC<Pick<QUERYResult, "intro">> = ({ intro }) => {
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
+    if (intro.length < 2) return;
     const interval = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % intro.length);
-    }, 3000); // slower, feels nicer than 2000ms
+      setIndex((prev) => (prev + 1) % intro.length);
+    }, 4000);
     return () => clearInterval(interval);
   }, [intro.length]);
 
   return (
-    <Wrapper>
-      {intro.map((item, i) => (
-        <Slide
-          key={i}
-          src={urlFor(item.image).width(1600).url()}
-          alt={`Slide ${i}`}
-          sx={{ opacity: i === index ? 1 : 0 }}
-        />
-      ))}
-    </Wrapper>
+    <Box component="section">
+      <Typography
+        component="h1"
+        sx={{
+          position: "absolute",
+          width: "1px",
+          height: "1px",
+          padding: 0,
+          margin: "-1px",
+          overflow: "hidden",
+          clip: "rect(0, 0, 0, 0)",
+          whiteSpace: "nowrap",
+          border: 0,
+        }}
+      >
+        {NAME}
+      </Typography>
+
+      {intro.length > 0 && (
+        <Box
+          sx={{
+            position: "relative",
+            width: "100%",
+            overflow: "hidden",
+            aspectRatio: { xs: "16 / 10", md: "16 / 7" },
+          }}
+        >
+          {intro.map((item, i) => (
+            <Box
+              key={item._id || i}
+              component="img"
+              src={urlFor(item.image)
+                .width(2400)
+                .height(1100)
+                .fit("crop")
+                .auto("format")
+                .url()}
+              alt={i === index ? `${NAME} (${i + 1})` : ""}
+              aria-hidden={i === index ? undefined : true}
+              sx={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                filter: "blur(3px)",
+                transform: "scale(1.08)",
+                opacity: i === index ? 1 : 0,
+                transition: "opacity 1s ease",
+              }}
+            />
+          ))}
+          <Box
+            aria-hidden
+            sx={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              pointerEvents: "none",
+            }}
+          >
+            <Image
+              src={require("@/assets/logo.svg").default}
+              alt=""
+              width={360}
+              height={353}
+              priority
+              style={{ width: "min(46vw, 360px)", height: "auto" }}
+            />
+          </Box>
+        </Box>
+      )}
+    </Box>
   );
 };
 
-export default Gallery;
+export default Intro;
