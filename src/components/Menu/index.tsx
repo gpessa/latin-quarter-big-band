@@ -1,9 +1,8 @@
 "use client";
 
 import { SECTIONS } from "@/contants";
+import { Box, Button, styled } from "@mui/material";
 import { QUERYResult } from "../../../sanity.types";
-import { Box } from "@mui/material";
-import { titleFontFamily } from "@/theme";
 
 const NAV_ITEMS: Array<{
   key: keyof QUERYResult["menu"];
@@ -14,6 +13,13 @@ const NAV_ITEMS: Array<{
   { key: "gallery", href: SECTIONS.gallery },
   { key: "joinTheBand", href: SECTIONS.joinTheBand },
 ];
+
+
+const MenuButton = styled(Button)(({ theme }) => ({
+  textTransform: "uppercase",
+  fontWeight: theme.typography.fontWeightBold,
+}));
+
 
 export default function Menu({
   menu,
@@ -41,29 +47,14 @@ export default function Menu({
       }}
     >
       {items.map((item) => (
-        <Box
-          key={item.href}
-          component="a"
+        <MenuButton 
           href={`#${item.href}`}
           onClick={onNavigate}
-          sx={{
-            color: "text.primary",
-            textDecoration: "none",
-            fontFamily: titleFontFamily,
-            fontWeight: 400,
-            fontSize: direction === "row" ? 18 : 22,
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-            "&:hover": { color: "primary.main" },
-            "&:focus-visible": {
-              outline: "2px solid",
-              outlineColor: "primary.main",
-              outlineOffset: 4,
-            },
-          }}
+          variant="text"
+          color="inherit"
         >
           {item.title}
-        </Box>
+        </MenuButton>
       ))}
     </Box>
   );
