@@ -5,6 +5,8 @@ const LabelStyled = styled('label')(({ theme }) => ({
   display: "block",
   textTransform: "uppercase",
   fontWeight: theme.typography.fontWeightBold,
+  fontSize: "80%",
+  marginBottom: theme.spacing(0.5),
 }));
 
 export default function LabeledField({

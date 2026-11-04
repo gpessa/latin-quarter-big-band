@@ -16,6 +16,9 @@ export function FormCard({
       raised={false}
       noValidate
       onSubmit={onSubmit}
+      sx={{
+        p: 2.4,
+      }}
     >
       <CardContent>
         {children}

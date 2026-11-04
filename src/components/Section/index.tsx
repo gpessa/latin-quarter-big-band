@@ -35,7 +35,7 @@ const Section: React.FC<Props> = ({
       sx={{
         bgcolor: colors.bgcolor,
         color: colors.color,
-        py: GRID_SPACING,
+        py: { xs: 3, md: 7 },
         scrollMarginTop: SCROLL_PADDING_TOP,
       }}
     >
