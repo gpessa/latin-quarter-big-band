@@ -68,6 +68,13 @@ const theme = createTheme({
         },
       },
     },
+    MuiTableCell: {
+      styleOverrides: {
+        body: {
+          color: 'inherit'
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         root: {

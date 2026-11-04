@@ -2,7 +2,6 @@
 
 import { NAME, SECTIONS } from "@/contants";
 import { QUERYResult } from "../../../sanity.types";
-import CloseIcon from "@mui/icons-material/Close";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Box, Button, Container, Drawer, IconButton } from "@mui/material";
 import Image from "next/image";
@@ -31,17 +30,16 @@ export default function Header({ menu }: { menu: QUERYResult["menu"] }) {
     };
   }, []);
 
-  const bookButton = menu.bookUs ? (
+  const bookButton = (
     <Button
       href={`#${SECTIONS.bookUs}`}
       variant="contained"
       color="primary"
       onClick={close}
-      sx={{ px: 2.25, py: 1, fontSize: 15, whiteSpace: "nowrap" }}
     >
       {menu.bookUs}
     </Button>
-  ) : null;
+  )
 
   return (
     <Box
@@ -120,26 +118,7 @@ export default function Header({ menu }: { menu: QUERYResult["menu"] }) {
         anchor="right"
         open={open}
         onClose={close}
-        slotProps={{
-          paper: {
-            sx: {
-              width: 300,
-              bgcolor: "background.default",
-              p: 3,
-              display: "flex",
-              flexDirection: "column",
-              gap: 4,
-            },
-          },
-        }}
       >
-        <IconButton
-          aria-label="Close menu"
-          onClick={close}
-          sx={{ alignSelf: "flex-end", color: "text.primary" }}
-        >
-          <CloseIcon />
-        </IconButton>
         <Menu menu={menu} direction="column" onNavigate={close} />
         {bookButton}
       </Drawer>

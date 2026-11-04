@@ -5,7 +5,19 @@ import { SECTIONS } from "@/contants";
 import AccessTimeOutlined from "@mui/icons-material/AccessTimeOutlined";
 import CalendarTodayOutlined from "@mui/icons-material/CalendarTodayOutlined";
 import PlaceOutlined from "@mui/icons-material/PlaceOutlined";
-import { Box, Button, Pagination, Table, TableCell, TableRow, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Pagination,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography,
+  styled
+} from "@mui/material";
 import { PortableText } from "next-sanity";
 import { useState } from "react";
 import { QUERYResult } from "../../../../../sanity.types";
@@ -16,16 +28,135 @@ type ConcertAddress = NonNullable<
   NonNullable<NonNullable<QUERYResult["agenda"]>["concerts"]>[number]["address"]
 >;
 
-function placeLine(address?: ConcertAddress | null) {
-  if (!address) return "";
-  const venue = address.name?.trim();
-  const detail = address.street
-    ? [address.street, address.postalCode, address.city].filter(Boolean).join(", ")
-    : address.formattedAddress ||
-    [address.postalCode, address.city].filter(Boolean).join(", ");
+type ConcertRow = {
+  name: string;
+  address: ConcertAddress | null;
+  active: boolean;
+  date: Date;
+  url: string | null;
+};
 
-  if (venue && detail) return `${venue.toUpperCase()} — ${detail}`;
-  return venue ? venue.toUpperCase() : detail;
+
+function ConcertLink({ url }: { url: string }) {
+  return (
+    <Button
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      variant="contained"
+    >
+      Link
+    </Button>
+  );
+}
+
+const Name = styled(Typography)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightBold,
+  textTransform: "uppercase",
+}));
+
+
+const CustomPagination = styled(Pagination)(({ theme }) => ({
+  "& .MuiButtonBase-root": {
+    color: theme.palette.common.white,
+  },
+}));
+
+function Address({ address }: { address: ConcertAddress | null }) {
+  if (!address) return null;
+
+  let place;
+
+  const { name, formattedAddress, street, postalCode, city } = address;
+
+  const venue = name?.trim();
+
+  const detail = street
+    ? [street, postalCode, city].filter(Boolean).join(", ")
+    : formattedAddress || [postalCode, city].filter(Boolean).join(", ");
+
+  if (venue && detail) {
+    place = `${venue} — ${detail}`;
+  } else {
+    place =  venue ? venue : detail;
+  }
+
+  return (
+    <Stack spacing={1} direction="row" sx={{mb: 1}}>
+      <PlaceOutlined />
+      <Typography>{place}</Typography>
+    </Stack>
+  );
+}
+
+function DateTime({ date }: { date: Date }) {
+    const dateString =  date.toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    })
+    
+    const timeString =  date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+
+  return (
+    <>
+      <Stack spacing={1} direction="row" sx={{mb: 1}}>
+        <CalendarTodayOutlined  />
+        <Typography>{dateString}</Typography>
+      </Stack>
+      <Stack spacing={1} direction="row">
+        <AccessTimeOutlined />
+        <Typography>{timeString}</Typography>
+      </Stack>  
+    </>
+  );
+}
+
+
+function AgendaMobile({ concerts }: { concerts: ConcertRow[] }) {
+  return (
+    <Stack
+      spacing={3}
+      divider={<Divider flexItem sx={{ borderColor: "rgba(255,255,255,0.2)" }} />}
+      sx={{ display: { md: "none" } }}
+    >
+      {concerts.map(({ name, address, active, url, date }) => (
+        <Stack key={`${name}-${date.toISOString()}`} spacing={1} sx={{ opacity: active ? 1 : 0.72 }}>
+          <Name>{name}</Name>
+          <DateTime date={date} />
+          <Address address={address} />
+          {url && <ConcertLink url={url} />}
+        </Stack>
+      ))}
+    </Stack>
+  );
+}
+
+function AgendaDesktop({ concerts }: { concerts: ConcertRow[] }) {
+  return (
+    <Table sx={{ display: { xs: "none", md: "table" } }}>
+      <TableBody>
+        {concerts.map(({ date, name, address, active, url }) => (
+          <TableRow
+            key={`${name}-${date.toISOString()}`}
+            sx={{ opacity: active ? 1 : 0.72 }}
+          >
+            <TableCell>
+              <DateTime date={date} />
+            </TableCell>
+            <TableCell>
+              <Name>{name}</Name>
+              <Address address={address} />
+            </TableCell>
+            <TableCell>{url && <ConcertLink url={url} />}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
 }
 
 const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
@@ -38,20 +169,12 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
 
   const rows = (concerts || []).map(({ date, name, address, url }) => {
     const when = new Date(date);
+
     return {
-      dateString: when.toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      }),
-      timeString: when.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      name,
-      place: placeLine(address),
       active: when.getTime() > now,
+      address,
       date: when,
+      name,
       url,
     };
   });
@@ -83,54 +206,16 @@ const Agenda: React.FC<Exclude<QUERYResult["agenda"], null>> = ({
         <PortableText value={content} />
       </Typography>
 
-      <Table>
-        {paginatedConcerts.map(
-          ({ dateString, timeString, name, place, active, url, date }) => (
-            <TableRow
-              key={`${name}-${date.toISOString()}`}
-              sx={{
-                opacity: active ? 1 : 0.72
-              }}
-            >
-              <TableCell >
-                <Typography><CalendarTodayOutlined /> {dateString}</Typography>
-                <Typography><AccessTimeOutlined /> {timeString}</Typography>
-              </TableCell>
-
-              <TableCell>
-                <Typography>
-                  {name}
-                </Typography>
-                {place && (
-                  <Typography variant="body2">
-                    <PlaceOutlined />
-                    {place}
-                  </Typography>
-                )}
-              </TableCell>
-
-              <TableCell>
-                {url && (
-                  <Button
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    variant="contained"
-                  >
-                    Link
-                  </Button>
-                )}
-              </TableCell>
-            </TableRow>
-          )
-        )}
-      </Table>
+      <AgendaMobile concerts={paginatedConcerts} />
+      <AgendaDesktop concerts={paginatedConcerts} />
 
       {totalPages > 1 && (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-          <Pagination
+          <CustomPagination
             count={totalPages}
             page={currentPage}
+            color="primary"
+            size="large"
             onChange={(_event, page) => {
               setCurrentPage(page);
               document
