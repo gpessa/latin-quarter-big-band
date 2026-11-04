@@ -44,6 +44,7 @@ export default function Menu({
         flexDirection: direction,
         alignItems: direction === "row" ? "center" : "flex-start",
         gap: direction === "row" ? 3.5 : 2.25,
+        padding: direction === "column" ? 2.5 : 0,
       }}
     >
       {items.map((item) => (
@@ -56,6 +57,15 @@ export default function Menu({
           {item.title}
         </MenuButton>
       ))}
+
+      <Button
+        href={`#${SECTIONS.bookUs}`}
+        variant="contained"
+        color="primary"
+        onClick={onNavigate}
+      >
+        {menu.bookUs}
+      </Button>
     </Box>
   );
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import { NAME, SECTIONS } from "@/contants";
+import { NAME } from "@/contants";
 import { QUERYResult } from "../../../sanity.types";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Box, Button, Container, Drawer, IconButton } from "@mui/material";
+import { Box, Container, Drawer, IconButton } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Menu from "../Menu";
@@ -29,17 +29,6 @@ export default function Header({ menu }: { menu: QUERYResult["menu"] }) {
       window.removeEventListener("resize", onScroll);
     };
   }, []);
-
-  const bookButton = (
-    <Button
-      href={`#${SECTIONS.bookUs}`}
-      variant="contained"
-      color="primary"
-      onClick={close}
-    >
-      {menu.bookUs}
-    </Button>
-  )
 
   return (
     <Box
@@ -102,7 +91,6 @@ export default function Header({ menu }: { menu: QUERYResult["menu"] }) {
           }}
         >
           <Menu menu={menu} />
-          {bookButton}
         </Box>
 
         <IconButton
@@ -120,7 +108,6 @@ export default function Header({ menu }: { menu: QUERYResult["menu"] }) {
         onClose={close}
       >
         <Menu menu={menu} direction="column" onNavigate={close} />
-        {bookButton}
       </Drawer>
     </Box>
   );
