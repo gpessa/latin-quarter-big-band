@@ -1,12 +1,21 @@
 "use client";
 
 import { NAME } from "@/contants";
-import { QUERYResult } from "../../../sanity.types";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Box, Container, Drawer, IconButton } from "@mui/material";
+import { AppBar, Box, Container, Drawer, IconButton, Link, styled, Toolbar } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { QUERYResult } from "../../../sanity.types";
 import Menu from "../Menu";
+
+const Logo = styled(Image)(({ theme }) => ({
+    width: 40,
+    height: 40,
+  [theme.breakpoints.up("md")]: {
+    width: 70,
+    height: 70,
+  }, 
+}));
 
 export default function Header({ menu }: { menu: QUERYResult["menu"] }) {
   const [open, setOpen] = useState(false);
@@ -31,75 +40,51 @@ export default function Header({ menu }: { menu: QUERYResult["menu"] }) {
   }, []);
 
   return (
-    <Box
-      component="header"
+    <AppBar position="sticky" elevation={compact ? 5 : 0}
       sx={{
-        position: "sticky",
-        top: 0,
-        zIndex: 20,
         bgcolor: "background.default",
-        boxShadow: compact ? "0 10px 28px rgba(16, 32, 44, 0.12)" : "none",
-        transition: "box-shadow 360ms ease",
-        "@media (prefers-reduced-motion: reduce)": {
-          transition: "none",
-        },
       }}
     >
-      <Container
-        maxWidth="lg"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 2,
-          py: 1.25,
-          minHeight: 76,
-        }}
-      >
-        <Box
-          component="a"
-          href="/"
-          aria-hidden={!showLogo}
-          tabIndex={showLogo ? 0 : -1}
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            color: "inherit",
-            textDecoration: "none",
-            opacity: showLogo ? 1 : 0,
-            pointerEvents: showLogo ? "auto" : "none",
-            transition: "opacity 280ms ease",
-            "@media (prefers-reduced-motion: reduce)": {
-              transition: "none",
-            },
-          }}
-        >
-          <Image
-            src={require("@/assets/logo.svg").default}
-            alt={NAME}
-            width={52}
-            height={52}
-            priority
-          />
-        </Box>
+      <Container maxWidth="lg">
+        <Toolbar sx={{}}>
 
-        <Box
-          sx={{
-            display: { xs: "none", md: "flex" },
-            alignItems: "center",
-            gap: 3.5,
-          }}
-        >
-          <Menu menu={menu} />
-        </Box>
+          <Link
+            href="/"
+            aria-hidden={!showLogo}
+            tabIndex={showLogo ? 0 : -1}
+            sx={{
+              opacity: showLogo ? 1 : 0,
+              pointerEvents: showLogo ? "auto" : "none",
+              transition: "opacity 280ms ease",
+              display: "flex", 
+              flexGrow: 1, 
+              py: 2,
+              "@media (prefers-reduced-motion: reduce)": {
+                transition: "none",
+              }, 
+            }}
+          >
+            <Logo
+              src={require("@/assets/logo.svg").default}
+              alt={NAME}
+              width={60}
+              height={60}
+              priority
+            />
+          </Link>
 
-        <IconButton
-          aria-label="Open menu"
-          onClick={() => setOpen(true)}
-          sx={{ display: { md: "none" }, color: "text.primary" }}
-        >
-          <MenuIcon />
-        </IconButton>
+          <Box sx={{ display: { xs: "none", md: "flex" } }} >
+            <Menu menu={menu} />
+          </Box>
+
+          <IconButton
+            aria-label="Open menu"
+            onClick={() => setOpen(true)}
+            sx={{ display: { md: "none" }, color: "text.primary" }}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
       </Container>
 
       <Drawer
@@ -107,8 +92,11 @@ export default function Header({ menu }: { menu: QUERYResult["menu"] }) {
         open={open}
         onClose={close}
       >
-        <Menu menu={menu} direction="column" onNavigate={close} />
+        <Box sx={{ p: 2 }}>
+          <Menu menu={menu} direction="column" onNavigate={close} />
+        </Box>
       </Drawer>
-    </Box>
+
+    </AppBar>
   );
 }

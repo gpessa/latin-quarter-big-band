@@ -1,7 +1,7 @@
 "use client";
 
 import { SECTIONS } from "@/contants";
-import { Box, Button, styled } from "@mui/material";
+import { Box, Button, Stack, styled } from "@mui/material";
 import { QUERYResult } from "../../../sanity.types";
 
 const NAV_ITEMS: Array<{
@@ -16,8 +16,7 @@ const NAV_ITEMS: Array<{
 
 
 const MenuButton = styled(Button)(({ theme }) => ({
-  textTransform: "uppercase",
-  fontWeight: theme.typography.fontWeightBold,
+  color: theme.palette.text.primary,
 }));
 
 
@@ -36,16 +35,10 @@ export default function Menu({
   });
 
   return (
-    <Box
+    <Stack
+      direction={direction}
       component="nav"
-      aria-label="Primary"
-      sx={{
-        display: "flex",
-        flexDirection: direction,
-        alignItems: direction === "row" ? "center" : "flex-start",
-        gap: direction === "row" ? 3.5 : 2.25,
-        padding: direction === "column" ? 2.5 : 0,
-      }}
+      spacing={3}
     >
       {items.map((item) => (
         <MenuButton 
@@ -66,6 +59,6 @@ export default function Menu({
       >
         {menu.bookUs}
       </Button>
-    </Box>
+    </Stack>
   );
 }
