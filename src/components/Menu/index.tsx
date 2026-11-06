@@ -1,7 +1,8 @@
 "use client";
 
-import { SECTIONS } from "@/contants";
-import { Box, Button, Stack, styled } from "@mui/material";
+import { INSTAGRAM_URL, SECTIONS } from "@/contants";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import { Button, IconButton, Stack, styled } from "@mui/material";
 import { QUERYResult } from "../../../sanity.types";
 
 const NAV_ITEMS: Array<{
@@ -50,6 +51,18 @@ export default function Menu({
           {item.title}
         </MenuButton>
       ))}
+
+      <IconButton
+        component="a"
+        href={INSTAGRAM_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram"
+        onClick={onNavigate}
+        sx={{ color: "text.primary" }}
+      >
+        <InstagramIcon />
+      </IconButton>
 
       <Button
         href={`#${SECTIONS.bookUs}`}

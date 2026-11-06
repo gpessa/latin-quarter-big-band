@@ -2,6 +2,7 @@ export const NAME = "Latin Quarter Big Band";
 export const LANG = "en";
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://latinquarterbigband.com";
+export const INSTAGRAM_URL = "https://www.instagram.com/latinquarterbigband/";
 export const IS_PRODUCTION = !!process && process.env.NODE_ENV === "production";
 export const GOOGLE_ANALYTICS = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS!;
 export const STANDARD_SPACING = 6;
