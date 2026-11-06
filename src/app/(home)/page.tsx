@@ -1,5 +1,5 @@
 import { JsonLd } from "@/components";
-import { NAME, SITE_URL } from "@/contants";
+import { NAME, SEO_DESCRIPTION, SEO_TITLE, SITE_URL } from "@/contants";
 import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/live";
 import { QUERY as query } from "@/sanity/lib/queries";
@@ -19,39 +19,52 @@ async function getPage() {
   );
 }
 
+function metaDescription(fromCms?: string | null) {
+  const text = fromCms?.replace(/\s+/g, " ").trim();
+  if (!text) return SEO_DESCRIPTION;
+  if (/amsterdam/i.test(text)) return text;
+  return `${text} Based in Amsterdam. See upcoming concerts or book the band.`;
+}
+
 export async function generateMetadata(): Promise<Metadata> {
-  const { description } = await getPage();
-  const title = NAME;
+  const { description: fromCms } = await getPage();
+  const description = metaDescription(fromCms);
 
   return {
-    title,
+    title: { absolute: SEO_TITLE },
     description,
     alternates: {
       canonical: SITE_URL,
     },
     openGraph: {
-      title,
+      title: SEO_TITLE,
       description,
       url: SITE_URL,
       siteName: NAME,
       type: "website",
       locale: "en_US",
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: "Latin Quarter Big Band — Latin jazz in Amsterdam",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: SEO_TITLE,
       description,
+      images: ["/twitter-image"],
     },
     keywords: [
       "Latin Quarter Big Band",
-      "big band",
-      "jazz",
-      "swing",
-      "live music",
-      "concerts",
-      "events",
-      "book a band",
-      "live band",
+      "Latin jazz Amsterdam",
+      "big band Amsterdam",
+      "salsa big band",
+      "Latin jazz Netherlands",
+      "book a Latin band",
     ],
   };
 }
@@ -63,7 +76,8 @@ export default async function Home() {
     query,
   });
 
-  const { description } = await getPage();
+  const { description: fromCms } = await getPage();
+  const description = metaDescription(fromCms);
 
   return (
     <>

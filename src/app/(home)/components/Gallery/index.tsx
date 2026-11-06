@@ -2,7 +2,7 @@
 import { Section } from "@/components";
 import { Box, Card, CardMedia, Grid, Typography } from "@mui/material";
 
-import { SECTIONS } from "@/contants";
+import { NAME, SECTIONS } from "@/contants";
 import { urlFor } from "@/sanity/lib/image";
 import { QUERYResult } from "../../../../../sanity.types";
 import Video from "../Video";
@@ -32,7 +32,7 @@ const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
                     .fit("crop")
                     .auto("format")
                     .url()}
-                  alt={title}
+                  alt={title?.trim() || `${NAME} performing live`}
                   loading="lazy"
                 />
               </Card>
