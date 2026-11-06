@@ -1,53 +1,56 @@
 "use client";
 import { Section } from "@/components";
-import { Box, Stack, Typography } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import { Box, Card, CardMedia, Grid, Typography } from "@mui/material";
 
 import { SECTIONS } from "@/contants";
 import { urlFor } from "@/sanity/lib/image";
 import { QUERYResult } from "../../../../../sanity.types";
-import { YouTubeEmbed } from "@next/third-parties/google";
+import Video from "../Video";
+import { GRID_SPACING } from "@/theme";
 
-const Gallery: React.FC<QUERYResult["gallery"]> = (gallery) => {
+const Gallery: React.FC<Exclude<QUERYResult["gallery"], null>> = ({
+  title,
+  images,
+}) => {
   return (
-    <Section color="secondary" id={SECTIONS.gallery}>
-      <Stack sx={{ gap: 4 }}>
-        <Grid container spacing={4}>
-          {gallery?.images?.map(({ title, image }, index) => (
-            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
-              <Box
-                component="figure"
-                sx={{
-                  m: 0,
-                }}
-              >
-                <Box
+    <Section id={SECTIONS.gallery} tone="teal">
+      <Typography variant="h2" component="h2" gutterBottom>
+        {title}
+      </Typography>
+
+      <Grid container spacing={GRID_SPACING}>
+        {images?.map(({ title, image }, index) => {
+          if (!image?.asset?._ref) return null;
+          return (
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={`${title}-${index}`}>
+              <Card component="figcaption">
+                <CardMedia
                   component="img"
-                  src={urlFor(image.asset!._ref).width(400).height(400).url()}
+                  src={urlFor(image)
+                    .width(900)
+                    .height(900)
+                    .fit("crop")
+                    .auto("format")
+                    .url()}
                   alt={title}
                   loading="lazy"
-                  sx={{
-                    width: "100%",
-                    height: "auto",
-                    display: "block",
-                  }}
                 />
+              </Card>
+                {title && (
                 <Typography component="figcaption" variant="caption">
                   {title}
                 </Typography>
-              </Box>
+                )}
             </Grid>
-          ))}
+          );
+        })}
+        <Grid size={{ xs: 12 }}>
+          <Card>
+            <CardMedia component={Video} videoid="O0GGfZ6jOjE" />
+          </Card>
         </Grid>
+      </Grid>
 
-        <YouTubeEmbed
-          videoid="O0GGfZ6jOjE"
-          style={
-            "width: 100%; height: auto; max-width: unset;"
-            //   "width: 80%; max-width: 80%; justify-content: center; margin-left: 10%"
-          }
-        />
-      </Stack>
     </Section>
   );
 };

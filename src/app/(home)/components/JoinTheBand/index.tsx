@@ -1,34 +1,33 @@
- 
 "use client";
 
-import {
-  Grid,
-  MenuItem,
-  Stack,
-  Typography,
-  InputLabel,
-  FormControl,
-} from "@mui/material";
+import { Grid, List, ListItem, ListItemAvatar, ListItemText, MenuItem, Stack, Typography } from "@mui/material";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { Section } from "@/components";
-import { Alert, Button, TextField, Select } from "@mui/material";
+import { Alert, Box, Button } from "@mui/material";
 import { PortableText } from "next-sanity";
 import { useState } from "react";
 import { QUERYResult } from "../../../../../sanity.types";
 
-import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import React from "react";
-import { STANDARD_SPACING, STANDARD_MARGIN_BOTTOM, SECTIONS } from "@/contants";
+import { SECTIONS } from "@/contants";
+import { FormCard } from "@/components/FormCard";
+import LabeledField from "@/components/LabeledField";
+import { GRID_SPACING, SPACING } from "@/theme";
 
 const schema = yup
   .object({
     email: yup.string().email("Invalid email").required("Email is required"),
     name: yup.string().min(2, "Name too short").required("Name is required"),
-    phone: yup.string().min(2, "Phone too short").optional(),
+    phone: yup
+      .string()
+      .test(
+        "phone",
+        "Phone too short",
+        (value) => !value || value.trim().length >= 2
+      ),
     message: yup.string(),
     position: yup.string().required("Position is required"),
   })
@@ -50,8 +49,14 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
     formState: { errors, isSubmitting },
     reset,
   } = useForm<JoinTheBandFormData>({
-     
     resolver: yupResolver(schema) as any,
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+      position: "",
+    },
   });
 
   const onSubmit = async (data: JoinTheBandFormData) => {
@@ -71,104 +76,104 @@ const JoinTheBand: React.FC<Exclude<QUERYResult["joinTheBand"], null>> = ({
   };
 
   return (
-    <Section color="primary" id={SECTIONS.joinTheBand}>
-      <Grid container spacing={STANDARD_SPACING}>
+    <Section tone="red" id={SECTIONS.joinTheBand}>
+      <Grid container spacing={GRID_SPACING} sx={{ alignItems: "flex-start" }}>
         <Grid size={{ xs: 12, md: 6 }}>
-          <Typography
-            variant="h3"
-            component="h2"
-            sx={{ mb: STANDARD_MARGIN_BOTTOM }}
-          >
+          <Typography variant="h2" component="h2" sx={{ mb: 3 }}>
             {title}
           </Typography>
-          <Typography component="div">
+          <Typography component="div" sx={{ maxWidth: 480 }}>
             <PortableText value={content} />
           </Typography>
-
-          <List dense={true} component="ol">
+          <List>
             {instruments?.map(({ instrumentName, notes, emoticon }) => (
-              <ListItem key={instrumentName} component={"li"}>
-                <ListItemIcon>{emoticon}</ListItemIcon>
-                <ListItemText
-                  primary={`${instrumentName}`}
-                  secondary={notes ? `(${notes})` : null}
-                  slotProps={{
-                    secondary: { variant: "caption", sx: { color: "grey.500" } },
-                  }}
-                />
+              <ListItem>
+                {emoticon ? (
+                  <ListItemAvatar>
+                    {emoticon}
+                  </ListItemAvatar>
+                ) : null}
+                <ListItemText primary={instrumentName} secondary={notes} />
               </ListItem>
             ))}
           </List>
         </Grid>
 
         <Grid size={{ xs: 12, md: 6 }}>
-          <Stack spacing={4} component="form" onSubmit={handleSubmit(onSubmit)}>
-            <TextField
-              label={form?.name}
-              {...register("name")}
-              error={!!errors.name}
-              helperText={errors.name?.message}
-              variant="filled"
-              required
-            />
-            <TextField
-              label={form?.email}
-              {...register("email")}
-              error={!!errors.email}
-              helperText={errors.email?.message}
-              variant="filled"
-              required
-            />
-            <TextField
-              label={form?.phone}
-              {...register("phone")}
-              error={!!errors.phone}
-              helperText={errors.phone?.message}
-              variant="filled"
-            />
-            <TextField
-              label={form?.message}
-              multiline
-              minRows={4}
-              variant="filled"
-              {...register("message")}
-              error={!!errors.message}
-              helperText={errors.message?.message}
-              required
-            />
-            <FormControl variant="filled">
-              <InputLabel id="position">{form?.position}</InputLabel>
-              <Select
-                label={form?.position}
+          <FormCard onSubmit={handleSubmit(onSubmit)}>
+            <Stack spacing={SPACING} >
+              <LabeledField
+                id="join-name"
+                label={form?.name ?? undefined}
+                autoComplete="name"
+                {...register("name")}
+                error={!!errors.name}
+                helperText={errors.name?.message}
+                required
+              />
+              <LabeledField
+                id="join-email"
+                label={form?.email ?? undefined}
+                type="email"
+                autoComplete="email"
+                {...register("email")}
+                error={!!errors.email}
+                helperText={errors.email?.message}
+                required
+              />
+              <LabeledField
+                id="join-phone"
+                label={form?.phone ?? undefined}
+                type="tel"
+                autoComplete="tel"
+                {...register("phone")}
+                error={!!errors.phone}
+                helperText={errors.phone?.message}
+              />
+              <LabeledField
+                id="join-message"
+                label={form?.message ?? undefined}
+                multiline
+                minRows={4}
+                {...register("message")}
+                error={!!errors.message}
+                helperText={errors.message?.message}
+              />
+              <LabeledField
+                id="join-position"
+                label={form?.position ?? undefined}
+                select
+                defaultValue=""
+                slotProps={{ select: { displayEmpty: true } }}
                 {...register("position")}
                 error={!!errors.position}
-                variant="filled"
+                helperText={errors.position?.message}
               >
+                <MenuItem value="" disabled>
+                  {form?.position}
+                </MenuItem>
                 {instruments?.map(({ instrumentName }) => (
                   <MenuItem value={instrumentName} key={instrumentName}>
                     {instrumentName}
                   </MenuItem>
                 ))}
-              </Select>
-            </FormControl>
-
-            <Button
-              variant="contained"
-              type="submit"
-              disabled={isSubmitting}
-              color="primary"
-              loading={isSubmitting}
-            >
-              {form?.button}
-            </Button>
-
-            {status === "success" && (
-              <Alert severity="success">{form?.confirmationMessage}</Alert>
-            )}
-            {status === "error" && (
-              <Alert severity="error">{form?.errorMessage}</Alert>
-            )}
-          </Stack>
+              </LabeledField>
+              <Button
+                variant="contained"
+                type="submit"
+                color="primary"
+                loading={isSubmitting}
+              >
+                {form?.button}
+              </Button>
+              {status === "success" && (
+                <Alert severity="success">{form?.confirmationMessage}</Alert>
+              )}
+              {status === "error" && (
+                <Alert severity="error">{form?.errorMessage}</Alert>
+              )}
+            </Stack>
+          </FormCard>
         </Grid>
       </Grid>
     </Section>
