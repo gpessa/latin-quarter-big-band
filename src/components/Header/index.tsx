@@ -40,13 +40,13 @@ export default function Header({ menu }: { menu: QUERYResult["menu"] }) {
   }, []);
 
   return (
-    <AppBar position="sticky" elevation={compact ? 5 : 0}
+    <AppBar position="sticky" elevation={compact ? 5 : 0} 
       sx={{
         bgcolor: "background.default",
       }}
     >
-      <Container maxWidth="lg">
-        <Toolbar sx={{}}>
+      <Container maxWidth="lg" disableGutters>
+        <Toolbar >
 
           <Link
             href="/"
